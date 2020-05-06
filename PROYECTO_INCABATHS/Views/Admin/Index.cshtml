@@ -1,0 +1,70 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 class="text-center">Ganancias del día</h2>
+
+<h3 class="text-center">Ganancias = S/. @ViewBag.GanaciasDelDia</h3>
+<hr />
+
+
+<h2 class="text-center">Ganancia por fecha</h2>
+<div class="row">
+    <div class="col-md-3">
+        <label class="control-label">Desde : </label>
+        <input class="form-control" type="date" id="desde" />
+    </div>
+    <div class="col-md-3">
+        <label class="control-label">Hasta : </label>
+        <input class="form-control" type="date" id="hasta" />
+    </div>
+    <div class="col-md-1">
+        <br />
+        <button id="btnBuscar" class="btn btn-primary">Buscar</button>
+    </div>
+    <div class="col-md-4">
+        <br />
+        <div id="mostrarGanancia">
+            <h3> Ganancias = S/. 0.0   </h3>
+        </div>
+    </div>
+</div>
+<script>
+    //BUSCAR CUANDO DAMOS CLICK
+    $("#btnBuscar").click(function (e) {
+        e.preventDefault();
+        var valor = $("#desde").val(); var valor2 = $("#hasta").val();
+
+        if (valor != "" && valor2 != "") {
+            if (valor < valor2) {
+                $.ajax({ url: "/Admin/CalcularGanancia?fecha1=" + valor + "&&fecha2=" + valor2 })
+                    .success(function (respuesta) {
+                        $("#mostrarGanancia").html("<h3> Ganancias = S/. " + respuesta + "</h3>");
+                    });
+            } else
+            {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Error...',
+                    text: 'La fecha de inicio debe ser menor a la final!',
+                }) 
+            }
+
+        }
+        else
+        {
+            Swal.fire({
+                type: 'error',
+                title: 'Error...',
+                text: 'Complete el rango de fecha!',
+            }) 
+        }
+        
+    });
+
+</script>
+<script>
+    $(document).ready(function () {
+        $("#Rep").css("background-color", "orange");
+    });
+</script>
