@@ -3,9 +3,9 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Lista de reservas</h2>
+<h2 id="EstoyEnReservaIndex">Lista de reservas</h2>
 <div class="container">
-    <label class="control-label">Ingrese Dia :</label>
+    <label class="control-label">Ingrese DNI :</label>
     <div class="row">
         <form action="/Reserva/Index" method="get">
             <div class="col-sm-4">
@@ -17,7 +17,7 @@
             </div>
         </form>
         <div class="col-sm-5">
-            <a class="btn btn-primary pull-right" href="/Reserva/Crear"><span class="glyphicon glyphicon-plus"></span> Crear</a>
+            @*<a class="btn btn-primary pull-right" href="/Reserva/Crear"><span class="glyphicon glyphicon-plus"></span> Crear</a>*@
         </div>
         <div class="col-sm-1"></div>
     </div>
@@ -30,7 +30,7 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Usuario</th>
+                        <th>DNI</th>
                         <th>Fecha</th>
                         <th>Total</th>
                         <th class="text-center">Opción</th>
@@ -45,7 +45,7 @@
                             <td>@item.Fecha</td>
                             <td>@item.Total</td>
                             <td>
-                                <a class="btn btn-danger" href="/Reserva/Eliminar?id=@item.IdReserva"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+                                <a class="eliminar btn btn-danger" href="/Reserva/Eliminar?id=@item.IdReserva" data-idTurnoo="@item.IdReserva" data-nombre="@item.IdReserva"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
                                 <a class="mostrarDetalle btn btn-info" data-toggle="modal" data-target="#exampleModal" data-idreserva="@item.IdReserva"><span class="glyphicon glyphicon-eye-open"></span> Ver detalle</a>
                             </td>
                         </tr>
@@ -63,7 +63,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detalle</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Detalle de reserva</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -116,6 +116,32 @@
                 $("#tbody").html(respuesta);
             });
         }
+    });
+
+    $("body").on("click", ".eliminar", function (e) {
+        e.preventDefault();
+        var $this = $(this);
+
+
+        var valor = $this.data("idTurnoo");
+        var fec = $this.data("nombre");
+
+
+        //alert($this.attr("id"));//obtener el atributo id
+        Swal.fire({
+            title: '¿Está seguro?',
+            text: "No podras revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar!'
+        }).then((result) => {
+            if (result.value) {
+                location.href = "/Reserva/Eliminar?id=" + fec;
+
+            }
+        })
     });
 </script>
 

@@ -3,20 +3,26 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+<style>
+    input[type="date"]::-webkit-inner-spin-button {
+        display: none;
+    } 
+</style>
 
+<h2 id="EstoyEnTurnoCrear"></h2>
 <div class="container">
     <div class="row">
         <div class="col-sm-4"></div>
         <div class="col-sm-4">
             <div class="panel panel-primary">
-                <div class="panel-heading text-center"><h3>Crear Turno de @ViewBag.NombreServicio.Nombre</h3></div>
-                <div class="panel-body">
+                <div class="panel-heading text-center"><h3>Crear Turno de @ViewBag.Servicio.Nombre</h3></div>
+                <div id="inputs" class="panel-body">
 
-                    <form action="/Turno/Crear?id=@ViewBag.IdServicio" method="post">
+                    <form action="/Turno/Crear?id=@ViewBag.Servicio.IdServicio" method="post">
 
                         <div>
                             <label class="control-label">Fecha :</label>
-                            <input class="form-control" type="date" name="Fecha" value="@Model.Fecha" />
+                            <input id="BuscarFecha" class="form-control" type="date" name="Fecha" value="@Model.Fecha" min="" onkeydown="return false"/>
                             @Html.ValidationMessage("Fecha")
                         </div>
 
@@ -33,9 +39,9 @@
                         </div>
 
                         <br />
-                        <a class="pull-left btn btn-danger" href="/Turno/Index?id=@ViewBag.NombreServicio.IdServicio"><span class="glyphicon glyphicon-circle-arrow-left"></span>Volver</a>
+                        <a class="pull-left btn btn-danger" href="/Turno/Index?id=@ViewBag.Servicio.IdServicio"><span class="glyphicon glyphicon-circle-arrow-left"></span>Volver</a>
 
-                        <button class="btn btn-primary pull-right"><span class="glyphicon glyphicon-saved"></span> Guardar</button>
+                        <button id="btnGuardar" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-saved"></span> Guardar</button>
 
                     </form>
                 </div>
@@ -46,6 +52,22 @@
     </div>
 </div>
 <script>
+
+  $(document).ready(function () {
+
+        var now = new Date();
+
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+    $("#BuscarFecha").attr("min", today);
+
+
+  });
+
+
     $(document).ready(function () {
         $("#Ser").css("background-color", "orange");
     });

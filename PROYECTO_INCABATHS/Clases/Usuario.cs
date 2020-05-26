@@ -17,6 +17,7 @@ namespace PROYECTO_INCABATHS.Clases
         public string Correo { get; set; }
         public string Password { get; set; }
         public string Perfil { get; set; }
+        public bool Activo_Inactivo { get; set; }
 
         public TipoUsuario TipoUsuario { get; set; }
         public List<Reserva> Reservas { get; set; }

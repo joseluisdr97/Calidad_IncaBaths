@@ -3,14 +3,14 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-
+<h2 id="EstoyEnCrearServicio"></h2>
 <div class="container">
     <div class="row">
         <div class="col-sm-4"></div>
         <div class="col-sm-4">
             <div class="panel panel-primary">
                 <div class="panel-heading text-center"><h3>Crear servicio</h3></div>
-                <div class="panel-body">
+                <div id="inputs" class="panel-body">
 
                     <form action="/Servicio/Crear" method="post">
                         <div>
@@ -30,7 +30,7 @@
                         </div>
                         <br />
                         <a class="pull-left btn btn-danger" href="/Servicio/Index"><span class="glyphicon glyphicon-circle-arrow-left"></span>Volver</a>
-                        <button class="btn btn-primary pull-right"><span class="glyphicon glyphicon-saved"></span> Guardar</button>
+                        <button id="btnGuardar" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-saved"></span> Guardar</button>
 
                     </form>
                 </div>

@@ -16,6 +16,7 @@ namespace PROYECTO_INCABATHS.Clases
         public int IdUsuario { get; set; }
         public int IdModoPago { get; set; }
         public decimal Total { get; set; }
+        public bool Activo_Inactivo { get; set; }
         public List<DetalleReserva> DetalleReservas { get; set; }
         public Usuario Usuario { get; set; }
     }

@@ -13,6 +13,7 @@ namespace PROYECTO_INCABATHS.Clases
         public int Cantidad { get; set; }
         public decimal SubTotal { get; set; }
         public int IdTurno { get; set; }
+        public bool Activo_Inactivo { get; set; }
         public DateTime Fecha { get; set; }
         public Reserva Reserva { get; set; }
         public Servicio Servicio { get; set; }

@@ -1,132 +1,151 @@
 ﻿
-@{ 
+@{
     Layout = "~/Views/Shared/LayoutUsuarioCliente.cshtml";
 }
 
-<br />
-<br />
-<br />
-<div class="container">
-    <h2>Mis reservas</h2>
-    <label class="control-label">Ingrese Fecha :</label>
-    <div class="row">
-        <form action="/Reserva/MisReservas">
-            <div class="col-sm-3">
-                <input id="query" class="form-control" type="date" name="query" placeholder="Ingrese nombre" />
-            </div>
-            <div class="col-sm-2">
-                <button id="btnBuscar" class="btn btn-success"><span class="glyphicon glyphicon-search"></span> Buscar</button>
-            </div>
-        </form>
-        <div class="col-sm-5">
-        </div>
-        <div class="col-sm-1"></div>
-    </div>
-
+<div>
     <br />
-
-    <div class="row">
-        <div class="col-sm-12 text-center">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Fecha y hora en que realizo su reserva</th>
-                        <th>Total</th>
-                        <th>Detalle</th>
-                    </tr>
-                </thead>
-                <tbody id="tbody">
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.Fecha</td>
-                            <td>@item.Total</td>    
-                            <td>
-                                <a class="mostrarDetalle btn btn-info" data-toggle="modal" data-target="#exampleModal" data-idreserva="@item.IdReserva"><span class="glyphicon glyphicon-eye-open"></span> Ver detalle</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+    <br />
+    <div class="container">
+        <h2>Mis reservas</h2>
+        <label class="control-label">Ingrese Fecha :</label>
+        <div class="row">
+            <form action="/Reserva/MisReservas">
+                <div class="col-sm-3">
+                    <input id="query" class="form-control" type="date" name="query" placeholder="Ingrese nombre" />
+                </div>
+                <div class="col-sm-2">
+                    <button id="btnBuscar" class="btn btn-success"><span class="glyphicon glyphicon-search"></span> Buscar</button>
+                </div>
+            </form>
+            <div class="col-sm-5">
+            </div>
+            <div class="col-sm-1"></div>
         </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Fecha y hora en que realizo su reserva</th>
+                            <th>Total</th>
+                            <th>Detalle</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Fecha</td>
+                                <td>@item.Total</td>
+                                <td>
+                                    <a class="mostrarDetalle btn btn-info" data-toggle="modal" data-target="#exampleModal" data-idreserva="@item.IdReserva"><span class="glyphicon glyphicon-eye-open"></span> Ver detalle</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Detalle</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="bodymodal">
 
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Detalle</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="bodymodal">
-                    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
-
-
 </div>
 <script>
 
 
-    $("body").on("click", ".mostrarDetalle", function (e) {
-        var $this = $(this)
+        $("body").on("click", ".mostrarDetalle", function (e) {
+            var $this = $(this)
 
-        e.preventDefault();
-        var valor = $this.data("idreserva")
+            e.preventDefault();
+            var valor = $this.data("idreserva")
 
-        //alert($this.attr("id"));//obtener el atributo id
+            //alert($this.attr("id"));//obtener el atributo id
 
-        $.ajax({ url: "/Reserva/MiDetalleReserva?id=" + valor })
-        .done(function (respuesta) {
-            $("#bodymodal").html(respuesta);//Mostrar la respuesta obtenida en la etiqueta con id selectCiudades
+            $.ajax({ url: "/Reserva/MiDetalleReserva?id=" + valor })
+                .done(function (respuesta) {
+                    $("#bodymodal").html(respuesta);//Mostrar la respuesta obtenida en la etiqueta con id selectCiudades
+                });
         });
-    });
 
 
-    //BUSCAR CUANDO DAMOS CLICK
-    $("#btnBuscar").click(function (e) {
-        e.preventDefault();
-        var valor = $("#query").val();
-        $.ajax({ url: "/Reserva/BuscarMisReservas?fecha=" + valor })
-        .success(function (respuesta) {
-            $("#tbody").html(respuesta);
+        //BUSCAR CUANDO DAMOS CLICK
+        $("#btnBuscar").click(function (e) {
+            e.preventDefault();
+            var valor = $("#query").val();
+            $.ajax({ url: "/Reserva/BuscarMisReservas?fecha=" + valor })
+                .success(function (respuesta) {
+                    $("#tbody").html(respuesta);
+                });
         });
-    });
 
 
 
-    var listaTmp = [];
-    var objTmp = {};
-    var a = 0;
+        var listaTmp = [];
+        var objTmp = {};
+        var a = 0;
 
-    function GetURLParameter(sParam) {//OBTENER LA URL
-        var sPageURL = window.location.search.substring(1);
-        var sURLVariables = sPageURL.split('&');
-        for (var i = 0; i < sURLVariables.length; i++) {
-            var sParameterName = sURLVariables[i].split('=');
-            if (sParameterName[0] == sParam) {
-                return sParameterName[1];
+        function GetURLParameter(sParam) {//OBTENER LA URL
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) {
+                    return sParameterName[1];
+                }
             }
+            return null;
         }
-        return null;
-    }
-    $().ready(function () {//PARA LA ALERTA CUANDO TRAE UN ATRIBUTO POR LA URL
-        var msg = GetURLParameter('msg');
-        if (msg != undefined && msg != null && msg == 1) {
-            Swal.fire({
-                type: 'success',
-                text: 'Tu reserva se registró con exito',
-            })
-        }
-    });
+        $().ready(function () {//PARA LA ALERTA CUANDO TRAE UN ATRIBUTO POR LA URL
+            var msg = GetURLParameter('msg');
+            if (msg != undefined && msg != null && msg == 1) {
+                Swal.fire({
+                    type: 'success',
+                    text: 'Tu reserva se registró con exito',
+                })
+            }
+        });
 
 </script>
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

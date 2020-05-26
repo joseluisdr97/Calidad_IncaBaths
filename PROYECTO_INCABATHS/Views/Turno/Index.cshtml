@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Lista de Turnos de @ViewBag.NombreServicio.Nombre</h2>
+<h2 id="EstoyEnTurnoIndex">Lista de Turnos de @ViewBag.Servicio.Nombre</h2>
 
 
 <div class="container">
@@ -14,15 +14,15 @@
     <div class="row">
         <form action="/Turno/Index" method="get">
             <div class="col-sm-4">
-                <input id="query" class="form-control" type="date" name="fechaP" value="@ViewBag.datos" placeholder="Ingrese fecha" />
-                <input id="servicio" type="hidden" name="id" value="@ViewBag.IdServicio" />
+                <input id="query" class="form-control" type="date" name="fechaP"/>
+                <input id="servicio" type="hidden" name="id" value="@ViewBag.Servicio.IdServicio" />
             </div>
             <div class="col-sm-2">
                 <button id="btnBuscar" class="btn btn-success"><span class="glyphicon glyphicon-search"></span> Buscar</button>
             </div>
         </form>
         <div class="col-sm-5">
-            <a class="btn btn-primary pull-right" href="/Turno/Crear?id=@ViewBag.IdServicio"><span class="glyphicon glyphicon-plus"></span> Crear</a>
+            <a id="btnCrear" class="btn btn-primary pull-right" href="/Turno/Crear?id=@ViewBag.Servicio.IdServicio"><span class="glyphicon glyphicon-plus"></span> Crear</a>
         </div>
         <div class="col-sm-1"></div>
     </div>
@@ -51,7 +51,7 @@
                         <td>@item.HoraFin</td>
                         <td>
                             <a class="btn btn-info" href="/Turno/Editar?id=@item.IdTurno"><span class="glyphicon glyphicon-pencil"></span> Editar</a>
-                            <a class="btn btn-danger" href="/Turno/Eliminar?id=@item.IdTurno"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+                            <a class="eliminar btn btn-danger" href="/Turno/Eliminar?id=@item.IdTurno" data-idTurnoo="@item.IdTurno" data-nombre="@item.IdTurno"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
                         </td>
                     </tr>
                     }
@@ -78,7 +78,7 @@
     $("#btnBuscar").click(function (e) {
         e.preventDefault();
         var valor = $("#query").val();
-        $.ajax({ url: "/Turno/BuscarTurno?fechaP=" + valor + "&&id=@ViewBag.IdServicio" })
+        $.ajax({ url: "/Turno/BuscarTurno?fecha=" + valor + "&&id=@ViewBag.Servicio.IdServicio" })
         .success(function (respuesta) {
             $("#tbody").html(respuesta);
         });
@@ -89,11 +89,38 @@
         var code = (e.keyCode ? e.keyCode : e.which);
         if (code == 13) {
             var valor = $("#query").val();
-            $.ajax({ url: "/Turno/BuscarTurno?fechaP=" + valor + "&&id=@ViewBag.IdServicio" })
+            $.ajax({ url: "/Turno/BuscarTurno?fecha=" + valor + "&&id=@ViewBag.Servicio.IdServicio" })
             .success(function (respuesta) {
                 $("#tbody").html(respuesta);
             });
         }
+    });
+
+
+    $("body").on("click", ".eliminar", function (e) {
+        e.preventDefault();
+        var $this = $(this);
+
+
+        var valor = $this.data("idTurnoo");
+        var fec = $this.data("nombre");
+
+
+        //alert($this.attr("id"));//obtener el atributo id
+        Swal.fire({
+            title: '¿Está seguro?',
+            text: "No podras revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar!'
+        }).then((result) => {
+            if (result.value) {
+                location.href = "/Turno/Eliminar?id=" + fec;
+                
+            }
+        })
     });
 
 </script>

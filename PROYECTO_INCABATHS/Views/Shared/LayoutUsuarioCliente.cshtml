@@ -1,10 +1,15 @@
 ﻿
 <style>
+    body {
+        overflow-x: hidden;
+    }
+
     .letra {
         color: aliceblue;
         text-decoration: none;
     }
 </style>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -76,14 +81,14 @@
 
         <ul class="list-unstyled full-reset">
             <li class="pull-left">
-                
+
                 <img src="~/Imagenes/LOGOINCA.png" class="img-responsive center-box img-rounded" style="width:290px ; height:54px">
-               
+
             </li>
             @*<li class="tile-icon tooltips-general exit-system-button" data-href="index.html" data-placement="bottom" title="Salir del sistema">
                     <i class="zmdi zmdi-power"></i>
                 </li>*@
-            @if (Session["UsuarioNombre"] != null)
+            @if (Session["UsuarioNombre"] != null && Convert.ToInt32(Session["UsuarioTipoUsuario"])==3)
             {
                 <li class="dropdown profile_details_drop">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -95,9 +100,9 @@
                     </a>
                     <ul class="dropdown-menu drp-mnu">
                         @*<li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>*@
-                        
+
                         <li> <a href="/Usuario/VerMiCuenta"><i class="fa fa-user"></i> Cuenta</a> </li>
-                        <li> <a href="/Reserva/MisReservas"><i class="fa fa-registered"></i>Mis reservas</a> </li>
+                        @*<li> <a href="/Reserva/MisReservas"><i class="fa fa-registered"></i>Mis reservas</a> </li>*@
                         <li> <a href="/Auth/Logout"><i class="fa fa-sign-out"></i>Cerrar Sesion</a> </li>
                     </ul>
                 </li>
@@ -108,16 +113,12 @@
                 <li><a href="/Auth/Login" class="letra">INICIAR SESION</a></li>
                 <li> <a href="/Admin/Crear" class="letra">REGISTRAR</a> </li>
             }
-           
+
             <li><a href="/Admin/Servicio" class="letra">SERVICIOS</a></li>
             <li style="cursor:default;"> <a href="/Admin/Prueba" class="letra">HOME</a> </li>
         </ul>
+
     </nav>
-
-
-
-
-
 
     <script>
         var toggle = true;
@@ -136,12 +137,145 @@
         });
     </script>
     <!--scrolling js-->
-    <script src="~/plantillaAdmin/js/jquery.nicescroll.js"></script>
-    <script src="~/plantillaAdmin/js/scripts.js"></script>
+    @*<script src="~/plantillaAdmin/js/jquery.nicescroll.js"></script>*@
+    @*<script src="~/plantillaAdmin/js/scripts.js"></script>*@
     <!--//scrolling js-->
     <script src="~/plantillaAdmin/js/bootstrap.js"></script>
     <!-- mother grid end here-->
+
     @RenderSection("scripts", required: false)
+
+
 </body>
 @RenderBody()
+
+<style>
+    .footer_widget_area {
+        background: #181818;
+        padding: 100px 0px;
+    }
+
+    .f_w_title {
+        padding-bottom: 55px;
+    }
+
+    .copy_right_area {
+        background: #121212;
+        text-align: center;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .f_w_title h4 {
+        font-size: 18px;
+        font-family: "Cantata One", serif;
+        color: #fff;
+        text-transform: uppercase;
+    }
+
+    .about_widget p {
+        color: #fff;
+        font-size: 14px;
+        line-height: 26px;
+        font-family: "Open Sans", sans-serif;
+        padding-bottom: 20px;
+    }
+
+    ul {
+        list-style: none;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .copy_right_area .pull-left h5 {
+        color: #fff;
+        line-height: 80px;
+        font-family: 14px;
+        font-family: "Open Sans", sans-serif;
+    }
+
+    .contact_widget ul li a {
+        position: relative;
+        color: #fff;
+        font-size: 14px;
+        line-height: 28px;
+        font-family: "Open Sans", sans-serif;
+    }
+
+    .contact_widget ul {
+        padding-left: 30px;
+    }
+
+    .about_widget ul li a {
+        background: #fff;
+        color: #3b5998;
+        font-size: 30px;
+        padding: 5px;
+        width: 60px;
+        height: 60px;
+        text-align: center;
+        line-height: 50px;
+        border-radius: 50%;
+    }
+</style>
+
+<div class="footer_widget_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <aside class="f_widget about_widget">
+                    <div class="f_w_title">
+
+
+                        <h4>SOBRE INCABATHS</h4>
+                    </div>
+                    <p>INCABATHS es el servicio de compras de reservas por via internet, en el cual podras acceder lo diversos servicios que cuenta. Esta pagina se realizo en un esfuerzo conjunto por mejorar la calidad del serivicio y sobre todo brindar mayores beneficios a todos los usuarios. </p>
+                    <ul>
+                        <li><a href="https://www.facebook.com/OFICIALCTBI/"><i class="fa fa-facebook"></i></a></li>
+
+                    </ul>
+                </aside>
+            </div>
+            <div class="col-md-6">
+                <aside class="f_widget contact_widget">
+                    <div class="f_w_title">
+
+                        <h4>CONTACTANOS</h4>
+                    </div>
+                    <ul>
+
+                        <li><a><i class="fa fa-phone"></i>+(076) 348385</a></li>
+
+                        <li>
+                            <a>
+                                <i class="fa fa-map-marker"></i>Av. Atahualpa s/n-Plaza de Armas    06004
+                                <br /> Los Baños Del Inca, Cajamarca, Peru
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+
+        </div>
+        <br />
+        <br />
+        <div class="copy_right_area">
+            <div class="container">
+                <div class="pull-left">
+                    <h5>
+                        <p>
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> Todos los derechos reservados | INCABATHS
+                            <script />
+                        </p>
+                    </h5>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 </html>

@@ -1,5 +1,6 @@
 ﻿using PROYECTO_INCABATHS.Clases;
 using PROYECTO_INCABATHS.DB;
+using PROYECTO_INCABATHS.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -11,18 +12,25 @@ namespace PROYECTO_INCABATHS.Controllers
 {
     public class ReservaController : Controller
     {
-        private AppConexionDB conexion = new AppConexionDB();
+        private readonly IReservaService service;
+        private readonly IServiceSession sessionService;
+        public ReservaController(IReservaService service, IServiceSession sessionService)
+        {
+            this.service = service;
+            this.sessionService = sessionService;
+        }
         // GET: Reserva
         public ActionResult Index()
         {
-            var datos = conexion.Reservas.Include(u=>u.Usuario).ToList();
+            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+            var datos = service.ObtenerListaReservas().Where(a=>a.Activo_Inactivo == true).ToList();
             return View(datos);
         }
         [Authorize]
         [HttpGet]
         public ActionResult Crear()
         {
-            ViewBag.Servicios = conexion.Servicios.ToList();
+            ViewBag.Servicios = service.ObtenerListaServicios().ToList();
             return View();
         }
         [Authorize]
@@ -32,80 +40,38 @@ namespace PROYECTO_INCABATHS.Controllers
             int valor = 0;
             if (reserva != null && reserva.DetalleReservas != null && reserva.DetalleReservas.Count > 0)
             {
-                int idUsuario = Convert.ToInt32(Session["UsuarioId"]);
-                reserva.IdUsuario = idUsuario;
-                reserva.IdModoPago = 1;
-                reserva.Fecha = DateTime.Now;
-                conexion.Reservas.Add(reserva);
-                conexion.SaveChanges();
+                int idUsuario = sessionService.BuscarIdUsuarioSession();
+                service.CrearReserva(idUsuario, reserva);
                 valor = 1;
-
-                for (int i = 0; i < reserva.DetalleReservas.Count; i++)
-                {
-                    var cantidad = reserva.DetalleReservas[i].Cantidad;
-                    var turno = reserva.DetalleReservas[i].IdTurno;
-                    var dbTurno = conexion.Turnos.Where(a => a.IdTurno == turno).First();
-                    //POR CORREGIR
-                    //dbTurno.Stock = dbTurno.Stock - cantidad;
-                    conexion.SaveChanges();
-                }
             }
             return RedirectToAction("MisReservas", "Reserva", new { msg = valor });
         }
         [Authorize]
-        [HttpPost]
-        public ActionResult CrearAdmin(Reserva reserva,string DniUsuario)
-        {
-            var UsuarioDB = conexion.Usuarios.Where(u => u.DNI == DniUsuario).First();
-            reserva.IdUsuario = UsuarioDB.IdUsuario;
-            int valor = 0;
-            if (reserva != null && reserva.DetalleReservas != null && reserva.DetalleReservas.Count > 0)
-            {
-                reserva.IdUsuario = 1;
-                reserva.IdModoPago = 1;
-                reserva.Fecha = DateTime.Now;
-                conexion.Reservas.Add(reserva);
-                conexion.SaveChanges();
-                valor = 1;
-
-                for (int i = 0; i < reserva.DetalleReservas.Count; i++)
-                {
-                    var cantidad = reserva.DetalleReservas[i].Cantidad;
-                    var turno = reserva.DetalleReservas[i].IdTurno;
-                    var dbTurno = conexion.Turnos.Where(a => a.IdTurno == turno).First();
-                    //POR CORREGIR
-                    //dbTurno.Stock = dbTurno.Stock - cantidad;
-                    conexion.SaveChanges();
-                }
-                return RedirectToAction("Index", "Reserva", new { msg = valor });
-            }
-            return RedirectToAction("Crear", "Reserva", new { msg = valor });
-        }
-        [Authorize]
         public ActionResult MisReservas()
         {
+            if (sessionService.EstaLogueadoComoCliente() == false) { return RedirectToAction("Index", "Error"); }
+            if (sessionService.BuscarNombreUsuarioSession() == null || sessionService.BuscarNombreUsuarioSession() == "") { return RedirectToAction("Index", "Error"); }
             //var fecha = DateTime.Now.Date;
-            var usuarioIdDB = Convert.ToInt32(Session["UsuarioId"]);
-            var misReservas = conexion.Reservas.Where(a => a.IdUsuario == usuarioIdDB/*&& a.Fecha==fecha*/).ToList();
+            var usuarioIdDB = sessionService.BuscarIdUsuarioSession();
+            var misReservas = service.ObtenerListaReservas().Where(a => a.IdUsuario == usuarioIdDB && a.Activo_Inactivo==true/*&& a.Fecha==fecha*/).ToList();
 
             return View(misReservas);
         }
         [Authorize]
         public ActionResult BuscarMisReservas(DateTime fecha)
         {
-
+            if (sessionService.BuscarNombreUsuarioSession() == null || sessionService.BuscarNombreUsuarioSession() == "") { return RedirectToAction("Index", "Error"); }
+            var usuarioIdDB = sessionService.BuscarIdUsuarioSession();
             var fechas = fecha.Date;
             var misReservas = new List<Reserva>();
-            var usuarioIdDB = Convert.ToInt32(Session["UsuarioId"]);
-            if (fecha != null)
-            {
 
-                misReservas = conexion.Reservas.Where(a => a.IdUsuario == usuarioIdDB && a.Fecha == fechas).ToList();
+            if (fecha != null && fecha.ToString() != "01/01/0001 12:00:00 a.m.")
+            {
+                misReservas = service.ObtenerListaReservas().Where(a => a.IdUsuario == usuarioIdDB && a.Fecha == fechas).ToList();
             }
             else
             {
-                misReservas = conexion.Reservas.Where(a => a.IdUsuario == usuarioIdDB).ToList();
-
+                misReservas = service.ObtenerListaReservas().Where(a => a.IdUsuario == usuarioIdDB).ToList();
             }
 
             return View(misReservas);
@@ -113,24 +79,25 @@ namespace PROYECTO_INCABATHS.Controllers
         [Authorize]
         public ActionResult BuscarMisReservasAdmin(string dni)
         {
-            if(dni!=""&& dni != null)
+            if (sessionService.BuscarNombreUsuarioSession() == null || sessionService.BuscarNombreUsuarioSession() == "") return RedirectToAction("Index", "Error");
+                if (dni!=""&& dni != null)
             {
-                var contUDB = conexion.Usuarios.Count(u => u.DNI == dni);
+                var contUDB = service.ObtenerListaUsuarios().Count(u => u.DNI == dni && u.Activo_Inactivo == true);
                 if (contUDB > 0)
                 {
-                    var UsuDB = conexion.Usuarios.Where(u => u.DNI == dni).First();
-                    var reservas = conexion.Reservas.Where(r => r.IdUsuario == UsuDB.IdUsuario).Include(u=>u.Usuario).ToList();
+                    var UsuDB = service.ObtenerListaUsuarios().Where(u => u.DNI == dni).First();
+                    var reservas = service.ObtenerListaReservas().Where(r => r.IdUsuario == UsuDB.IdUsuario && r.Activo_Inactivo == true).ToList();
                     return View(reservas);
 
                 }
                 else
                 {
-                    var rese = conexion.Reservas.Where(r => r.IdUsuario == -1).Include(u => u.Usuario).ToList();
+                    var rese = service.ObtenerListaReservas().Where(r => r.IdUsuario == -1 && r.Activo_Inactivo == true).ToList();
                     return View(rese);
                 }
             }else
             {
-                return View(conexion.Reservas.Include(u => u.Usuario).ToList());
+                return View(service.ObtenerListaReservas().ToList());
             }
            
            
@@ -138,56 +105,56 @@ namespace PROYECTO_INCABATHS.Controllers
         [Authorize]
         public ActionResult MiDetalleReserva(int id)
         {
-            var misReservas = conexion.DetalleReservas.Where(a => a.IdReserva == id).Include(o => o.Servicio).Include(t=>t.Turno).ToList();
+            var misReservas = service.ObtenerDetalleReserva().Where(a => a.IdReserva == id && a.Activo_Inactivo == true).ToList();
 
             return View(misReservas);
         }
         [Authorize]
-        public ActionResult Eliminar(int id)
+        public ActionResult Eliminar(int? id)
         {
-            var DbReserva = conexion.Reservas.Where(o => o.IdReserva == id).First();
-            conexion.Reservas.Remove(DbReserva);
-            conexion.SaveChanges();
+            if (id == null || id == 0) { return RedirectToAction("Index", "Error"); };
+            var DbReserva = service.ObtenerListaReservas().Where(o => o.IdReserva == id && o.Activo_Inactivo==true).First();
+            service.EliminarReserva(DbReserva);
 
-
-            var CountReservaDb = conexion.DetalleReservas.Count(o => o.IdReserva == id);
+            var CountReservaDb = service.ObtenerDetalleReserva().Count(o => o.IdReserva == id);
             if (CountReservaDb != 0)
             {
+                var CountReservaDbLista = service.ObtenerDetalleReserva().Where(o => o.IdReserva == id && o.Activo_Inactivo==true).ToList();
                 for (int i = 0; i < CountReservaDb; i++)
                 {
-                    var ReservaDb = conexion.DetalleReservas.Where(o => o.IdReserva == id).First();
-                    conexion.DetalleReservas.Remove(ReservaDb);
-                    conexion.SaveChanges();
+                    var idDetalleReserva = CountReservaDbLista[i].IdDetalleReserva;
+                    var ReservaDb = service.ObtenerDetalleReserva().Where(o => o.IdDetalleReserva == idDetalleReserva).First();
+                    service.EliminarDetalleReserva(ReservaDb);
                 }
             }
-            return RedirectToAction("Index");
+            return View("Index");
         }
 
         public ActionResult ObtenerTurnos(int id)
         {
             var fecha = DateTime.Now.Date;
             var fechafinal = DateTime.Now.Date.AddDays(1);
-            var turnos = conexion.Turnos.Where(a => a.IdServicio == id && a.Fecha>=fecha && a.Fecha<fechafinal).ToList();
+            var turnos = service.ObtenerListaTurnos().Where(a => a.IdServicio == id && a.Fecha>=fecha && a.Fecha<fechafinal).ToList();
             return View(turnos);
         }
         public string ObtenerHoraInicioTurno(int id)
         {
-            var TurnoDb = conexion.Turnos.Where(a => a.IdTurno == id).First();
+            var TurnoDb = service.ObtenerListaTurnos().Where(a => a.IdTurno == id).First();
             return TurnoDb.HoraInicio.ToString();
         }
         public string ObtenerHoraFinTurno(int id)
         {
-            var TurnoDb = conexion.Turnos.Where(a => a.IdTurno == id).First();
+            var TurnoDb = service.ObtenerListaTurnos().Where(a => a.IdTurno == id).First();
             return TurnoDb.HoraFin.ToString();
         }
         public string BuscarUsuario(string dni)
         {
-            var ExisteU = conexion.Usuarios.Count(a => a.DNI == dni);
+            var ExisteU = service.ObtenerListaUsuarios().Count(a => a.DNI == dni);
 
             if (ExisteU > 0)
             {
-                var usuarioDB = conexion.Usuarios.Where(u => u.DNI == dni).First();
-
+                var usuarioDB = service.ObtenerListaUsuarios().Where(u => u.DNI == dni).First();
+                
                 return usuarioDB.Nombre +" "+ usuarioDB.Apellido;
             }
             else
@@ -196,26 +163,5 @@ namespace PROYECTO_INCABATHS.Controllers
             }
              
         }
-        //[Authorize]
-        //public decimal CalcularGanancia(DateTime desde, DateTime hasta)
-        //{
-        //    var fechaInicio = desde.Date; var fechaFin = hasta.Date;
-        //    decimal suma = 0;
-        //    var ContGanancias = conexion.Reservas.Count(a => a.Fecha >= fechaInicio && a.Fecha <= fechaFin);
-        //    if (ContGanancias > 0)
-        //    {
-        //        var Ganancias = conexion.Reservas.Where(a => a.Fecha >= fechaInicio && a.Fecha <= fechaFin).ToList();
-        //        for (int i = 0; i < ContGanancias; i++)
-        //        {
-        //            suma = suma + Ganancias[i].Total;
-        //        }
-        //        return suma;
-        //    }
-        //    else
-        //    {
-        //        ViewBag.GanaciasDelDia = 0;
-        //    }
-        //    return 0;
-        //}
     }
 }

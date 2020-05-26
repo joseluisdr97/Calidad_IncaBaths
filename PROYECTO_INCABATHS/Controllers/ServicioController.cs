@@ -1,5 +1,7 @@
 ﻿using PROYECTO_INCABATHS.Clases;
 using PROYECTO_INCABATHS.DB;
+using PROYECTO_INCABATHS.Interfaces;
+using PROYECTO_INCABATHS.Servicios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,43 +13,46 @@ namespace PROYECTO_INCABATHS.Controllers
 {
     public class ServicioController : Controller
     {
-        private AppConexionDB conexion = new AppConexionDB();
+        private readonly IServiceSession sessionService;
+        private readonly IServicioService service;
+        public ServicioController(IServicioService service, IServiceSession sessionService)
+        {
+            this.sessionService = sessionService;
+            this.service = service;
+        }
+
+        //private AppConexionDB conexion = new AppConexionDB();
+
         // GET: Servicio
         [Authorize]
         [HttpGet]
-        public ActionResult Index(string query)
+        public ActionResult Index()
         {
-            var datos = new List<Servicio>();
-            if (query == null || query == "")
-            {
-                datos = conexion.Servicios.ToList();
-            }
-            else
-            {
-                datos = conexion.Servicios.Where(o => o.Nombre.Contains(query)).ToList();
-            }
-            ViewBag.datos = query;
-            return View(datos);
+            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+            var model = service.ObtenerListaServicios().Where(a => a.Activo_Inactivo == true).ToList();
+
+            return View(model);
         }
         [Authorize]
-        public ActionResult BuscarServicio(string query)
+        public ActionResult BuscarServicio(string query)//PETICION AJAX
         {
-            var datos = new List<Servicio>();
+            var model = new List<Servicio>();
             if (query == null || query == "")
             {
-                datos = conexion.Servicios.ToList();
+                model = service.ObtenerListaServicios().Where(a => a.Activo_Inactivo == true).ToList();
             }
             else
             {
-                datos = conexion.Servicios.Where(o => o.Nombre.Contains(query)).ToList();
+                model = service.ObtenerListaServicios().Where(o => o.Nombre.Contains(query) && o.Activo_Inactivo == true).ToList();
             }
             ViewBag.datos = query;
-            return View(datos);
+            return View(model);
         }
         [Authorize]
         [HttpGet]
         public ActionResult Crear()
         {
+            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
             return View(new Servicio());
         }
         [Authorize]
@@ -58,8 +63,7 @@ namespace PROYECTO_INCABATHS.Controllers
             validar(servicio, id);
             if (ModelState.IsValid == true)
             {
-                conexion.Servicios.Add(servicio);
-                conexion.SaveChanges();
+                service.GuardarServicio(servicio);
                 return RedirectToAction("Index");
             }
 
@@ -67,24 +71,23 @@ namespace PROYECTO_INCABATHS.Controllers
         }
         [Authorize]
         [HttpGet]
-        public ActionResult Editar(int id)
+        public ActionResult Editar(int? id)
         {
-            var servicioDb = conexion.Servicios.Find(id);
+            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+            if (id == null || id == 0) { return RedirectToAction("Index", "Error"); };
+            var model = service.ObtenerServicioPorId(id);//PRUEBA
             ViewBag.IdServicio = id;
-            return View(servicioDb);
+            return View(model);
         }
         [Authorize]
         [HttpPost]
         public ActionResult Editar(Servicio servicio, int id)
         {
-            var servicioDb = conexion.Servicios.Find(id);
+            
             validar(servicio, id);
             if (ModelState.IsValid == true)
             {
-                servicioDb.Nombre = servicio.Nombre;
-                servicioDb.Precio = servicio.Precio;
-                servicioDb.Aforo = servicio.Aforo;
-                conexion.SaveChanges();
+                service.EditarServicio(id,servicio);
                 return RedirectToAction("Index");
             }
             ViewBag.IdServicio = id;
@@ -92,26 +95,18 @@ namespace PROYECTO_INCABATHS.Controllers
         }
         [Authorize]
         [HttpGet]
-        public ActionResult Eliminar(int id)
+        public ActionResult Eliminar(int? id)
         {
-            var servicioDb = conexion.Servicios.Where(o => o.IdServicio == id).First();
-            conexion.Servicios.Remove(servicioDb);
-            conexion.SaveChanges();
-
-            var CountTurnoDb = conexion.Turnos.Count(o => o.IdServicio == id);
-            if (CountTurnoDb != 0)
+            if (id == null || id == 0) { return RedirectToAction("Index", "Error"); };
+            var CountTurnoDb = service.ListaDeTurnos().Where(o => o.IdServicio == id && o.Activo_Inactivo == true).ToList();
+            ViewBag.MisTurnos = CountTurnoDb;
+            if (CountTurnoDb.Count != 0)
             {
-                for (int i = 0; i < CountTurnoDb; i++)
-                {
-                    var turnoDb = conexion.Turnos.Where(o => o.IdServicio == id).First();
-                    conexion.Turnos.Remove(turnoDb);
-                    conexion.SaveChanges();
-                }
+                service.EliminarTurnosDelServicio(id);
             }
+            service.EliminarServicio(id);
             return RedirectToAction("Index");
         }
-
-
         public void validar(Servicio servicio, int id)
         {
 
@@ -140,6 +135,11 @@ namespace PROYECTO_INCABATHS.Controllers
             if (servicio.Aforo == 0 || Convert.ToString(servicio.Aforo) == "")
                 ModelState.AddModelError("Aforo", "El campo aforo es obligatorio");
 
+        }
+        public ViewResult EliminarServcicioP(int? id)
+        {
+            var model = service.ListaDeTurnos().Where(o => o.IdServicio == id && o.Activo_Inactivo == true).ToList();
+            return View(model);
         }
     }
 }

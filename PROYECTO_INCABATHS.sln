@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1082
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PROYECTO_INCABATHS", "PROYECTO_INCABATHS\PROYECTO_INCABATHS.csproj", "{A419A0FF-9A0A-406C-8BA8-0487C91CFE45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PROYECTO_INCABATHS_PRUEBAS", "PROYECTO_INCABATHS_PRUEBAS\PROYECTO_INCABATHS_PRUEBAS.csproj", "{776FD634-18D7-4A99-A808-E969E2BB66CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{A419A0FF-9A0A-406C-8BA8-0487C91CFE45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A419A0FF-9A0A-406C-8BA8-0487C91CFE45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A419A0FF-9A0A-406C-8BA8-0487C91CFE45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{776FD634-18D7-4A99-A808-E969E2BB66CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{776FD634-18D7-4A99-A808-E969E2BB66CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{776FD634-18D7-4A99-A808-E969E2BB66CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{776FD634-18D7-4A99-A808-E969E2BB66CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05143105-72C7-499F-9269-5370A838DD4C}
 	EndGlobalSection
 EndGlobal

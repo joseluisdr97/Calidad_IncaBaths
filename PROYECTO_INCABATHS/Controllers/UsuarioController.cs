@@ -1,5 +1,6 @@
 ﻿using PROYECTO_INCABATHS.Clases;
 using PROYECTO_INCABATHS.DB;
+using PROYECTO_INCABATHS.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -14,22 +15,21 @@ namespace PROYECTO_INCABATHS.Controllers
     
     public class UsuarioController : Controller
     {
-        private AppConexionDB conexion = new AppConexionDB();
+        private readonly IServiceSession sessionService;
+        private readonly IUsuarioService service;
+        public UsuarioController(IUsuarioService service, IServiceSession sessionService)
+        {
+            this.service = service;
+            this.sessionService = sessionService;
+        }
+           
         // GET: Usuario
         [Authorize]
         [HttpGet]
-        public ActionResult Index(string query)
+        public ActionResult Index()
         {
-            var datos = new List<Usuario>();
-            if (query == null || query == "")
-            {
-                datos = conexion.Usuarios.Include(u => u.TipoUsuario).ToList();
-            }
-            else
-            {
-                datos = conexion.Usuarios.Include(o => o.TipoUsuario).Where(o => o.Nombre.Contains(query)).ToList();
-            }
-            ViewBag.datos = query;
+            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+            var datos = service.ObtenerListaUsuarios().Where(o => o.Activo_Inactivo == true).ToList();
             return View(datos);
         }
         [Authorize]
@@ -39,11 +39,11 @@ namespace PROYECTO_INCABATHS.Controllers
             var datos = new List<Usuario>();
             if (query == null || query == "")
             {
-                datos = conexion.Usuarios.Include(u => u.TipoUsuario).ToList();
+                datos = service.ObtenerListaUsuarios().Where(o => o.Activo_Inactivo == true).ToList();
             }
             else
             {
-                datos = conexion.Usuarios.Include(o => o.TipoUsuario).Where(o => o.Nombre.Contains(query)).ToList();
+                datos = service.ObtenerListaUsuarios().Where(o => o.DNI.Contains(query) && o.Activo_Inactivo==true).ToList();
             }
             ViewBag.datos = query;
             return View(datos);
@@ -52,14 +52,15 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpGet]
         public ActionResult Crear()
         {
-            ViewBag.TipoUsuarios = conexion.TipoUsuarios.ToList();
-            //ViewBag.Usuario = con.Usuarios.ToList();
+            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+            ViewBag.TipoUsuarios = service.ObtenerListaDeTipoUsuarios().ToList();
             return View(new Usuario());
         }
         [Authorize]
         [HttpPost]
         public ActionResult Crear(Usuario usuario, string RepitaPassword, HttpPostedFileBase file)
         {
+            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
             //validar(usuario, RepitaPassword);
             if (file != null && file.ContentLength > 0)
             {
@@ -70,27 +71,32 @@ namespace PROYECTO_INCABATHS.Controllers
             validar(usuario,RepitaPassword);
             if (ModelState.IsValid == true)
             {
-                conexion.Usuarios.Add(usuario);
-                conexion.SaveChanges();
+                service.CrearUsuario(usuario);
                 return RedirectToAction("Index");
             }
-            ViewBag.TipoUsuarios = conexion.TipoUsuarios.ToList();
+            ViewBag.TipoUsuarios = service.ObtenerListaDeTipoUsuarios().ToList();
             return View(usuario);
         }
         [Authorize]
         [HttpGet]
-        public ActionResult Editar(int id)
+        public ActionResult Editar(int? id)
         {
-            ViewBag.TipoUsuarios = conexion.TipoUsuarios.ToList();
-            var UsuarioDb = conexion.Usuarios.Find(id);
+            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+            if (id == 0 || id == null) { return RedirectToAction("Index", "Error"); }
+
+            ViewBag.TipoUsuarios = service.ObtenerListaDeTipoUsuarios().ToList();
+            var UsuarioDb = service.ObtenerUsuarioPorId(id);
             ViewBag.IdUsuario = id;
             return View(UsuarioDb);
         }
         [Authorize]
         [HttpPost]
-        public ActionResult Editar(Usuario usuario, int id, HttpPostedFileBase file)
+        public ActionResult Editar(Usuario usuario, int? id, HttpPostedFileBase file)
         {
-            var UsuarioDb = conexion.Usuarios.Find(id);
+            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+            if (id == 0 || id == null) { return RedirectToAction("Index", "Error"); }
+
+            var UsuarioDb = service.ObtenerUsuarioPorId(id);
             if (file != null && file.ContentLength > 0)
             {
                 string ruta = Path.Combine(Server.MapPath("~/Perfiles"), Path.GetFileName(file.FileName));
@@ -101,54 +107,50 @@ namespace PROYECTO_INCABATHS.Controllers
             validarEditarUsuario(usuario, id);
             if (ModelState.IsValid == true)
             {
-                UsuarioDb.Nombre = usuario.Nombre;
-                UsuarioDb.IdTipoUsuario = usuario.IdTipoUsuario;
-                UsuarioDb.Password = usuario.Password;
-                UsuarioDb.Celular = usuario.Celular;
-                UsuarioDb.Correo = usuario.Correo;
-                UsuarioDb.DNI = usuario.DNI;
-                UsuarioDb.Direccion = usuario.Direccion;
-                conexion.SaveChanges();
+                service.EditarUsuario(usuario, UsuarioDb);
                 return RedirectToAction("Index");
             }
-            ViewBag.TipoUsuarios = conexion.TipoUsuarios.ToList();
+            ViewBag.TipoUsuarios = service.ObtenerListaDeTipoUsuarios().ToList();
             ViewBag.IdUsuario = id;
-            return View(usuario);
+            return View(UsuarioDb);
         }
         [Authorize]
         [HttpGet]
         public ActionResult Eliminar(int id)
         {
-            var UsuarioDb = conexion.Usuarios.Where(o => o.IdUsuario == id).First();
-            conexion.Usuarios.Remove(UsuarioDb);
-            conexion.SaveChanges();
+            service.EliminarUsuario(id);
             return RedirectToAction("Index");
 
         }
         [Authorize]
         [HttpGet]
-        public ActionResult VerMiCuenta()
+        public ActionResult VerMiCuenta()//REFACTORIZAR METODO ES IGUAL CON EL SIGUIENTE
         {
-            var usuarioIdDB = Convert.ToInt32(Session["UsuarioId"]);
-            var UsuarioDb = conexion.Usuarios.Where(o => o.IdUsuario == usuarioIdDB).First();
-            return View(UsuarioDb);
+            if (sessionService.EstaLogueadoComoCliente() == false) { return RedirectToAction("Index", "Error"); }
+            var usuarioIdDB = service.BuscarIdUsuarioSession();
+
+                var UsuarioDb = service.ObtenerUsuarioPorId(usuarioIdDB);
+                return View(UsuarioDb);
         }
         [Authorize]
         [HttpGet]
         public ActionResult ActualizarDatosUCliente()
         {
-
-            var usuarioIdDB = Convert.ToInt32(Session["UsuarioId"]);
-            var UsuarioDb = conexion.Usuarios.Where(o => o.IdUsuario == usuarioIdDB).First();
-
-            return View(UsuarioDb);
+            if (sessionService.EstaLogueadoComoCliente() == false) { return RedirectToAction("Index", "Error"); }
+            var usuarioIdDB = service.BuscarIdUsuarioSession();
+            if (usuarioIdDB != 0)
+            {
+                var UsuarioDb = service.ObtenerListaUsuarios().Where(o => o.IdUsuario == usuarioIdDB).First();
+                return View(UsuarioDb);
+            }
+            return View();
         }
         [Authorize]
         [HttpPost]
         public ActionResult ActualizarDatosUCliente(Usuario usuario, HttpPostedFileBase file)
         {
-            var usuarioIdDB = Convert.ToInt32(Session["UsuarioId"]);
-            var UsuarioDb = conexion.Usuarios.Where(o => o.IdUsuario == usuarioIdDB).First();
+            var usuarioIdDB = service.BuscarIdUsuarioSession();
+            var UsuarioDb = service.ObtenerListaUsuarios().Where(o => o.IdUsuario == usuarioIdDB).First();
 
             if (file != null && file.ContentLength > 0)
             {
@@ -161,12 +163,7 @@ namespace PROYECTO_INCABATHS.Controllers
             validarActualizarDatos(usuario);
             if (ModelState.IsValid)
             {
-                UsuarioDb.Nombre = usuario.Nombre;
-                UsuarioDb.Apellido = usuario.Apellido;
-                UsuarioDb.DNI = usuario.DNI;
-                UsuarioDb.Direccion = usuario.Direccion;
-                conexion.SaveChanges();
-
+                service.ActualizarDatosUsuario(usuario, UsuarioDb);
                 Session["UsuarioNombre"] = usuario.Nombre;
                 Session["UsuarioDNI"] = usuario.DNI;
                 return RedirectToAction("VerMiCuenta");
@@ -177,6 +174,7 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpGet]
         public ActionResult CambiarContraUsuario()
         {
+            if (sessionService.EstaLogueadoComoCliente() == false) { return RedirectToAction("Index", "Error"); }
             return View(new Usuario());
         }
         [Authorize]
@@ -185,11 +183,10 @@ namespace PROYECTO_INCABATHS.Controllers
         {
             ValidarCambiarContra(usuario, NuevaPassword, RepitaPassword);
             if (ModelState.IsValid)
-            {
+            { 
                 var usuarioIdDB = Convert.ToInt32(Session["UsuarioId"]);
-                var UsuarioDb = conexion.Usuarios.Where(o => o.IdUsuario == usuarioIdDB).First();
-                UsuarioDb.Password = NuevaPassword;
-                conexion.SaveChanges();
+                var UsuarioDb = service.ObtenerListaUsuarios().Where(o => o.IdUsuario == usuarioIdDB).First();
+                service.CambiarContraUsuario(NuevaPassword,UsuarioDb);
                 return RedirectToAction("Logout", "Auth");
             }
             return View(usuario);
@@ -199,18 +196,18 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpGet]
         public ActionResult VerMiCuentaAdmin()
         {
-            var usuarioIdDB = Convert.ToInt32(Session["UsuarioId"]);
-            var UsuarioDb = conexion.Usuarios.Where(o => o.IdUsuario == usuarioIdDB).First();
+            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+            var usuarioIdDB = service.BuscarIdUsuarioSession();
+            var UsuarioDb = service.ObtenerListaUsuarios().Where(o => o.IdUsuario == usuarioIdDB).First();
             return View(UsuarioDb);
         }
         [Authorize]
         [HttpGet]
         public ActionResult ActualizarDatosUAdmin()
         {
-
-            var usuarioIdDB = Convert.ToInt32(Session["UsuarioId"]);
-            var UsuarioDb = conexion.Usuarios.Where(o => o.IdUsuario == usuarioIdDB).First();
-
+            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+            var usuarioIdDB = service.BuscarIdUsuarioSession();
+            var UsuarioDb = service.ObtenerListaUsuarios().Where(o => o.IdUsuario == usuarioIdDB).First();
             return View(UsuarioDb);
         }
         [Authorize]
@@ -218,8 +215,8 @@ namespace PROYECTO_INCABATHS.Controllers
         public ActionResult ActualizarDatosUAdmin(Usuario usuario, HttpPostedFileBase file)
         {
 
-            var usuarioIdDB = Convert.ToInt32(Session["UsuarioId"]);
-            var UsuarioDb = conexion.Usuarios.Where(o => o.IdUsuario == usuarioIdDB).First();
+            var usuarioIdDB = service.BuscarIdUsuarioSession();
+            var UsuarioDb = service.ObtenerListaUsuarios().Where(o => o.IdUsuario == usuarioIdDB).First();
 
             if (file != null && file.ContentLength > 0)
             {
@@ -231,12 +228,7 @@ namespace PROYECTO_INCABATHS.Controllers
             validarActualizarDatos(usuario);
             if (ModelState.IsValid)
             {
-                UsuarioDb.Nombre = usuario.Nombre;
-                UsuarioDb.Apellido = usuario.Apellido;
-                UsuarioDb.DNI = usuario.DNI;
-                UsuarioDb.Direccion = usuario.Direccion;
-                conexion.SaveChanges();
-
+                service.ActualizarDatosUsuario(usuario, UsuarioDb);
                 Session["UsuarioNombre"] = usuario.Nombre;
                 Session["UsuarioDNI"] = usuario.DNI;
                 return RedirectToAction("VerMiCuentaAdmin");
@@ -247,6 +239,7 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpGet]
         public ActionResult CambiarContraUsuarioAdmin()
         {
+            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
             return View(new Usuario());
         }
         [Authorize]
@@ -256,17 +249,20 @@ namespace PROYECTO_INCABATHS.Controllers
             ValidarCambiarContra(usuario, NuevaPassword, RepitaPassword);
             if (ModelState.IsValid)
             {
-                var usuarioIdDB = Convert.ToInt32(Session["UsuarioId"]);
-                var UsuarioDb = conexion.Usuarios.Where(o => o.IdUsuario == usuarioIdDB).First();
-                UsuarioDb.Password = NuevaPassword;
-                conexion.SaveChanges();
+                var usuarioIdDB = service.BuscarIdUsuarioSession();
+                var UsuarioDb = service.ObtenerListaUsuarios().Where(o => o.IdUsuario == usuarioIdDB).First();
+                service.CambiarContraUsuario(NuevaPassword, UsuarioDb);
                 return RedirectToAction("Logout", "Auth");
             }
             return View(usuario);
         }
+
+
+        //VALIDACIONES
+        private AppConexionDB conexion = new AppConexionDB();
         public void ValidarCambiarContra(Usuario usuario, string NuevaPassword, string RepitaPassword)
         {
-            var usuarioIdDB = Convert.ToInt32(Session["UsuarioId"]);
+            var usuarioIdDB = service.BuscarIdUsuarioSession();
             var UExiste = conexion.Usuarios.Count(u => u.IdUsuario == usuarioIdDB && u.Password == usuario.Password);
             if (usuario.Password != null && usuario.Password != "")
             {
@@ -288,14 +284,27 @@ namespace PROYECTO_INCABATHS.Controllers
             {
                 if (UExiste != 0)
                 {
-                    if (NuevaPassword == null || NuevaPassword == "")
-                        ModelState.AddModelError("NuevaPassword", "Este campo es obligatorio");
-                    if (RepitaPassword == null || RepitaPassword == "")
-                        ModelState.AddModelError("RepitaPassword", "Este campo es obligatorio");
-                    if (NuevaPassword != null && NuevaPassword != "" && RepitaPassword != null && RepitaPassword != "")
+                    if (usuario.Password != NuevaPassword)
                     {
-                        if (NuevaPassword != RepitaPassword)
-                            ModelState.AddModelError("RepitaPassword", "Las contraseñas no coinciden");
+                        if (NuevaPassword == null || NuevaPassword == "")
+                            ModelState.AddModelError("NuevaPassword", "Este campo es obligatorio");
+                        if (RepitaPassword == null || RepitaPassword == "")
+                            ModelState.AddModelError("RepitaPassword", "Este campo es obligatorio");
+                        if (NuevaPassword != null && NuevaPassword != "" && RepitaPassword != null && RepitaPassword != "")
+                        {
+                            if (NuevaPassword != RepitaPassword)
+                                ModelState.AddModelError("RepitaPassword", "Las contraseñas no coinciden");
+                        }
+                    }
+                }
+            }
+            if (usuario.Password != null && usuario.Password != "")
+            {
+                if (UExiste != 0)
+                {
+                    if (usuario.Password == NuevaPassword)
+                    {
+                        ModelState.AddModelError("NuevaPassword", "Debe ser diferente a la actual");
                     }
                 }
             }
@@ -478,11 +487,7 @@ namespace PROYECTO_INCABATHS.Controllers
 
             if (usuario.Direccion == null || usuario.Direccion == "")
                 ModelState.AddModelError("Direccion", "La direccion es obligatorio");
-            //if (usuario.Direccion != null)
-            //{
-            //    if (Regex.IsMatch(usuario.Direccion, @"^[a-zA-Z0-9""'\s.#]*$"))
-            //        ModelState.AddModelError("Direccion", "Ejemplo Jr. La paz #121");
-            //}
+
             if (usuario.Password == null || usuario.Password == "")
                 ModelState.AddModelError("Password", "El pasword es obligatorio");
 
@@ -505,7 +510,7 @@ namespace PROYECTO_INCABATHS.Controllers
                 ModelState.AddModelError("TipoUsuario", "Seleccione un campo valido");
             }
         }
-        public void validarEditarUsuario(Usuario usuario, int id)
+        public void validarEditarUsuario(Usuario usuario, int? id)
         {
 
 
@@ -542,20 +547,6 @@ namespace PROYECTO_INCABATHS.Controllers
                         ModelState.AddModelError("DNI", "El campo dni debe de tener 8 numeros");
                 }
             }
-            //if (usuario.DNI != null)
-            //{
-            //    if (Regex.IsMatch(usuario.DNI, "^\\d+$"))
-            //    {
-            //        if (usuario.DNI.Length == 8)
-            //        {
-            //            var usuarioDB = conexion.Usuarios.Any(t => t.DNI == usuario.DNI);
-            //            if (usuarioDB)
-            //            {
-            //                ModelState.AddModelError("DNI", "Este DNI ya existe");
-            //            }
-            //        }
-            //    }
-            //}
 
 
             if (usuario.Celular == null || usuario.Celular == "")
@@ -586,38 +577,13 @@ namespace PROYECTO_INCABATHS.Controllers
                     ModelState.AddModelError("Correo", "El formato debe ser de correo");
             }
 
-            //if (usuario.Correo != null)
-            //{
-            //    if (Regex.IsMatch(usuario.Correo, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z"))
-            //    {
-            //        var usuarioCorreoDB = conexion.Usuarios.Any(t => t.Correo == usuario.Correo);
-            //        if (usuarioCorreoDB)
-            //        {
-            //            ModelState.AddModelError("Correo", "Este correo ya existe");
-            //        }
-            //    }
-            //}
-
 
             if (usuario.Direccion == null || usuario.Direccion == "")
                 ModelState.AddModelError("Direccion", "La direccion es obligatorio");
-            //if (usuario.Direccion != null)
-            //{
-            //    if (Regex.IsMatch(usuario.Direccion, @"^[a-zA-Z0-9""'\s.#]*$"))
-            //        ModelState.AddModelError("Direccion", "Ejemplo Jr. La paz #121");
-            //}
+
             if (usuario.Password == null || usuario.Password == "")
                 ModelState.AddModelError("Password", "El pasword es obligatorio");
 
-
-            //if (usuario.Perfil == null)
-            //{
-            //    ModelState.AddModelError("Perfil", "El campo perfil no pude ser vacio");
-            //}
-            //if (usuario.TipoUsuario == null)
-            //{
-            //    ModelState.AddModelError("TipoUsuario", "Seleccione un campo valido");
-            //}
             if (usuario.DNI != null && usuario.DNI != "")
             {
                 if (Regex.IsMatch(usuario.DNI, "^\\d+$"))

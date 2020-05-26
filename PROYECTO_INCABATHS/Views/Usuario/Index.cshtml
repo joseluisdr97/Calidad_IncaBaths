@@ -3,14 +3,14 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Lista de Usuarios</h2>
+<h2 id="EstoyEnUsuarioIndex">Lista de Usuarios</h2>
 
 <div class="container">
-    <label class="control-label">Ingrese Nombre :</label>
+    <label class="control-label">Ingrese dni :</label>
     <div class="row">
         <form action="/Usuario/Index">
             <div class="col-sm-4">
-                <input id="query" class="form-control" type="text" name="query" value="@ViewBag.datos" placeholder="Ingrese nombre" />
+                <input id="query" class="form-control" type="number" name="query" value="@ViewBag.datos" placeholder="Ingrese dni" />
             </div>
             <div class="col-sm-2">
                 <button id="btnBuscar" class="btn btn-success"><span class="glyphicon glyphicon-search"></span> Buscar</button>
@@ -56,7 +56,7 @@
                             <td>@item.Correo</td>
                             <td>
                                 <a class="btn btn-info" href="/Usuario/Editar?id=@item.IdUsuario"><span class="glyphicon glyphicon-pencil"></span></a>
-                                <a class="btn btn-danger" href="/Usuario/Eliminar?id=@item.IdUsuario"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a class="eliminar btn btn-danger" href="/Usuario/Eliminar?id=@item.IdUsuario" data-idTurnoo="@item.IdUsuario" data-nombre="@item.IdUsuario"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>
                     }
@@ -89,6 +89,33 @@
             });
         }
     });
+
+    $("body").on("click", ".eliminar", function (e) {
+        e.preventDefault();
+        var $this = $(this);
+
+
+        var valor = $this.data("idTurnoo");
+        var fec = $this.data("nombre");
+
+
+        //alert($this.attr("id"));//obtener el atributo id
+        Swal.fire({
+            title: '¿Está seguro?',
+            text: "No podras revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar!'
+        }).then((result) => {
+            if (result.value) {
+                location.href = "/Usuario/Eliminar?id=" + fec;
+
+            }
+        })
+    });
+
 </script>
 <script>
     $(document).ready(function () {

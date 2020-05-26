@@ -390,3 +390,365 @@ C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 2\I
 C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 2\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.csproj.CopyComplete
 C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 2\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.dll
 C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 2\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.pdb
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\ApplicationInsights.config
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\csc.exe
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\vbc.exe
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\VBCSCompiler.exe
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\PROYECTO_INCABATHS.dll.config
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\PROYECTO_INCABATHS.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\PROYECTO_INCABATHS.pdb
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\Antlr3.Runtime.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\EntityFramework.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\EntityFramework.SqlServer.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.Web.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.ApplicationInsights.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\Newtonsoft.Json.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Helpers.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Mvc.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Optimization.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Razor.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.Deployment.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.Razor.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\WebGrease.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\EntityFramework.xml
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\EntityFramework.SqlServer.xml
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.Web.xml
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.ApplicationInsights.xml
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Helpers.xml
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Mvc.xml
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Optimization.xml
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Razor.xml
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.xml
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.Deployment.xml
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.Razor.xml
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\Antlr3.Runtime.pdb
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\Newtonsoft.Json.xml
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.Helpers.resources.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.Mvc.resources.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.Optimization.resources.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.Razor.resources.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.WebPages.resources.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.csprojAssemblyReference.cache
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.csproj.CoreCompileInputs.cache
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.csproj.CopyComplete
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.dll
+C:\Users\JOSE LUIS\Downloads\Compressed\Proyecto inkabaths versiones\Version 3\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.pdb
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\ApplicationInsights.config
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\csc.exe
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\System.Collections.Immutable.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\System.Reflection.Metadata.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\vbc.exe
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\VBCSCompiler.exe
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\VBCSCompiler.exe.config
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\PROYECTO_INCABATHS.dll.config
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\PROYECTO_INCABATHS.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\PROYECTO_INCABATHS.pdb
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\Antlr3.Runtime.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\EntityFramework.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\EntityFramework.SqlServer.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.Agent.Intercept.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.DependencyCollector.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.Web.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.WindowsServer.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.ApplicationInsights.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.Web.Infrastructure.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\Newtonsoft.Json.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Helpers.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Mvc.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Optimization.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Razor.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.Deployment.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.Razor.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\WebGrease.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\EntityFramework.xml
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\EntityFramework.SqlServer.xml
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.DependencyCollector.xml
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.Web.xml
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.WindowsServer.xml
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.ApplicationInsights.xml
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Helpers.xml
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Mvc.xml
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Optimization.xml
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Razor.xml
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.xml
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.Deployment.xml
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.Razor.xml
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\Antlr3.Runtime.pdb
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\Newtonsoft.Json.xml
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.Helpers.resources.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.Mvc.resources.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.Optimization.resources.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.Razor.resources.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.WebPages.resources.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.WebPages.Deployment.resources.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.WebPages.Razor.resources.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.csprojAssemblyReference.cache
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.csproj.CoreCompileInputs.cache
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.csproj.CopyComplete
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.dll
+D:\2020\Calidad\Proyecto\Proyecto 8 avance\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.pdb
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\ApplicationInsights.config
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\csc.exe
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\vbc.exe
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\VBCSCompiler.exe
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\PROYECTO_INCABATHS.dll.config
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\PROYECTO_INCABATHS.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\PROYECTO_INCABATHS.pdb
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\Antlr3.Runtime.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\EntityFramework.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\EntityFramework.SqlServer.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.Web.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.ApplicationInsights.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\Newtonsoft.Json.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Helpers.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Mvc.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Optimization.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Razor.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.Deployment.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.Razor.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\WebGrease.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\EntityFramework.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\EntityFramework.SqlServer.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.Web.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.ApplicationInsights.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Helpers.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Mvc.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Optimization.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Razor.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.Deployment.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.Razor.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\Antlr3.Runtime.pdb
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\Newtonsoft.Json.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.Helpers.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.Mvc.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.Optimization.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.Razor.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.WebPages.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.csprojAssemblyReference.cache
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.csproj.CoreCompileInputs.cache
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.csproj.CopyComplete
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 5\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.pdb
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\ApplicationInsights.config
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\csc.exe
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\vbc.exe
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\VBCSCompiler.exe
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\PROYECTO_INCABATHS.dll.config
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\PROYECTO_INCABATHS.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\PROYECTO_INCABATHS.pdb
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Antlr3.Runtime.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\EntityFramework.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\EntityFramework.SqlServer.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.Web.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.ApplicationInsights.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Newtonsoft.Json.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Helpers.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Mvc.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Optimization.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Razor.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.Deployment.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.Razor.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\WebGrease.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\EntityFramework.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\EntityFramework.SqlServer.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.Web.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.ApplicationInsights.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Helpers.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Mvc.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Optimization.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Razor.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.Deployment.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.Razor.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Antlr3.Runtime.pdb
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Newtonsoft.Json.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.Helpers.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.Mvc.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.Optimization.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.Razor.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.WebPages.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.csprojAssemblyReference.cache
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.csproj.CoreCompileInputs.cache
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.csproj.CopyComplete
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.pdb
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Threading.Tasks.Extensions.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Unity.Abstractions.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Unity.Container.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Unity.Mvc.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\WebActivatorEx.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Threading.Tasks.Extensions.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Unity.Abstractions.pdb
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Unity.Container.pdb
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Unity.Mvc.pdb
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Unity.Mvc.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AspNet.TelemetryCorrelation.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Diagnostics.DiagnosticSource.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AspNet.TelemetryCorrelation.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 6 Pruebas\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Diagnostics.DiagnosticSource.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\ApplicationInsights.config
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\csc.exe
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\vbc.exe
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\VBCSCompiler.exe
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\PROYECTO_INCABATHS.dll.config
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\PROYECTO_INCABATHS.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\PROYECTO_INCABATHS.pdb
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Antlr3.Runtime.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\EntityFramework.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\EntityFramework.SqlServer.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.Web.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.ApplicationInsights.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AspNet.TelemetryCorrelation.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Newtonsoft.Json.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Diagnostics.DiagnosticSource.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Threading.Tasks.Extensions.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Helpers.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Mvc.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Optimization.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Razor.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.Deployment.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.Razor.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Unity.Abstractions.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Unity.Container.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Unity.Mvc.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\WebActivatorEx.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\WebGrease.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\EntityFramework.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\EntityFramework.SqlServer.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.Web.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.ApplicationInsights.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.AspNet.TelemetryCorrelation.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Diagnostics.DiagnosticSource.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Threading.Tasks.Extensions.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Helpers.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Mvc.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Razor.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.Deployment.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.WebPages.Razor.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\System.Web.Optimization.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Unity.Abstractions.pdb
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Unity.Container.pdb
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Unity.Mvc.pdb
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Unity.Mvc.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Antlr3.Runtime.pdb
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\Newtonsoft.Json.xml
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.Helpers.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.Mvc.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.Razor.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.WebPages.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\bin\es\System.Web.Optimization.resources.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.csprojAssemblyReference.cache
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.csproj.CoreCompileInputs.cache
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.csproj.CopyComplete
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.dll
+C:\Users\JOSE LUIS\Desktop\PROYECTO\Proyecto_IncaBaths\VERSIONES\Version 7 Pruebas Selenium\IncaBaths-master\PROYECTO_INCABATHS\obj\Debug\PROYECTO_INCABATHS.pdb

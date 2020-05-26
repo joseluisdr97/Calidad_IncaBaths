@@ -1,5 +1,6 @@
 ﻿using PROYECTO_INCABATHS.Clases;
 using PROYECTO_INCABATHS.DB;
+using PROYECTO_INCABATHS.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,13 @@ namespace PROYECTO_INCABATHS.Controllers
 {
     public class AuthController : Controller
     {
+        private readonly IAuthService service;
+        private readonly IServiceSession sessionService;
+        public AuthController(IAuthService service, IServiceSession sessionService)
+        {
+            this.service = service;
+            this.sessionService = sessionService;
+        }
         // GET: Auth
         private AppConexionDB conexion = new AppConexionDB();
         [HttpGet]
@@ -23,27 +31,22 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpPost]
         public ActionResult Login(Usuario usuario, string RepitaPassword)//*string Correo, string Password*/)
         {
-            var UExiste = conexion.Usuarios.Count(u => u.Correo == usuario.Correo && u.Password == usuario.Password);
+
+            var UExiste = service.ObtenerListaUsuarios().Count(u => u.Correo == usuario.Correo && u.Password == usuario.Password && u.Activo_Inactivo==true);
 
             if (UExiste != 0)
             {
-                var UsuarioDB = conexion.Usuarios.Where(u => u.Correo == usuario.Correo && u.Password == usuario.Password).First();
+                var UsuarioDB =service.ObtenerListaUsuarios().Where(u => u.Correo == usuario.Correo && u.Password == usuario.Password && u.Activo_Inactivo == true).First();
                 FormsAuthentication.SetAuthCookie(UsuarioDB.Correo, false);
 
                 if (UsuarioDB.IdTipoUsuario == 1)
                 {
-                    Session["UsuarioId"] = UsuarioDB.IdUsuario;
-                    Session["UsuarioNombre"] = UsuarioDB.Nombre;
-                    Session["UsuarioPerfil"] = UsuarioDB.Perfil;
-                    Session["UsuarioDNI"] = UsuarioDB.DNI;
+                    sessionService.GuardarDatosUsuarioLogueado(UsuarioDB);
                     return RedirectToAction("Index", "Admin");
                 }
                 else if (UsuarioDB.IdTipoUsuario == 3)
                 {
-                    Session["UsuarioId"] = UsuarioDB.IdUsuario;
-                    Session["UsuarioNombre"] = UsuarioDB.Nombre;
-                    Session["UsuarioPerfil"] = UsuarioDB.Perfil;
-                    Session["UsuarioDNI"] = UsuarioDB.DNI;
+                    sessionService.GuardarDatosUsuarioLogueado(UsuarioDB);
                     return RedirectToAction("Servicio", "Admin");
                 }
                 return RedirectToAction("Index", "Home");
@@ -66,8 +69,9 @@ namespace PROYECTO_INCABATHS.Controllers
         }
         public string ObtenerUsuario()
         {
+            var usuario = sessionService.BuscarNombreUsuarioSession();
             string nombre;
-            if (Session["UsuarioNombre"] == null)
+            if (usuario == null || usuario=="")
             {
                 nombre = "null";
                 return nombre;
@@ -79,49 +83,5 @@ namespace PROYECTO_INCABATHS.Controllers
             }
         }
 
-        [AllowAnonymous]
-        [HttpGet]
-        public string RecuperarContrasenha(string correo)
-        {
-
-            var existe = conexion.Usuarios.Count(u => u.Correo == correo);
-
-            if (existe > 0)
-            {
-                var UsuDB = conexion.Usuarios.Where(u => u.Correo == correo).First();
-
-                string resultado = "Contraseña enviada al correo: " + correo;
-                string password = conexion.Usuarios.Where(u => correo.Equals(u.Correo)).Select(q => q.Password).FirstOrDefault();
-                if (!String.IsNullOrEmpty(password))
-                {
-                    MailMessage Correo = new MailMessage();
-                    Correo.From = new MailAddress(UsuDB.Correo);
-                    Correo.To.Add(correo);
-                    Correo.Subject = ("Recuperar Contraseña INCABATHS");
-                    Correo.Body = "Hola, tu contraseña actual es: " + UsuDB.Password;
-                    Correo.Priority = MailPriority.High;
-
-                    SmtpClient ServerEmail = new SmtpClient();
-                    ServerEmail.Credentials = new NetworkCredential(UsuDB.Correo, UsuDB.Password);
-                    ServerEmail.Host = "smtp.gmail.com";
-                    ServerEmail.Port = 587;
-                    ServerEmail.EnableSsl = true;
-                    try
-                    {
-                        ServerEmail.Send(Correo);
-                    }
-                    catch (Exception e)
-                    {
-                        resultado = e.Message;
-                    }
-                    Correo.Dispose();
-                    return resultado;
-                }
-            }else
-            {
-                return "Esta cuenta no existe";
-            }
-            return "Error";
-        }
     }
 }

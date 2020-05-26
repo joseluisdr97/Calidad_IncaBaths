@@ -1,5 +1,6 @@
 ﻿using PROYECTO_INCABATHS.Clases;
 using PROYECTO_INCABATHS.DB;
+using PROYECTO_INCABATHS.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -11,109 +12,110 @@ namespace PROYECTO_INCABATHS.Controllers
 {
     public class TurnoController : Controller
     {
-        private AppConexionDB conexion = new AppConexionDB();
+        private readonly IServiceSession sessionService;
+        private readonly ITurnoService service;
+        public TurnoController(ITurnoService service, IServiceSession sessionService)
+        {
+            this.sessionService = sessionService;
+            this.service = service;
+        }
         // GET: Turno
         [Authorize]
         [HttpGet]
-        public ActionResult Index(string fechaP, int id)
+        public ActionResult Index(int? id)
         {
-            var datos = new List<Turno>();
-            DateTime fecha = Convert.ToDateTime(fechaP);
-            if (fechaP == null || fechaP== "01/01/0001 12:00:00 a.m.")
-            {
-                datos = conexion.Turnos.Include(t => t.Servicio).Where(t => t.Servicio.IdServicio == id).ToList();
-            }
-            else
-            {
-                
-                datos = conexion.Turnos.Include(t => t.Servicio).Where(t => t.Servicio.IdServicio == id && t.Fecha==fecha).ToList();
-            }
-            ViewBag.datos = fecha;
-            ViewBag.NombreServicio = conexion.Servicios.Where(a => a.IdServicio == id).First();
-            ViewBag.IdServicio = id;
+            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+            if (id == null || id == 0) { return RedirectToAction("Index", "Error"); };
+
+                var datos = service.ObtenerTurnos().Where(t => t.IdServicio == id && t.Activo_Inactivo==true).ToList();
+                ViewBag.Servicio = service.ObtenerServicioPorId(id);
             return View(datos);
         }
-        public ActionResult BuscarTurno(DateTime fechaP, int id)
-        {
-            var datos = new List<Turno>();
-            if (fechaP == null || Convert.ToString(fechaP) == "01/01/0001 12:00:00 a.m.")
-            {
-                datos = conexion.Turnos.Include(t => t.Servicio).Where(t => t.Servicio.IdServicio == id).ToList();
-            }
-            else
-            {
-                datos = conexion.Turnos.Include(t => t.Servicio).Where(t => t.Servicio.IdServicio == id && t.Fecha == fechaP).ToList();
-            }
-            ViewBag.datos = fechaP;
-            ViewBag.IdServicio = id;
-            return View(datos);
-        }
-        [HttpGet]
         [Authorize]
-        public ActionResult Crear(int id)
+        [HttpGet]
+        public ActionResult BuscarTurno(DateTime? fecha, int? id)
         {
-            ViewBag.IdServicio = id;
-            ViewBag.NombreServicio = conexion.Servicios.Where(a => a.IdServicio == id).First();
+            if (id == null || id == 0) { return RedirectToAction("Index", "Error"); };
+            var datos = new List<Turno>();
+            if (fecha == null || fecha.ToString() == "01/01/0001 12:00:00 a.m.")
+            {
+                datos = service.ObtenerTurnos().Where(t => t.IdServicio == id && t.Activo_Inactivo == true).ToList();
+            }
+            else
+            {
+                datos = service.ObtenerTurnos().Where(t => t.IdServicio == id && t.Fecha == fecha && t.Activo_Inactivo == true).ToList();
+            }
+            ViewBag.Servicio = service.ObtenerServicioPorId(id);
+            return View(datos);
+        }
+        [Authorize]
+        [HttpGet]
+        public ActionResult Crear(int? id)
+        {
+            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+            if (id == null || id == 0) { return RedirectToAction("Index", "Error"); };
+            ViewBag.Servicio = service.ObtenerServicioPorId(id);
             return View(new Turno());
         }
         [HttpPost]
         [Authorize]
-        public ActionResult Crear(Turno turno, int id)
+        public ActionResult Crear(Turno turno, int? id)
         {
+            if (id == null || id == 0) { return RedirectToAction("Index", "Error"); };
             validar(turno, id);
             if (ModelState.IsValid == true)
             {
-                turno.IdServicio = id;
-                
-                conexion.Turnos.Add(turno);
-                conexion.SaveChanges();
-
+                service.GuardarTurno(id,turno);
                 return RedirectToAction("Index", new { id = turno.IdServicio });
             }
-            ViewBag.IdServicio = id;
-            ViewBag.NombreServicio = conexion.Servicios.Where(a => a.IdServicio == id).First();
+            ViewBag.Servicio = service.ObtenerServicioPorId(id);
             return View(turno);
         }
         [Authorize]
         [HttpGet]
-        public ActionResult Editar(int id)
+        public ActionResult Editar(int? id)
         {
-            var DbTurno = conexion.Turnos.Find(id);
-            ViewBag.IdServicio = conexion.Servicios.Find(DbTurno.IdServicio);
-            ViewBag.NombreServicio = conexion.Servicios.Where(a => a.IdServicio == id).First();
+            if (id == null || id == 0) { return RedirectToAction("Index", "Error"); };
+            var DbTurno = service.ObtenerTurnoPorId(id);
+            ViewBag.Servicio = service.ObtenerServicioPorId(DbTurno.IdServicio);
             return View(DbTurno);
         }
         [Authorize]
         [HttpPost]
-        public ActionResult Editar(Turno turno, int id)
+        public ActionResult Editar(Turno turno, int? id)
         {
-            var DbTurno = conexion.Turnos.Find(id);
+            if (id == null || id == 0) { return RedirectToAction("Index", "Error"); };
+            var DbTurno = service.ObtenerTurnoPorId(id);
             validarEditar(turno, id);
             if (ModelState.IsValid == true)
             {
-                DbTurno.HoraInicio = turno.HoraInicio;
-                DbTurno.HoraFin = turno.HoraFin;
-                DbTurno.Fecha = turno.Fecha;
-                conexion.SaveChanges();
+                service.EditarTurno(turno, DbTurno);
                 return RedirectToAction("Index", new { id = DbTurno.IdServicio });
             }
-            ViewBag.IdServicio = conexion.Servicios.Find(DbTurno.IdServicio);
-            ViewBag.NombreServicio = conexion.Servicios.Where(a => a.IdServicio == id).First();
-            return View(turno);
+            ViewBag.Servicio = service.ObtenerServicioPorId(DbTurno.IdServicio);
+            return View(DbTurno);
         }
         [Authorize]
         [HttpGet]
-        public ActionResult Eliminar(int id)
+        public ActionResult Eliminar(int? id)
         {
-            var DbTurno = conexion.Turnos.Find(id);
-            conexion.Turnos.Remove(DbTurno);
-            conexion.SaveChanges();
-            return RedirectToAction("Index", new { id = DbTurno.IdServicio });
+            if (id == null || id == 0) { return RedirectToAction("Index", "Error"); };
+            var DbTurno = service.ObtenerTurnoPorId(id);
+            if (DbTurno != null)
+            {
+                service.EliminarTurno(DbTurno);
+                ViewBag.Turno = DbTurno;
+                return RedirectToAction("Index", new { id = service.ObtenerTurnoPorId(id).IdServicio });
+                
+            }
+            return View();
         }
 
 
 
-        public void validar(Turno turno, int id)
+
+        private AppConexionDB conexion = new AppConexionDB();
+        public void validar(Turno turno, int? id)
         {
             string fechaP = Convert.ToString(turno.Fecha);
             if(turno.Fecha==null || fechaP=="01/01/0001 12:00:00 a.m.")
@@ -199,7 +201,7 @@ namespace PROYECTO_INCABATHS.Controllers
                 }
             }
         }
-        public void validarEditar(Turno turno, int id)
+        public void validarEditar(Turno turno, int? id)
         {
             if (Convert.ToString(turno.HoraInicio) == "00:00:00")
                 ModelState.AddModelError("HoraInicio", "El campo hora de ingreso no debe de ser nulo");
@@ -226,26 +228,6 @@ namespace PROYECTO_INCABATHS.Controllers
                     }
                 }
             }
-            //if (Convert.ToString(turno.HoraInicio) != "00:00:00" && Convert.ToString(turno.HoraInicio) != "00:00:00")
-            //{
-            //    if (turno.HoraInicio != turno.HoraFin)
-            //    {
-            //        if (turno.HoraInicio < turno.HoraFin)
-            //        {
-            //            var Existe = conexion.Turnos.Any(a => a.IdServicio == id && a.HoraInicio == turno.HoraInicio && a.HoraFin == turno.HoraFin && a.Dia == turno.Dia);
-            //            var UsuarioDBC = conexion.Usuarios.Where(a => a.IdUsuario == id).First();
-            //            var UsuCorreo = conexion.Usuarios.Where(a => a.Correo == UsuarioDBC.Correo).First();
-            //            if (UsuCorreo.Correo != usuario.Correo)
-            //            {
-            //                var usuarioDB = conexion.Usuarios.Any(t => t.Correo == usuario.Correo);
-            //                if (usuarioDB)
-            //                {
-            //                    ModelState.AddModelError("Correo", "Este Correo ya existe");
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
 
             //VALIDACION DE CRUCE DE HORARIOS
 
@@ -287,3 +269,4 @@ namespace PROYECTO_INCABATHS.Controllers
         }
     }
 }
+

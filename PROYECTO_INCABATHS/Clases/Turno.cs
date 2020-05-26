@@ -12,6 +12,7 @@ namespace PROYECTO_INCABATHS.Clases
         public TimeSpan HoraInicio { get; set; }
         public TimeSpan HoraFin { get; set; }
         public DateTime Fecha { get; set; }
+        public bool Activo_Inactivo { get; set; }
 
         //Relaciones
         public Servicio Servicio { get; set; }

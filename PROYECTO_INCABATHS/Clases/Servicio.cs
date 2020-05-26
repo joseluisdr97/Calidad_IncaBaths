@@ -11,6 +11,7 @@ namespace PROYECTO_INCABATHS.Clases
         public string Nombre { get; set; }
         public decimal Precio { get; set; }
         public int Aforo { get; set; }
+        public bool Activo_Inactivo { get; set; }
 
         public List<Turno> Turnos { get; set; }
         public List<DetalleReserva> DetallesReservas { get; set; }

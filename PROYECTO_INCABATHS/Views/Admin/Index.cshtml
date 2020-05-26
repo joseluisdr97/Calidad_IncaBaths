@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2 class="text-center">Ganancias del día</h2>
+<h2 id="EstoyEnIdexAdmin"class="text-center">Ganancias del día</h2>
 
 <h3 class="text-center">Ganancias = S/. @ViewBag.GanaciasDelDia</h3>
 <hr />
@@ -43,21 +43,22 @@
                     });
             } else
             {
+
                 Swal.fire({
-                    type: 'error',
-                    title: 'Error...',
+                    icon: 'error',
+                    title: 'Error',
                     text: 'La fecha de inicio debe ser menor a la final!',
-                }) 
+                })
             }
 
         }
         else
-        {
+        { 
             Swal.fire({
-                type: 'error',
-                title: 'Error...',
+                icon: 'error',
+                title: 'Error',
                 text: 'Complete el rango de fecha!',
-            }) 
+            })
         }
         
     });

@@ -1,0 +1,47 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Error 404 :: IncaBaths</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <link href="~/PlantillaAdmin/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+    <!-- Custom Theme files -->
+    <link href="~/PlantillaAdmin/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!--js-->
+    <script src="~/PlantillaAdmin/js/jquery-2.1.1.min.js"></script>
+    <!--icons-css-->
+    <link href="~/PlantillaAdmin/css/font-awesome.css" rel="stylesheet">
+    <!--Google Fonts-->
+    <link href='//fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Work+Sans:400,500,600' rel='stylesheet' type='text/css'>
+    <!--//skycons-icons-->
+</head>
+<body>
+    <div class="error-404">
+        <div class="error-page-left">
+            <img style="width:350px;height:300px" src="~/PlantillaAdmin/images/405.png" alt="404 Error">
+        </div>
+        <div class="error-right">
+            <h2>Oops! Pagina no encontrada</h2>
+            <h4>Porfavor vuelva a intentarlo</h4>
+            <br />
+            <br />
+            <form action="/Error/VolerInicio" method="post">
+                <button style="width:300px;height:100px;font-size:25px" class="btn btn-success">Volver al inicio <span class="glyphicon glyphicon-home"></span></button>
+            </form>
+            @*<a href="@Url.Action("Index","Home")" id="ErrorHomeClic">Regresar</a>*@
+        </div>
+    </div>
+    <!--scrolling js-->
+    <script src="~/PlantillaAdmin/js/jquery.nicescroll.js"></script>
+    <script src="~/PlantillaAdmin/js/scripts.js"></script>
+    <!--//scrolling js-->
+    <script src="~/PlantillaAdmin/js/bootstrap.js"></script>
+    <!-- mother grid end here-->
+</body>
+</html>

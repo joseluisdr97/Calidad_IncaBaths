@@ -5,20 +5,40 @@
 }
 
 <style>
+
+    input[type="date"]::-webkit-inner-spin-button {
+        display: none;
+    }
+
     pre, p {
         font-size: 1.5em;
         color: #FE7F88;
         background-color: transparent;
     }
 
-/*div { background-image: url("https://www.mincetur.gob.pe/wp-content/uploads/2017/09/foto-3d-1.jpg"); }*/
+    /*div { background-image: url("https://www.mincetur.gob.pe/wp-content/uploads/2017/09/foto-3d-1.jpg"); }*/
 
     p {
         background-image: none;
     }
 
-.catsandstars { background-image: url("https://media-cdn.tripadvisor.com/media/photo-s/05/52/b0/7c/hotel-el-ingenio.jpg"); background-color: transparent; }
+    .catsandstars {
+        background-image: url("https://media-cdn.tripadvisor.com/media/photo-s/05/52/b0/7c/hotel-el-ingenio.jpg");
+        background-color: transparent;
+    } 
 </style>
+
+@*<style>
+        .barra {
+            width: 1540px;
+            height: 700px;
+            overflow: scroll;
+        }
+    </style>*@
+
+
+
+<h2 id="EstoyEnServicioCliente"></h2>
 <div class="catsandstars">
     <div class="container">
         <div class="row">
@@ -27,10 +47,11 @@
             <br />
             <div class="col-sm-2">
             </div>
+
             <div class="col-sm-8">
                 <div class="col-sm-4">
                     <label class="control-label" style="color:white">Fecha :</label>
-                    <input class="form-control" id="BuscarFecha" name="Fecha" type="date" min="" />
+                    <input class="form-control" id="BuscarFecha" name="Fecha" type="date" min="" onkeydown="return false" />
 
                 </div>
                 <div class="col-sm-4">
@@ -59,364 +80,394 @@
     </div>
     <br />
     <br />
-    <hr />
+    <br />
+
 </div>
 
+<br />
+<div class="row">
+    <div class="col-sm-2 text-center" id="PreFecServ">
 
-    <div class="row">
-        <div class="col-sm-2 text-center" id="PreFecServ">
+    </div>
 
-        </div>
+    <div class="col-sm-5">
 
-        <div class="col-sm-5">
-            
-            <div id="turnos">
-                @*<label class="control-label" style="font-size:50px">Para realizar una reserva porfavor elija su servicio</label>*@
-            </div>
-        </div>
-
-        <div class="container col-sm-5 text-center">
-            <form action="/Reserva/Crear" method="post" id="formReserva">
-                @*<div id="CabeceraReserva">*@
-                    <label class="control-label text-center" style="font-size:25px;color:crimson">RESERVA</label>
-                    <table id="tablaReserva" class="table table-condensed">
-                        <thead>
-                            <tr>
-                                <th class="text-center">Servicio</th>
-                                <th class="text-center">Ingreso</th>
-                                <th class="text-center">Salida</th>
-                                <th class="text-center">Cant.</th>
-                                <th class="text-center">Precio</th>
-                                <th class="text-center">Fecha</th>
-                                <th class="text-center">Sub T.</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody"></tbody>
-                    </table>
-                @*</div>*@
-                
-                <div id="mostTotal">
-                    <label>Total:0</label>
-                </div>
-                <div id="mostBotonReservar">
-                    
-                </div>
-                
-            </form>
+        <div id="turnos">
+            @*<label class="control-label" style="font-size:50px">Para realizar una reserva porfavor elija su servicio</label>*@
         </div>
     </div>
 
+    <div class="container col-sm-5 text-center">
+        <form action="/Reserva/Crear" method="post" id="formReserva">
+            @*<div id="CabeceraReserva">*@
+            <label class="control-label text-center" style="font-size:25px;color:crimson">RESERVA</label>
+            <table id="tablaReserva" class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th class="text-center">Servicio</th>
+                        <th class="text-center">Ingreso</th>
+                        <th class="text-center">Salida</th>
+                        <th class="text-center">Cant.</th>
+                        <th class="text-center">Precio</th>
+                        <th class="text-center">Fecha</th>
+                        <th class="text-center">Sub T.</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody"></tbody>
+            </table>
+            @*</div>*@
 
-    <script>
+            <div id="mostTotal">
+                <label>Total:0</label>
+            </div>
+            <div id="mostBotonReservar">
 
-        $(document).ready(function () {
-            document.getElementById('formReserva').style.display = 'none';
+            </div>
 
-
-
-                var now = new Date();
-
-                var day = ("0" + now.getDate()).slice(-2);
-                var month = ("0" + (now.getMonth() + 1)).slice(-2);
-
-                var today = now.getFullYear() + "-" + (month) + "-" + (day);
-
-            $("#BuscarFecha").attr("min", today);
+        </form>
+    </div>
+</div>
 
 
-        });
+
+<script>
+
+    $(document).ready(function () {
+        document.getElementById('formReserva').style.display = 'none';
 
 
-        //***************************************************************AGREGAR UN TURNO A LA RESERVA**************************************************
-        var listaTmp = [];
-        var objTmp = {};
-        var a = 0;
 
-        function GetURLParameter(sParam) {//OBTENER LA URL
-            var sPageURL = window.location.search.substring(1);
-            var sURLVariables = sPageURL.split('&');
-            for (var i = 0; i < sURLVariables.length; i++) {
-                var sParameterName = sURLVariables[i].split('=');
-                if (sParameterName[0] == sParam) {
-                    return sParameterName[1];
-                }
+        var now = new Date();
+
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+        $("#BuscarFecha").attr("min", today);
+
+
+    });
+
+
+    //***************************************************************AGREGAR UN TURNO A LA RESERVA**************************************************
+    var listaTmp = [];
+    var objTmp = {};
+    var a = 0;
+
+    function GetURLParameter(sParam) {//OBTENER LA URL
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam) {
+                return sParameterName[1];
             }
-            return null;
         }
-        $().ready(function () {//PARA LA ALERTA CUANDO TRAE UN ATRIBUTO POR LA URL
-            var msg = GetURLParameter('msg');
-            if (msg != undefined && msg != null && msg == 1) {
-                alert('Registro exitoso');
-            }
-        });
-
-        function LlenarGrilla() {
-            var total = 0;
-            $("#tbody").empty();
-            for (var index = 0; index < listaTmp.length; index++) {
-                objTmp = listaTmp[index];
-
-                //Añadir una fila a mi tabla reserva
-                $("#tbody").append(`<tr>
-                        <td><input type="hidden" value="${objTmp.idservicio}" name="DetalleReservas[${index}].IdServicio" /><h5>${objTmp.nombreservicio}</h5></td>
-                        
-                        <td><input type="hidden" value="${objTmp.horainicio}" name="DetalleReservas[${index}].HoraInicio"/> <h5>${objTmp.horainicio}</h5></td>
-                        <td><input type="hidden" value="${objTmp.horafin}" name="DetalleReservas[${index}].HoraFin"/> <h5>${objTmp.horafin}</h5></td>
-                         <td><input type="hidden" value="${objTmp.cantidad}"  type="hidden"name="DetalleReservas[${index}].Cantidad" /><h5>${objTmp.cantidad}</h5></td>
-                         <td><h5>${objTmp.precio}</h5></td>
-                         <td><input type="hidden" value="${objTmp.fecha}"  type="hidden"name="DetalleReservas[${index}].Fecha" /><h5>${objTmp.fecha}</h5></td>
-                        <td><input type="hidden" type="text" value="${objTmp.subtotal}" name="DetalleReservas[${index}].SubTotal"/><h5>${objTmp.subtotal}</h5></td>
-                        <td><input type="hidden" value="${objTmp.idturno}"  type="hidden"name="DetalleReservas[${index}].IdTurno" /></td>
-                        <td><a class ="btnQuitar btn btn-danger pull-left" id="trn" data-idturno="${objTmp.idturno}" data-precioserv="${objTmp.precio}"><span class ="glyphicon glyphicon-trash"></a></td>
-                    </tr>`);//Agregar mi fila a la tabla
-                total = parseFloat(total) + parseFloat(objTmp.subtotal);
-            }
-            $("#mostTotal").html(`<input type="hidden" value="${total}" name="Total"/><h3>Total S/. ${total}</h3>`);
+        return null;
+    }
+    $().ready(function () {//PARA LA ALERTA CUANDO TRAE UN ATRIBUTO POR LA URL
+        var msg = GetURLParameter('msg');
+        if (msg != undefined && msg != null && msg == 1) {
+            alert('Registro exitoso');
         }
+    });
 
-        $("#trn").click(function () {
-            alert("hola");
-        });
+    function LlenarGrilla() {
+        var total = 0;
+        $("#tbody").empty();
+        for (var index = 0; index < listaTmp.length; index++) {
+            objTmp = listaTmp[index];
 
-        var mostbotonreserva = 0;
-        $("body").on("click", ".btnServicioAdd", function (e) {
-            var $this = $(this);
-            $.ajax({ url: "/Auth/ObtenerUsuario" })
-                .success(function (respU) {
+            //Añadir una fila a mi tabla reserva
+            $("#tbody").append(`<tr>
+                            <td><input type="hidden" value="${objTmp.idservicio}" name="DetalleReservas[${index}].IdServicio" /><h5>${objTmp.nombreservicio}</h5></td>
 
-                    if (respU == 1) {
+                            <td><input type="hidden" value="${objTmp.horainicio}" name="DetalleReservas[${index}].HoraInicio"/> <h5>${objTmp.horainicio}</h5></td>
+                            <td><input type="hidden" value="${objTmp.horafin}" name="DetalleReservas[${index}].HoraFin"/> <h5>${objTmp.horafin}</h5></td>
+                             <td><input type="hidden" value="${objTmp.cantidad}"  type="hidden"name="DetalleReservas[${index}].Cantidad" /><h5>${objTmp.cantidad}</h5></td>
+                             <td><h5>${objTmp.precio}</h5></td>
+                             <td><input type="hidden" value="${objTmp.fecha}"  type="hidden"name="DetalleReservas[${index}].Fecha" /><h5>${objTmp.fecha}</h5></td>
+                            <td><input type="hidden" type="text" value="${objTmp.subtotal}" name="DetalleReservas[${index}].SubTotal"/><h5>${objTmp.subtotal}</h5></td>
+                            <td><input type="hidden" value="${objTmp.idturno}"  type="hidden"name="DetalleReservas[${index}].IdTurno" /></td>
+                            <td><a class ="btnQuitar btn btn-danger pull-left" id="trn" data-idturno="${objTmp.idturno}" data-precioserv="${objTmp.precio}"><span class ="glyphicon glyphicon-trash"></a></td>
+                        </tr>`);//Agregar mi fila a la tabla
+            total = parseFloat(total) + parseFloat(objTmp.subtotal);
+        }
+        $("#mostTotal").html(`<input type="hidden" value="${total}" name="Total"/><h3>Total S/. ${total}</h3>`);
+    }
 
-                        var horainicio = $this.data("horainicio");
-                        var horafin = $this.data("horafin");
-                        var idservicio = $this.data("idservicio");
-                        var idturno = $this.data("idturno");
-                        var paso = 1;
-                        var fecha = $("#Fecha").text();
+    $("#trn").click(function () {
+        alert("hola");
+    });
 
-                        //INGRESAR CANTIDAD INICIO
-                        
-                        Swal
-                            .fire({
-                                title: "Ingrese numero de tickets",
-                                input: "number",
-                                showCancelButton: true,
-                                confirmButtonText: "Confirmar",
-                                cancelButtonText: "Cancelar",
-                            })
-                            .then(resultado => {
-                                if (resultado.value) {
-                                    let cantidad = resultado.value;
-                              
+    var mostbotonreserva = 0;
+    $("body").on("click", ".btnServicioAdd", function (e) {
+        var $this = $(this);
+        $.ajax({ url: "/Auth/ObtenerUsuario" })
+            .success(function (respU) {
 
-                            //INGRESAR CANTIDAD INICIO
+                if (respU == 1) {
 
-                        if (cantidad != null && cantidad != "") {
-                      
-                            $.ajax({ url: "/Admin/ConsultarAforoDeTurno?idServicio=" + idservicio + "&Fecha=" + fecha + "&horaInicio=" + horainicio + "&horaFin=" + horafin })//*******Obtener el nombre del servicio*************
-                                .success(function (respAforo) {
+                    var horainicio = $this.data("horainicio");
+                    var horafin = $this.data("horafin");
+                    var idservicio = $this.data("idservicio");
+                    var idturno = $this.data("idturno");
+                    var paso = 1;
+                    var fecha = $("#Fecha").text();
 
-                                    if (respAforo - cantidad >= 0) {
+                    //INGRESAR CANTIDAD INICIO
 
-
-                                        if (listaTmp.length > 0) {
-                                            for (var con = 0; con < listaTmp.length; con++) {
-                                                objTmp = listaTmp[con];
-                                                if (objTmp != null) {
-                                                    if (objTmp.idturno == idturno) { paso = 0; break; }
-                                                }
-                                            }
-                                        }
-
-                                        if (paso == 1) {
-                                            $.ajax({ url: "/Admin/ObtenerNombreServicio?id=" + idservicio })//*******Obtener el nombre del servicio*************
-                                                .success(function (respNom) {
-                                                    var nombreservicio = respNom;
-                                                    $.ajax({ url: "/Admin/ObtenerPrecioServicio?id=" + idservicio })//*******Obtener el precio del servicio*************
-                                                        .success(function (resp) {
-                                                            var precio = resp;
-                                                            var objServicio = {
-                                                                "idturno": idturno,
-                                                                "idservicio": idservicio,
-                                                                "horainicio": horainicio,
-                                                                "horafin": horafin,
-                                                                "nombreservicio": nombreservicio,
-                                                                "precio": precio,
-                                                                "subtotal": precio * cantidad,
-                                                                "cantidad": cantidad,
-                                                                "fecha": fecha
-                                                            };
-                                                            listaTmp.push(objServicio);
-                                                            LlenarGrilla();
-
-                                                            Swal.fire({
-                                                                type: 'success',
-                                                                text: 'Tu turno se agregó con exito',
-                                                            })
-                                                            
-                                                            if (a >= 0) {
-                                                                $("#mostBotonReservar").html(`
-                                                                   <button class="btn btn-success">Reservar</button>
-                                                                `);
-                                                                a++;
-                                                            }
-                                                        });
-                                                });
-
-                                        } else {
-                                            Swal.fire({
-                                                type: 'error',
-                                                //title: 'Ups...',
-                                                text: 'Este turno ya está registrado en tu reserva!',
-                                            })
-                                        }
-                                    } else {
-                                        alert("No queda la cantidad de tickets ingresados para este horario");
-                                    }
-                                });
-                        } else {
-
-                           alert("Asegurese ingresar un numero");
-                                    }
-                                }
-                            });
-                    } else {
-                        Swal.fire({
-                            type: 'warning',
-                            title: 'Iniciar sesión',
-                            text: 'Para añadir turnos a su reserva debe iniciar sesión',
-                            confirmButtonText: 'Iniciar sesión'
-                        }).then((result) => {
-                            if (result.value) {
-                                location.href = "/Auth/Login";
-                            }
+                    Swal
+                        .fire({
+                            title: "Ingrese numero de tickets",
+                            input: "number",
+                            showCancelButton: true,
+                            confirmButtonText: "Confirmar",
+                            cancelButtonText: "Cancelar",
                         })
-                        
-                        //Swal.fire(
-                        //    'Good job!',
-                        //    'You clicked the button!',
-                        //    'success'
-                        //)
-                        //alert("Para realizar una reserva asegurese de haber iniciado sesion");
-                    }
-                });
-            e.preventDefault();
-        });
+                        .then(resultado => {
+                            if (resultado.value) {
+                                let cantidad = resultado.value;
 
 
-        //***************************************************************MOSTRAR LA LISTA DE TURNOS DEL SERVICIO SELECCIONADO**************************************************
-        $("#BuscarTurnos").click(function (e) {
-            e.preventDefault();
+                                //INGRESAR CANTIDAD INICIO
 
-            
-            var fecha = $("#BuscarFecha").val();
-            var servicio = $("#BuscarServicio").val();
-            if (fecha != "" && $("#BuscarServicio").val() != "- Seleccione Servicio -")
-            {
-                $.ajax({ url: "/Admin/BuscarServicio?id=" + servicio + "&fecha=" + fecha })
-                    .done(function (respuesta) {
-                        $("#turnos").html(respuesta);//Mostrar la respuesta obtenida en la etiqueta con id selectCiudades
-                        //$("#precioSev").html(`<h4>  Precio : ${precios}</h4>`)
-                        $.ajax({ url: "/Admin/ObtenerNombreServicio?id=" + servicio })
-                            .done(function (respuesta) {
-                                $("#NombreServ").html(respuesta);//Mostrar la respuesta obtenida en la etiqueta con id selectCiudades
+                                if (cantidad != null && cantidad != "" && cantidad > 0) {
 
-                                $.ajax({ url: "/Admin/ObtenerPrecioServicio?id=" + servicio })
-                                    .done(function (respuesta) {
-                                        $("#Precio").html(respuesta);//Mostrar la respuesta obtenida en la etiqueta con id selectCiudades
-                                    });
-                            });
+                                    $.ajax({ url: "/Admin/ConsultarAforoDeTurno?idServicio=" + idservicio + "&Fecha=" + fecha + "&horaInicio=" + horainicio + "&horaFin=" + horafin })//*******Obtener el nombre del servicio*************
+                                        .success(function (respAforo) {
+
+                                            if (respAforo - cantidad >= 0) {
 
 
-                    });
+                                                if (listaTmp.length > 0) {
+                                                    for (var con = 0; con < listaTmp.length; con++) {
+                                                        objTmp = listaTmp[con];
+                                                        if (objTmp != null) {
+                                                            if (objTmp.idturno == idturno) { paso = 0; break; }
+                                                        }
+                                                    }
+                                                }
 
+                                                if (paso == 1) {
+                                                    $.ajax({ url: "/Admin/ObtenerNombreServicio?id=" + idservicio })//*******Obtener el nombre del servicio*************
+                                                        .success(function (respNom) {
+                                                            var nombreservicio = respNom;
+                                                            $.ajax({ url: "/Admin/ObtenerPrecioServicio?id=" + idservicio })//*******Obtener el precio del servicio*************
+                                                                .success(function (resp) {
+                                                                    var precio = resp;
+                                                                    var objServicio = {
+                                                                        "idturno": idturno,
+                                                                        "idservicio": idservicio,
+                                                                        "horainicio": horainicio,
+                                                                        "horafin": horafin,
+                                                                        "nombreservicio": nombreservicio,
+                                                                        "precio": precio,
+                                                                        "subtotal": precio * cantidad,
+                                                                        "cantidad": cantidad,
+                                                                        "fecha": fecha
+                                                                    };
+                                                                    listaTmp.push(objServicio);
+                                                                    LlenarGrilla();
 
+                                                                    Swal.fire({
+                                                                        type: 'success',
+                                                                        text: 'Tu turno se agregó con exito',
+                                                                    })
 
+                                                                    if (a >= 0) {
+                                                                        $("#mostBotonReservar").html(`
+                                                                       <button class="btn btn-success">Reservar</button>
+                                                                    `);
+                                                                        a++;
+                                                                    }
+                                                                });
+                                                        });
 
+                                                } else {
+                                                    Swal.fire({
+                                                        type: 'error',
+                                                        //title: 'Ups...',
+                                                        text: 'Este turno ya está registrado en tu reserva!',
+                                                    })
+                                                }
+                                            } else {
+                                                Swal.fire({
+                                                    type: 'warning',
+                                                    //title: 'Ups...',
+                                                    text: 'No queda la cantidad de tickets ingresados para este horario',
+                                                })
+                                            }
+                                        });
+                                } else {
 
+                                    Swal.fire({
+                                        type: 'error',
+                                        //title: 'Ups...',
+                                        text: 'Ingrese una cantidad de tickets mayor a cero',
+                                    })
+                                }
+                            }
+                        });
+                } else {
+                    Swal.fire({
+                        type: 'warning',
+                        title: 'Iniciar sesión',
+                        text: 'Para añadir turnos a su reserva debe iniciar sesión',
+                        confirmButtonText: 'Iniciar sesión'
+                    }).then((result) => {
+                        if (result.value) {
+                            location.href = "/Auth/Login";
+                        }
+                    })
 
-                //var precios = $this.data("precioser");
-                document.getElementById('formReserva').style.display = 'block';
-                //alert($this.attr("id"));//obtener el atributo id
-
-
-
-                $("#PreFecServ").html(`
-            <label class="control-label" style="font-size:30px;color:crimson">SERVICIO</label>
-            <br />
-            <label id="NombreServ" class="control-label" style="font-size:20px;color:black"></label>
-            <br />
-            <br />
-
-            <label class="control-label" style="font-size:30px;color:crimson">PRECIO</label>
-            <br />
-            <label id="Precio" class="control-label" style="font-size:20px;color:black"></label>
-            <br />
-            <br />
-
-            <label class="control-label" style="font-size:30px;color:crimson">FECHA</label>
-            <br />
-            <label id="Fecha" class="control-label" style="font-size:20px;color:black">${fecha}</label>
-            <br />
-            <br />
-            `);
-                
-            }
-            else
-            {
-                Swal.fire({
-                    type: 'error',
-                    title: 'Error...',
-                    text: 'Complete los campos fecha y servicio!',
-                }) 
-            }
-           
-            
-
-
-            
-            //Aun por evaluar
-
-
-        });
-
-
-
-        //***************************************************************QUITAR UN TURNO DE LA TABLA RESERVAS**************************************************
-        $("#tablaReserva").on("click", ".btnQuitar", function (e) {
-            //alert("hola");
-           
-            var $this = $(this);
-
-            var idturno = $this.data("idturno");
-            var indice = -1;
-            for (var con = 0; con < listaTmp.length; con++) {
-                objTmp = listaTmp[con];
-                if (objTmp != null) {
-                    if (objTmp.idturno == idturno) { indice = con; break; }
+                    //Swal.fire(
+                    //    'Good job!',
+                    //    'You clicked the button!',
+                    //    'success'
+                    //)
+                    //alert("Para realizar una reserva asegurese de haber iniciado sesion");
                 }
-            }
+            });
+        e.preventDefault();
+    });
 
-            if (indice >= 0) {
-                //var precserv = $this.data("precioserv");
-                //total = parseFloat(total) - parseFloat(precserv);
-                //$("#mostTotal").html(`<input type="hidden" value="${total}" name="Total"/><h3>Total : ${total}</h3>`);
-                //$this.parents("tr").remove();
-                listaTmp.splice(indice, 1);
-                LlenarGrilla();
-            } else {
-                alert('No se encontró el elemento');
-            }
 
-            a--;
-            if (a == 0) {
-                $("#mostBotonReservar").html(`
+    //***************************************************************MOSTRAR LA LISTA DE TURNOS DEL SERVICIO SELECCIONADO**************************************************
+    $("#BuscarTurnos").click(function (e) {
+        e.preventDefault();
+
+
+        var fecha = $("#BuscarFecha").val();
+        var servicio = $("#BuscarServicio").val();
+        if (fecha != "" && $("#BuscarServicio").val() != "- Seleccione Servicio -") {
+            $.ajax({ url: "/Admin/BuscarServicio?id=" + servicio + "&fecha=" + fecha })
+                .done(function (respuesta) {
+                    $("#turnos").html(respuesta);//Mostrar la respuesta obtenida en la etiqueta con id selectCiudades
+                    //$("#precioSev").html(`<h4>  Precio : ${precios}</h4>`)
+                    $.ajax({ url: "/Admin/ObtenerNombreServicio?id=" + servicio })
+                        .done(function (respuesta) {
+                            $("#NombreServ").html(respuesta);//Mostrar la respuesta obtenida en la etiqueta con id selectCiudades
+
+                            $.ajax({ url: "/Admin/ObtenerPrecioServicio?id=" + servicio })
+                                .done(function (respuesta) {
+                                    $("#Precio").html(respuesta);//Mostrar la respuesta obtenida en la etiqueta con id selectCiudades
+                                });
+                        });
+
+
+                });
+
+
+
+
+
+
+            //var precios = $this.data("precioser");
+            document.getElementById('formReserva').style.display = 'block';
+            //alert($this.attr("id"));//obtener el atributo id
+
+
+
+            $("#PreFecServ").html(`
+                <label class="control-label" style="font-size:30px;color:crimson">SERVICIO</label>
+                <br />
+                <label id="NombreServ" class="control-label" style="font-size:20px;color:black"></label>
+                <br />
+                <br />
+
+                <label class="control-label" style="font-size:30px;color:crimson">PRECIO</label>
+                <br />
+                <label id="Precio" class="control-label" style="font-size:20px;color:black"></label>
+                <br />
+                <br />
+
+                <label class="control-label" style="font-size:30px;color:crimson">FECHA</label>
+                <br />
+                <label id="Fecha" class="control-label" style="font-size:20px;color:black">${fecha}</label>
+                <br />
+                <br />
                 `);
 
-            }
+        }
+        else {
+            Swal.fire({
+                type: 'error',
+                title: 'Error...',
+                text: 'Complete los campos fecha y servicio!',
+            })
+        }
 
-            e.preventDefault();
-        });
-    </script>
-    <script>
-        $("#LiAdmSer").addClass("active");
-    </script>
+
+
+
+
+        //Aun por evaluar
+
+
+    });
+
+
+
+    //***************************************************************QUITAR UN TURNO DE LA TABLA RESERVAS**************************************************
+    $("#tablaReserva").on("click", ".btnQuitar", function (e) {
+        //alert("hola");
+
+        var $this = $(this);
+
+        var idturno = $this.data("idturno");
+        var indice = -1;
+        for (var con = 0; con < listaTmp.length; con++) {
+            objTmp = listaTmp[con];
+            if (objTmp != null) {
+                if (objTmp.idturno == idturno) { indice = con; break; }
+            }
+        }
+
+        if (indice >= 0) {
+            //var precserv = $this.data("precioserv");
+            //total = parseFloat(total) - parseFloat(precserv);
+            //$("#mostTotal").html(`<input type="hidden" value="${total}" name="Total"/><h3>Total : ${total}</h3>`);
+            //$this.parents("tr").remove();
+            listaTmp.splice(indice, 1);
+            LlenarGrilla();
+        } else {
+            alert('No se encontró el elemento');
+        }
+
+        a--;
+        if (a == 0) {
+            $("#mostBotonReservar").html(`
+                    `);
+
+        }
+
+        e.preventDefault();
+    });
+</script>
+<script>
+    $("#LiAdmSer").addClass("active");
+</script>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

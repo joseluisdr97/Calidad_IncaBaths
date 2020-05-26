@@ -1,6 +1,85 @@
 ﻿<!DOCTYPE HTML>
 <html>
+
 <head>
+
+    <style>
+
+        body {
+            overflow-x: hidden;
+        }
+
+        .footer_widget_area {
+            background: #181818;
+            padding: 100px 0px;
+        }
+
+        .f_w_title {
+            padding-bottom: 55px;
+        }
+
+        .copy_right_area {
+            background: #121212;
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .f_w_title h4 {
+            font-size: 18px;
+            font-family: "Cantata One", serif;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .about_widget p {
+            color: #fff;
+            font-size: 14px;
+            line-height: 26px;
+            font-family: "Open Sans", sans-serif;
+            padding-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .copy_right_area .pull-left h5 {
+            color: #fff;
+            line-height: 80px;
+            font-family: 14px;
+            font-family: "Open Sans", sans-serif;
+        }
+
+        .contact_widget ul li a {
+            position: relative;
+            color: #fff;
+            font-size: 14px;
+            line-height: 28px;
+            font-family: "Open Sans", sans-serif;
+        }
+
+        .contact_widget ul {
+            padding-left: 30px;
+        }
+
+        .about_widget ul li a {
+            background: #fff;
+            color: #3b5998;
+            font-size: 30px;
+            padding: 5px;
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 50%;
+        }
+    </style>
+
     <title>IncaBaths</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -34,7 +113,7 @@
     <script src="~/plantillaAdmin/js/chartinator.js"></script>
     <script src="~/plantillaAdmin/js/skycons.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <!--//skycons-icons-->
     <link rel="shortcut icon" href="~/PlantillaAdmin/Icono.ico" />
 </head>
@@ -48,12 +127,10 @@
                         <div class="logo-name">
                             <a href="/Admin/Index">
                                 @*<h3>IncaBhats</h3>*@
-
                                 <img id="logo" src="~/PlantillaAdmin/images/CTBInca.PNG" alt="Logo" />
                             </a>
                         </div>
                         <!--search-box-->
-
                     </div>
                     <div class="header-right">
                         <div class="profile_details_left">
@@ -111,10 +188,7 @@
                     </div>
                 </div>
             </div>
-            <!--copy rights start here-->
-            <div class="copyrights footer-bottom">
-                <p>© 2019 IncaBHATS. Todos los derechos reservados</p>
-            </div>
+
             <!--COPY rights end here-->
         </div>
         <!--slider menu-->
@@ -128,7 +202,6 @@
             <br /><br /><br />
             <br />
             <br /><br />
-
             <div class="profile_img">
                 <span class="prfil-img"><img src="@Session["UsuarioPerfil"]" style="width:50px;height:50px" class="img-circle" /></span>
                 <div class="user-name">
@@ -143,7 +216,6 @@
                     <li>
                         <a href="/Admin/Index" id="Rep"><i class="glyphicon glyphicon-indent-right pull-left"></i><span>Reportes</span></a>
                     </li>
-
                     <li>
                         <a href="/Usuario/Index" id="Usu"><i class="fa fa-user pull-left"></i><span>Usuarios</span></a>
                     </li>
@@ -151,8 +223,8 @@
                         <a href="/Servicio/Index" id="Ser"><i class="fa fa-bed fa-pull-left"></i><span>Servicios</span></a>
                     </li>
                     @*<li>
-                        <a href="/ModoPago/Index"><i class="fa fa-credit-card-alt fa-pull-left"></i><span>Modo de pago</span></a>
-                    </li>*@
+                            <a href="/ModoPago/Index"><i class="fa fa-credit-card-alt fa-pull-left"></i><span>Modo de pago</span></a>
+                        </li>*@
                     <li>
                         <a href="/Reserva/Index" id="Res"><i class="fa fa-registered fa-pull-left"></i><span>Reservas</span></a>
                     </li>
@@ -161,10 +233,63 @@
         </div>
         <div class="clearfix"> </div>
     </div>
+    <div class="footer_widget_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <aside class="f_widget about_widget">
+                        <div class="f_w_title">
+                           
+                           
+                            <h4>SOBRE INCABATHS</h4>
+                        </div>
+                        <p>INCABATHS es el servicio de compras de reservas por via internet, en el cual podras acceder lo diversos servicios que cuenta. Esta pagina se realizo en un esfuerzo conjunto por mejorar la calidad del serivicio y sobre todo brindar mayores beneficios a todos los usuarios. </p>
+                        <ul>
+                            <li><a href="https://www.facebook.com/OFICIALCTBI/"><i class="fa fa-facebook"></i></a></li>
+
+                        </ul>
+                    </aside>
+                </div>
+                <div class="col-md-6">
+                    <aside class="f_widget contact_widget">
+                        <div class="f_w_title">
+                         
+                            <h4>CONTACTANOS</h4>
+                        </div>
+                        <ul>
+
+                            <li><a><i class="fa fa-phone"></i>+(076) 348385</a></li>
+
+                            <li>
+                                <a>
+                                    <i class="fa fa-map-marker"></i>Av. Atahualpa s/n-Plaza de Armas    06004
+                                    <br /> Los Baños Del Inca, Cajamarca, Peru
+                                </a>
+                            </li>
+                        </ul>
+                    </aside>
+                </div>
+
+            </div>
+            <br />
+            <br />
+            <div class="copy_right_area">
+                <div class="container">
+                    <div class="pull-left">
+                        <h5>
+                            <p>
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> Todos los derechos reservados | INCABATHS
+                                <script />
+                            </p>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
     <!--slide bar menu end here-->
-
-
-
 
 
     <script>

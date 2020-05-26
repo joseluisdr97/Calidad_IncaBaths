@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Servicios</h2>
+<h2 id="EstoyEnServicioIndex">Servicios</h2>
 
 <div class="container">
     <label class="control-label">Ingrese Nombre :</label>
@@ -16,7 +16,7 @@
             </div>
         </form>
         <div class="col-sm-5">
-            <a class="btn btn-primary pull-right" href="/Servicio/Crear"><span class="glyphicon glyphicon-plus"></span> Crear</a>
+            <a class="btn btn-primary pull-right" id="btnCrear" href="/Servicio/Crear"><span class="glyphicon glyphicon-plus"></span> Crear</a>
         </div>
         <div class="col-sm-1"></div>
     </div>
@@ -45,7 +45,7 @@
                             <td>@item.Aforo</td>
                             <td>
                                 <a class="btn btn-info" href="/Servicio/Editar?id=@item.IdServicio"><span class="glyphicon glyphicon-pencil"></span> Editar</a>
-                                <a class="btn btn-danger" href="/Servicio/Eliminar?id=@item.IdServicio"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+                                <a class="btn btn-danger eliminar" href="/Servicio/Eliminar?id=@item.IdServicio" data-idTurnoo="@item.IdServicio" data-nombre="@item.IdServicio"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
                                 <a class="btn btn-warning" href="/Turno/Index?id=@item.IdServicio"><span class="glyphicon glyphicon-hourglass"></span> Turnos</a>
                             </td>
                         </tr>
@@ -82,6 +82,32 @@
         }
     });
 
+
+    $("body").on("click", ".eliminar", function (e) {
+        e.preventDefault();
+        var $this = $(this);
+
+
+        var valor = $this.data("idTurnoo");
+        var fec = $this.data("nombre");
+
+
+        //alert($this.attr("id"));//obtener el atributo id
+        Swal.fire({
+            title: '¿Está seguro?',
+            text: "No podras revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar!'
+        }).then((result) => {
+            if (result.value) {
+                location.href = "/Servicio/Eliminar?id=" + fec;
+
+            }
+        })
+    });
 </script>
 <script>
     $(document).ready(function () {

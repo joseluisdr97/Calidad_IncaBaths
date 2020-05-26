@@ -1,5 +1,6 @@
 ﻿using PROYECTO_INCABATHS.Clases;
 using PROYECTO_INCABATHS.DB;
+using PROYECTO_INCABATHS.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,32 +14,47 @@ namespace PROYECTO_INCABATHS.Controllers
     //[Authorize]
     public class AdminController : Controller
     {
-        private AppConexionDB conexion = new AppConexionDB();
+        private readonly IAdminService service;
+        private readonly IServiceSession sessionService;
+        public AdminController(IAdminService service, IServiceSession sessionService)
+        {
+            this.service = service;
+            this.sessionService = sessionService;
+        }
         // GET: Admin
         [Authorize]
         public ActionResult Index()
         {
+
+            if (sessionService.BuscarNombreUsuarioSession() == null || sessionService.BuscarNombreUsuarioSession() == "") { return RedirectToAction("Index", "Error"); }
+            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+
+                int idUsuario = sessionService.BuscarIdUsuarioSession();
+            var usuario = service.ObtenerListaUsuarios().Where(u => u.IdUsuario == idUsuario).First();
+            sessionService.GuardarDatosUsuarioLogueado(usuario);
+
             var fecha = DateTime.Now.Date;
-            var beginDateTime = fecha.Date;
-            var endDateTime = fecha.Date.AddDays(1);
+                var beginDateTime = fecha.Date;
+                var endDateTime = fecha.Date.AddDays(1);
 
                 decimal suma = 0;
-        
-            var ContGanancias = conexion.Reservas.Count(a => a.Fecha >= beginDateTime && a.Fecha < endDateTime);
-            if (ContGanancias > 0)
-            {
-                var Ganancias = conexion.Reservas.Where(a => a.Fecha >= beginDateTime && a.Fecha < endDateTime).ToList();
-                for (int i = 0; i < ContGanancias; i++)
+
+                var ContGanancias = service.ObtenerListReservas().Count(a => a.Fecha >= beginDateTime && a.Fecha < endDateTime && a.Activo_Inactivo==true);
+                if (ContGanancias > 0)
                 {
-                    suma = suma + Ganancias[i].Total;
+                    var Ganancias = service.ObtenerListReservas().Where(a => a.Fecha >= beginDateTime && a.Fecha < endDateTime && a.Activo_Inactivo == true).ToList();
+                    for (int i = 0; i < ContGanancias; i++)
+                    {
+                        suma = suma + Ganancias[i].Total;
+                    }
+                    ViewBag.GanaciasDelDia = suma;
                 }
-                ViewBag.GanaciasDelDia = suma;
-            }
-            else
-            {
-                ViewBag.GanaciasDelDia = 0;
-            }
-            return View();
+                else
+                {
+                    ViewBag.GanaciasDelDia = 0;
+                }
+                return View();
+
         }
         [Authorize]
         public decimal CalcularGanancia(DateTime fecha1, DateTime fecha2)
@@ -46,10 +62,10 @@ namespace PROYECTO_INCABATHS.Controllers
             var fechainicio = fecha1.Date;
             var fechafinal = fecha2.Date.AddDays(1);
             decimal suma = 0;
-            var ContGanancias = conexion.Reservas.Count(a => a.Fecha >= fechainicio && a.Fecha < fechafinal);
+            var ContGanancias = service.ObtenerListReservas().Count(a => a.Fecha >= fechainicio && a.Fecha < fechafinal);
             if (ContGanancias > 0)
             {
-                var Ganancias = conexion.Reservas.Where(a => a.Fecha >= fechainicio && a.Fecha < fechafinal).ToList();
+                var Ganancias = service.ObtenerListReservas().Where(a => a.Fecha >= fechainicio && a.Fecha < fechafinal).ToList();
                 for (int i = 0; i < ContGanancias; i++)
                 {
                     suma = suma + Ganancias[i].Total;
@@ -61,56 +77,66 @@ namespace PROYECTO_INCABATHS.Controllers
         }
         public ActionResult Prueba()
         {
-            return View();
+            var nombre = sessionService.BuscarNombreUsuarioSession();
+            if ( nombre!= null && nombre!="" )
+            {
+                int idUsuario = sessionService.BuscarIdUsuarioSession();
+                var usuario = service.ObtenerListaUsuarios().Where(u => u.IdUsuario == idUsuario).First();
+                sessionService.GuardarDatosUsuarioLogueado(usuario);
+                return View(true);
+            }
+            return View(false);
         }
 
         [HttpGet]
         public ActionResult Crear()
         {
-            ViewBag.TipoUsuarios = conexion.TipoUsuarios.ToList();
-            //ViewBag.Usuario = con.Usuarios.ToList();
+            ViewBag.TipoUsuarios = service.ObtenerListaTipoUsuarios().ToList();
             return View(new Usuario());
         }
         [HttpGet]
 
         public ActionResult Servicio()
         {
-            ViewBag.Servicios = conexion.Servicios.ToList();
+            ViewBag.Servicios = service.ObtenerListaServicios().Where(a=>a.Activo_Inactivo==true).ToList();
             return View();
         }
         [Authorize]
         public ActionResult Servicio1()
         {
-            ViewBag.Servicios = conexion.Servicios.ToList();
+            ViewBag.Servicios = service.ObtenerListaServicios().Where(a=>a.Activo_Inactivo==true).ToList();
             return View();
         }
 
         [HttpGet]
-        public ActionResult BuscarServicio(int id,DateTime fecha)
-
+        public ActionResult BuscarServicio(int? id,DateTime fecha)
         {
-            var datos = conexion.Turnos.Where(s => s.IdServicio == id && s.Fecha==fecha).ToList();
+            if (id == null || id == 0) { return RedirectToAction("Index", "Error"); };
+            var datos = service.ObtenerListaTurnos().Where(s => s.IdServicio == id && s.Fecha==fecha && s.Activo_Inactivo==true).ToList();
 
             return View(datos);
         }
 
-        public decimal ObtenerPrecioServicio(int id)
+        public decimal ObtenerPrecioServicio(int? id)
         {
-            var Dbprecio = conexion.Servicios.Where(p => p.IdServicio == id).First();
+            if (id == null || id == 0) return 0;
+            var Dbprecio = service.ObtenerListaServicios().Where(p => p.IdServicio == id).First();
             var precio = Dbprecio.Precio;
             return precio;
         }
-        public string ObtenerNombreServicio(int id)
+        public string ObtenerNombreServicio(int? id)
         {
-            var Dbprecio = conexion.Servicios.Where(p => p.IdServicio == id).First();
+            if (id == null || id == 0) return "";
+            var Dbprecio = service.ObtenerListaServicios().Where(p => p.IdServicio == id).First();
             var nombre = Dbprecio.Nombre;
             return nombre;
         }
         //POR CORREGIR
-        public int ConsultarAforoDeTurno(DateTime Fecha,int idServicio,TimeSpan horaInicio, TimeSpan horaFin)
+        public int ConsultarAforoDeTurno(DateTime Fecha,int? idServicio,TimeSpan horaInicio, TimeSpan horaFin)
         {
-            var DBServicio = conexion.Servicios.Where(a => a.IdServicio == idServicio).First();
-            var DbTurnosOcupados = conexion.Turnos.Count(t => t.Fecha == Fecha & t.IdServicio == idServicio & t.HoraInicio==horaInicio & t.HoraFin == horaFin);
+            if (idServicio == null || idServicio == 0) return 0;
+            var DBServicio = service.ObtenerListaServicios().Where(a => a.IdServicio == idServicio).First();
+            var DbTurnosOcupados = service.ObtenerListaTurnos().Count(t => t.Fecha == Fecha & t.IdServicio == idServicio & t.HoraInicio==horaInicio & t.HoraFin == horaFin);
             var calcular = DBServicio.Aforo - DbTurnosOcupados;
             return calcular;
         }
@@ -128,14 +154,15 @@ namespace PROYECTO_INCABATHS.Controllers
             validar(usuario, RepitaPassword);
             if (ModelState.IsValid == true)
             {
-                conexion.Usuarios.Add(usuario);
-                conexion.SaveChanges();
-                return RedirectToAction("Login","Auth");
+                service.CrearUsuario(usuario);
+                int valor = 1;
+                return RedirectToAction("Login","Auth", new { msg = valor });
             }
-            ViewBag.TipoUsuarios = conexion.TipoUsuarios.ToList();
+            ViewBag.TipoUsuarios = service.ObtenerListaTipoUsuarios().ToList();
             return View(usuario);
         }
 
+        private AppConexionDB conexion = new AppConexionDB();
         public void validar(Usuario usuario, string RepitaPassword)
         {
 
