@@ -44,7 +44,7 @@
                                 </div>
                                 <div>
                                     <label class="control-label">Celular :</label>
-                                    <input class="form-control" min="9" type="text" pattern="^[9|8|7|6]\d{8}$" title="Debe empezar con 9" name="Celular" value="@Model.Celular" />
+                                    <input class="form-control" min="9" type="text" @*pattern="^[9|8|7|6]\d{8}$" title="Debe empezar con 9"*@ name="Celular" value="@Model.Celular" />
                                     @Html.ValidationMessage("Celular")
                                 </div>
                                 <div>

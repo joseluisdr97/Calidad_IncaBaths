@@ -34,6 +34,10 @@ namespace PROYECTO_INCABATHS.Servicios
             reserva.IdModoPago = 1;
             reserva.Fecha = DateTime.Now;
             reserva.Activo_Inactivo = true;
+            for (int i = 0; i < reserva.DetalleReservas.Count; i++)
+            {
+                reserva.DetalleReservas[i].Activo_Inactivo = true;
+            }
             conexion.Reservas.Add(reserva);
             conexion.SaveChanges();
         }

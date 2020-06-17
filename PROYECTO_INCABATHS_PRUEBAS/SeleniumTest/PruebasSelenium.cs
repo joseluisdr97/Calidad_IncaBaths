@@ -1,12 +1,14 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
+using PROYECTO_INCABATHS.DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using OpenQA.Selenium.Support.UI;
 
 namespace PROYECTO_INCABATHS_PRUEBAS.SeleniumTest
 {
@@ -17,7 +19,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.SeleniumTest
         [Test]
         public void VerificarQueNoIngresoLogin()
         {
-            IWebDriver navegador = new ChromeDriver();
+            IWebDriver navegador = new FirefoxDriver();
 
             navegador.Url = "http://localhost:56854/Auth/Login";
             Thread.Sleep(2000);
@@ -37,57 +39,57 @@ namespace PROYECTO_INCABATHS_PRUEBAS.SeleniumTest
         [Test]
         public void VerificarQueIngresoLoginUsuarioAdmin()
         {
-            IWebDriver chrome = new ChromeDriver();
+            IWebDriver navegador = new FirefoxDriver();
 
-            chrome.Url = "http://localhost:56854/Auth/Login";
+            navegador.Url = "http://localhost:56854/Auth/Login";
             Thread.Sleep(2000);
 
-            var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
+            var input1Busqueda = navegador.FindElement(By.CssSelector("#correo"));
             input1Busqueda.SendKeys("admin@gmail.com");
-            var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
+            var input2Busqueda = navegador.FindElement(By.CssSelector("#contraseña"));
             input2Busqueda.SendKeys("admin");
 
-            var boton = chrome.FindElement(By.CssSelector("#ingresar"));
+            var boton = navegador.FindElement(By.CssSelector("#ingresar"));
             boton.Click();
             Thread.Sleep(2000);
-            var buscarId = chrome.FindElement(By.CssSelector("#EstoyEnIdexAdmin"));
+            var buscarId = navegador.FindElement(By.CssSelector("#EstoyEnIdexAdmin"));
 
             Assert.IsNotNull(buscarId);
-            chrome.Close();
+            navegador.Close();
         }
         [Test]
         public void VerificarQueIngresoLoginUsuarioCliente()
         {
-            IWebDriver chrome = new ChromeDriver();
+            IWebDriver navegador = new FirefoxDriver();
 
-            chrome.Url = "http://localhost:56854/Auth/Login";
+            navegador.Url = "http://localhost:56854/Auth/Login";
                         Thread.Sleep(2000);
 
-            var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
+            var input1Busqueda = navegador.FindElement(By.CssSelector("#correo"));
             input1Busqueda.SendKeys("jose@gmail.com");
-            var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
+            var input2Busqueda = navegador.FindElement(By.CssSelector("#contraseña"));
             input2Busqueda.SendKeys("1234");
 
-            var boton = chrome.FindElement(By.CssSelector("#ingresar"));
+            var boton = navegador.FindElement(By.CssSelector("#ingresar"));
             boton.Click();
             Thread.Sleep(2000);
-            var buscarId = chrome.FindElement(By.CssSelector("#EstoyEnServicioCliente"));
+            var buscarId = navegador.FindElement(By.CssSelector("#EstoyEnServicioCliente"));
 
             Assert.IsNotNull(buscarId);
-            chrome.Close();
+            navegador.Close();
         }
         [Test]
         public void IngresoAPaginaLogin()
         {
-            IWebDriver chrome = new ChromeDriver();
-            chrome.Url = "http://localhost:56854/Auth/Login";
-            Assert.AreEqual("http://localhost:56854/Auth/Login", chrome.Url);
-            chrome.Close();
+            IWebDriver navegador = new FirefoxDriver();
+            navegador.Url = "http://localhost:56854/Auth/Login";
+            Assert.AreEqual("http://localhost:56854/Auth/Login", navegador.Url);
+            navegador.Close();
         }
         [Test]
         public void RedireccionarACrearCuentaUsuario()
         {
-            IWebDriver chrome = new ChromeDriver();
+            IWebDriver chrome = new FirefoxDriver();
 
             chrome.Url = "http://localhost:56854/Auth/Login";
             var boton = chrome.FindElement(By.CssSelector("#NoTegoCuenta"));
@@ -101,7 +103,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.SeleniumTest
         [Test]
         public void IngresoCorrectoAdminServicioIndex()
         {
-            IWebDriver chrome = new ChromeDriver();
+            IWebDriver chrome = new FirefoxDriver();
 
             chrome.Url = "http://localhost:56854/Auth/Login";
 
@@ -120,7 +122,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.SeleniumTest
         [Test]
         public void IngresoCorrectoAdminUsuarioIndex()
         {
-            IWebDriver chrome = new ChromeDriver();
+            IWebDriver chrome = new FirefoxDriver();
 
             chrome.Url = "http://localhost:56854/Auth/Login";
 
@@ -139,7 +141,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.SeleniumTest
         [Test]
         public void IngresoCorrectoAdminReservaIndex()
         {
-            IWebDriver chrome = new ChromeDriver();
+            IWebDriver chrome = new FirefoxDriver();
 
             chrome.Url = "http://localhost:56854/Auth/Login";
 
@@ -149,7 +151,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.SeleniumTest
             input2Busqueda.SendKeys("admin");
 
             chrome.FindElement(By.CssSelector("#ingresar")).Click();
-            chrome.FindElement(By.CssSelector("#Res")).Click();
+            chrome.Url = "http://localhost:56854/Reserva/Index";
             var buscarId = chrome.FindElement(By.CssSelector("#EstoyEnReservaIndex"));
 
             Assert.IsNotNull(buscarId);
@@ -159,7 +161,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.SeleniumTest
         [Test]
         public void CrearServicioConDatosNullServicioCrear()
         {
-            IWebDriver chrome = new ChromeDriver();
+            IWebDriver chrome = new FirefoxDriver();
 
             chrome.Url = "http://localhost:56854/Auth/Login";
 
@@ -185,7 +187,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.SeleniumTest
         [Test]
         public void CrearServicio_ServicioCrear()
         {
-            IWebDriver chrome = new ChromeDriver();
+            IWebDriver chrome = new FirefoxDriver();
 
             chrome.Url = "http://localhost:56854/Auth/Login";
 
@@ -211,7 +213,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.SeleniumTest
         [Test]
         public void EditarServicioValoresNull_ServicioEditar()
         {
-            IWebDriver chrome = new ChromeDriver();
+            IWebDriver chrome = new FirefoxDriver();
 
             chrome.Url = "http://localhost:56854/Auth/Login";
 
@@ -239,7 +241,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.SeleniumTest
         [Test]
         public void EditarServicio_ServicioEditar()
         {
-            IWebDriver chrome = new ChromeDriver();
+            IWebDriver chrome = new FirefoxDriver();
 
             chrome.Url = "http://localhost:56854/Auth/Login";
 
@@ -261,9 +263,9 @@ namespace PROYECTO_INCABATHS_PRUEBAS.SeleniumTest
             chrome.Close();
         }
         [Test]
-        public void CrearTurnoConDatosNull_TurnoCrear()
+        public void IngresoCorrecto_TurnoCrear()
         {
-            IWebDriver chrome = new ChromeDriver();
+            IWebDriver chrome = new FirefoxDriver();
 
             chrome.Url = "http://localhost:56854/Auth/Login";
 
@@ -279,52 +281,630 @@ namespace PROYECTO_INCABATHS_PRUEBAS.SeleniumTest
             chrome.FindElement(By.CssSelector("#btnGuardar")).Click();
 
             var buscarId = chrome.FindElement(By.CssSelector("#EstoyEnTurnoCrear"));
+            Assert.IsNotNull(buscarId);
+            chrome.Close();
+        }
+        //POR ARREGLAR - ERROR FECHA
+        [Test]
+        public void CrearTurnoConDatosInvalidos_TurnoCrear()
+        {
+            IWebDriver chrome = new FirefoxDriver();
+
+            chrome.Url = "http://localhost:56854/Auth/Login";
+
+            var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("admin@gmail.com");
+            var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("admin");
+
+            chrome.FindElement(By.CssSelector("#ingresar")).Click();
+            chrome.Url = "http://localhost:56854/Servicio/Index";
+            chrome.Url = "http://localhost:56854/Turno/Index?id=7";
+            chrome.Url = "http://localhost:56854/Turno/Crear?id=7";
+            var inputs = chrome.FindElement(By.CssSelector("#inputs"));
+            inputs.FindElements(By.CssSelector("input"))[0].SendKeys("");
+            inputs.FindElements(By.CssSelector("input"))[1].SendKeys("09:00:00");
+            inputs.FindElements(By.CssSelector("input"))[2].SendKeys("09:00:00");
+           chrome.FindElement(By.CssSelector("#btnGuardar")).Click();
+            var buscarId = chrome.FindElement(By.CssSelector("#EstoyEnTurnoCrear"));
 
             Assert.IsNotNull(buscarId);
             chrome.Close();
         }
-        //[Test]
-        //public void CrearTurno_TurnoCrear()
-        //{
-        //    IWebDriver chrome = new ChromeDriver();
+        [Test]
+        public void CrearTurnoConDatosValidos_TurnoCrear()
+        {
+            IWebDriver chrome = new FirefoxDriver();
 
-        //    chrome.Url = "http://localhost:56854/Auth/Login";
+            chrome.Url = "http://localhost:56854/Auth/Login";
 
-        //    var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
-        //    input1Busqueda.SendKeys("admin@gmail.com");
-        //    var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
-        //    input2Busqueda.SendKeys("admin");
+            var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("admin@gmail.com");
+            var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("admin");
 
-        //    chrome.FindElement(By.CssSelector("#ingresar")).Click();
-        //    chrome.FindElement(By.CssSelector("#Ser")).Click();
-        //    chrome.Url = "http://localhost:56854/Turno/Index?id=7";
-        //    chrome.Url = "http://localhost:56854/Turno/Crear?id=7";
-        //    var inputs = chrome.FindElement(By.CssSelector("#inputs"));
-        //    inputs.FindElements(By.CssSelector("input"))[0].SendKeys("11/02/2005");
-        //    inputs.FindElements(By.CssSelector("input"))[1].SendKeys("09:00:00");
-        //    Thread.Sleep(5000);
-        //    inputs.FindElements(By.CssSelector("input"))[2].SendKeys("11:00:00");
+            chrome.FindElement(By.CssSelector("#ingresar")).Click();
+            chrome.Url = "http://localhost:56854/Servicio/Index";
+            chrome.Url = "http://localhost:56854/Turno/Index?id=7";
+            chrome.Url = "http://localhost:56854/Turno/Crear?id=7";
+            var inputs = chrome.FindElement(By.CssSelector("#inputs"));
+            inputs.FindElements(By.CssSelector("input"))[0].SendKeys("2021-05-05");
+            inputs.FindElements(By.CssSelector("input"))[1].SendKeys("09:00:00");
+            inputs.FindElements(By.CssSelector("input"))[2].SendKeys("10:00:00");
+            chrome.FindElement(By.CssSelector("#btnGuardar")).Click();
 
-        //    //chrome.FindElement(By.CssSelector("#btnGuardar")).Click();
+            var buscarId = chrome.FindElement(By.CssSelector("#EstoyEnTurnoIndex"));
 
-        //    //var buscarId = chrome.FindElement(By.CssSelector("#EstoyEnTurnoIndex"));
+            Assert.IsNotNull(buscarId);
+            chrome.Close();
+        }
+        [Test]
+        public void IngresoCorrectoAEditarTurno_EditarTurno()
+        {
+            IWebDriver chrome = new FirefoxDriver();
 
-        //    //Assert.IsNotNull(buscarId);
-        //    chrome.Close();
-        //}
-        //[Test]
-        //public void CrearCuentaUsuarioCliente()
-        //{
-        //    IWebDriver chrome = new ChromeDriver();
+            chrome.Url = "http://localhost:56854/Auth/Login";
 
-        //    chrome.Url = "http://localhost:56854/Admin/Crear";
-        //    var inputs = chrome.FindElement(By.CssSelector("#inputs"));
-        //    var input1=chrome.FindElements(By.CssSelector("input"))[1]; input1.SendKeys("Jose");
+            var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("admin@gmail.com");
+            var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("admin");
 
-        //    Thread.Sleep(2000);
+            chrome.FindElement(By.CssSelector("#ingresar")).Click();
+            chrome.Url = "http://localhost:56854/Servicio/Index";
+            chrome.Url = "http://localhost:56854/Turno/Index?id=7";
+            chrome.Url = "http://localhost:56854/Turno/Editar?id=7";
+  
+            var buscarId = chrome.FindElement(By.CssSelector("#EstoyEnEditarTurno"));
 
-        //    //Assert.IsNotNull(buscarId);
-        //    chrome.Close();
-        //}
+            Assert.IsNotNull(buscarId);
+            chrome.Close();
+        }
+        [Test]
+        public void EditarTurnoConDatosInvalidos_EditarTurno()
+        {
+            IWebDriver chrome = new FirefoxDriver();
+
+            chrome.Url = "http://localhost:56854/Auth/Login";
+
+            var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("admin@gmail.com");
+            var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("admin");
+
+            chrome.FindElement(By.CssSelector("#ingresar")).Click();
+            chrome.Url = "http://localhost:56854/Servicio/Index";
+            chrome.Url = "http://localhost:56854/Turno/Index?id=7";
+            chrome.Url = "http://localhost:56854/Turno/Editar?id=1016";
+            var inputs = chrome.FindElement(By.CssSelector("#inputs"));
+            inputs.FindElements(By.CssSelector("input"))[0].SendKeys("");
+            chrome.FindElement(By.CssSelector("#ConfirmarCambios")).Click();
+            var buscarId = chrome.FindElement(By.CssSelector("#EstoyEnEditarTurno"));
+
+            Assert.IsNotNull(buscarId);
+            chrome.Close();
+        }
+        [Test]
+        public void EditarTurnoConDatosValidos_EditarTurno()
+        {
+            IWebDriver chrome = new FirefoxDriver();
+
+            chrome.Url = "http://localhost:56854/Auth/Login";
+
+            var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("admin@gmail.com");
+            var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("admin");
+
+            chrome.FindElement(By.CssSelector("#ingresar")).Click();
+            chrome.Url = "http://localhost:56854/Servicio/Index";
+            chrome.Url = "http://localhost:56854/Turno/Index?id=7";
+            chrome.Url = "http://localhost:56854/Turno/Editar?id=1016";
+            var inputs = chrome.FindElement(By.CssSelector("#inputs"));
+            inputs.FindElements(By.CssSelector("input"))[0].SendKeys("2021-01-02");
+            chrome.FindElement(By.CssSelector("#ConfirmarCambios")).Click();
+            var buscarId = chrome.FindElement(By.CssSelector("#EstoyEnTurnoIndex"));
+
+            Assert.IsNotNull(buscarId);
+            //VOLVER A ESTADO NORMAL
+            chrome.Url = "http://localhost:56854/Turno/Editar?id=1016";
+            var inputss = chrome.FindElement(By.CssSelector("#inputs"));
+            inputss.FindElements(By.CssSelector("input"))[0].SendKeys("2021-01-01");
+            chrome.FindElement(By.CssSelector("#ConfirmarCambios")).Click();
+            chrome.Close();
+        }
+        [Test]
+        public void IngresoCorrectoAVerMiCuentaUsuario()
+        {
+            IWebDriver chrome = new FirefoxDriver();
+
+            chrome.Url = "http://localhost:56854/Auth/Login";
+
+            var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("jose@gmail.com");
+            var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("1234");
+            chrome.FindElement(By.CssSelector("#ingresar")).Click();
+            chrome.Url = "http://localhost:56854/Usuario/VerMiCuenta";
+        
+            var BuscarId=chrome.FindElement(By.CssSelector("#EstoyEnVerMiCuentaUsuarioCliente"));
+
+            Assert.IsNotNull(BuscarId);
+            chrome.Close();
+        }
+        [Test]
+        public void IngresoCorrectoAActualizarContraseñaUsuarioCliente()
+        {
+            IWebDriver chrome = new FirefoxDriver();
+
+            chrome.Url = "http://localhost:56854/Auth/Login";
+
+            var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("jose@gmail.com");
+            var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("1234");
+            chrome.FindElement(By.CssSelector("#ingresar")).Click();
+            chrome.Url = "http://localhost:56854/Usuario/VerMiCuenta";
+            chrome.FindElement(By.CssSelector("#LinkCambiarContraseñaUsuarioCliente")).Click();
+            var BuscarId = chrome.FindElement(By.CssSelector("#EstoyEnCambiarContraUsuarioCliente"));
+
+            Assert.IsNotNull(BuscarId);
+            chrome.Close();
+        }
+        [Test]
+        public void CambiarContraseñaUsuarioClienteConDatosInvalidos()
+        {
+            IWebDriver chrome = new FirefoxDriver();
+
+            chrome.Url = "http://localhost:56854/Auth/Login";
+
+            var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("jose@gmail.com");
+            var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("1234");
+            chrome.FindElement(By.CssSelector("#ingresar")).Click();
+            chrome.Url = "http://localhost:56854/Usuario/VerMiCuenta";
+
+            chrome.FindElement(By.CssSelector("#LinkCambiarContraseñaUsuarioCliente")).Click();
+            var inputs = chrome.FindElement(By.CssSelector("#inputs"));
+            inputs.FindElements(By.CssSelector("input"))[0].SendKeys("1234");
+            inputs.FindElements(By.CssSelector("input"))[1].SendKeys("12345");
+            inputs.FindElements(By.CssSelector("input"))[1].SendKeys("123456");
+
+            chrome.FindElement(By.CssSelector("#ConfirmarCambioContraUsuarioCliente")).Click();
+            var BuscarId = chrome.FindElement(By.CssSelector("#EstoyEnCambiarContraUsuarioCliente"));
+
+            Assert.IsNotNull(BuscarId);
+            chrome.Close();
+        }
+        [Test]
+        public void CambiarContraseñaUsuarioClienteConDatosValidos()
+        {
+            IWebDriver chrome = new FirefoxDriver();
+
+            chrome.Url = "http://localhost:56854/Auth/Login";
+
+            var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("jose@gmail.com");
+            var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("1234");
+            chrome.FindElement(By.CssSelector("#ingresar")).Click();
+            chrome.Url = "http://localhost:56854/Usuario/VerMiCuenta";
+
+            chrome.FindElement(By.CssSelector("#LinkCambiarContraseñaUsuarioCliente")).Click();
+            var inputs = chrome.FindElement(By.CssSelector("#inputs"));
+            inputs.FindElements(By.CssSelector("input"))[0].SendKeys("1234");
+            inputs.FindElements(By.CssSelector("input"))[1].SendKeys("12345");
+            inputs.FindElements(By.CssSelector("input"))[2].SendKeys("12345");
+
+            chrome.FindElement(By.CssSelector("#ConfirmarCambioContraUsuarioCliente")).Click();
+            var BuscarId = chrome.FindElement(By.CssSelector("#estoyenlogin"));
+
+            Assert.IsNotNull(BuscarId);
+
+            //REESTABLECER DATOS
+            chrome.FindElement(By.CssSelector("#correo")).Clear(); chrome.FindElement(By.CssSelector("#correo")).SendKeys("jose@gmail.com");
+            chrome.FindElement(By.CssSelector("#contraseña")).Clear(); chrome.FindElement(By.CssSelector("#contraseña")).SendKeys("12345");
+            chrome.FindElement(By.CssSelector("#ingresar")).Click();
+            chrome.Url = "http://localhost:56854/Usuario/CambiarContraUsuario";
+            var inputs1 = chrome.FindElement(By.CssSelector("#inputs"));
+            inputs1.FindElements(By.CssSelector("input"))[0].SendKeys("12345");
+            inputs1.FindElements(By.CssSelector("input"))[1].SendKeys("1234");
+            inputs1.FindElements(By.CssSelector("input"))[2].SendKeys("1234");
+            chrome.FindElement(By.CssSelector("#ConfirmarCambioContraUsuarioCliente")).Click();
+            chrome.Close();
+        }
+        [Test]
+        public void IngresoCorrectoAVerMiCuentaUsuarioAdmin()
+        {
+            IWebDriver chrome = new FirefoxDriver();
+
+            chrome.Url = "http://localhost:56854/Auth/Login";
+
+            var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("admin@gmail.com");
+            var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("admin");
+            chrome.FindElement(By.CssSelector("#ingresar")).Click();
+            chrome.Url = "http://localhost:56854/Usuario/VerMiCuentaAdmin";
+
+            var BuscarId = chrome.FindElement(By.CssSelector("#EstoyEnVerMiCuentaUsuarioAdmin"));
+
+            Assert.IsNotNull(BuscarId);
+            chrome.Close();
+        }
+        [Test]
+        public void IngresoCorrectoAActualizarContraseñaUsuarioAdmin()
+        {
+            IWebDriver chrome = new FirefoxDriver();
+
+            chrome.Url = "http://localhost:56854/Auth/Login";
+
+            var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("admin@gmail.com");
+            var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("admin");
+            chrome.FindElement(By.CssSelector("#ingresar")).Click();
+            chrome.Url = "http://localhost:56854/Usuario/VerMiCuentaAdmin";
+            chrome.FindElement(By.CssSelector("#LinkCambiarContraseñaUsuarioAdmin")).Click();
+            var BuscarId = chrome.FindElement(By.CssSelector("#EstoyEnCambiarContraUsuarioAdmin"));
+
+            Assert.IsNotNull(BuscarId);
+            chrome.Close();
+        }
+        [Test]
+        public void CambiarContraseñaUsuarioClienteConDatosInvalidosAdmin()
+        {
+            IWebDriver chrome = new FirefoxDriver();
+
+            chrome.Url = "http://localhost:56854/Auth/Login";
+
+            var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("admin@gmail.com");
+            var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("admin");
+            chrome.FindElement(By.CssSelector("#ingresar")).Click();
+            chrome.Url = "http://localhost:56854/Usuario/VerMiCuentaAdmin";
+
+            chrome.FindElement(By.CssSelector("#LinkCambiarContraseñaUsuarioAdmin")).Click();
+            var inputs = chrome.FindElement(By.CssSelector("#inputs"));
+            inputs.FindElements(By.CssSelector("input"))[0].SendKeys("admin");
+            inputs.FindElements(By.CssSelector("input"))[1].SendKeys("administrador");
+            inputs.FindElements(By.CssSelector("input"))[2].SendKeys("123456");
+
+            chrome.FindElement(By.CssSelector("#ConfirmarCambioContraUsuarioAdmin")).Click();
+            var BuscarId = chrome.FindElement(By.CssSelector("#EstoyEnCambiarContraUsuarioAdmin"));
+
+            Assert.IsNotNull(BuscarId);
+            chrome.Close();
+        }
+        [Test]
+        public void CambiarContraseñaUsuarioAdminConDatosValidos()
+        {
+            IWebDriver chrome = new FirefoxDriver();
+
+            chrome.Url = "http://localhost:56854/Auth/Login";
+
+            var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("admin@gmail.com");
+            var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("admin");
+            chrome.FindElement(By.CssSelector("#ingresar")).Click();
+            chrome.Url = "http://localhost:56854/Usuario/VerMiCuentaAdmin";
+
+            chrome.FindElement(By.CssSelector("#LinkCambiarContraseñaUsuarioAdmin")).Click();
+            var inputs = chrome.FindElement(By.CssSelector("#inputs"));
+            inputs.FindElements(By.CssSelector("input"))[0].SendKeys("admin");
+            inputs.FindElements(By.CssSelector("input"))[1].SendKeys("administrador");
+            inputs.FindElements(By.CssSelector("input"))[2].SendKeys("administrador");
+
+            chrome.FindElement(By.CssSelector("#ConfirmarCambioContraUsuarioAdmin")).Click();
+            var BuscarId = chrome.FindElement(By.CssSelector("#estoyenlogin"));
+
+            Assert.IsNotNull(BuscarId);
+
+            //REESTABLECER DATOS
+            chrome.FindElement(By.CssSelector("#correo")).Clear(); chrome.FindElement(By.CssSelector("#correo")).SendKeys("admin@gmail.com");
+            chrome.FindElement(By.CssSelector("#contraseña")).Clear(); chrome.FindElement(By.CssSelector("#contraseña")).SendKeys("administrador");
+            chrome.FindElement(By.CssSelector("#ingresar")).Click();
+            chrome.Url = "http://localhost:56854/Usuario/CambiarContraUsuarioAdmin";
+            var inputs1 = chrome.FindElement(By.CssSelector("#inputs"));
+            inputs1.FindElements(By.CssSelector("input"))[0].SendKeys("administrador");
+            inputs1.FindElements(By.CssSelector("input"))[1].SendKeys("admin");
+            inputs1.FindElements(By.CssSelector("input"))[2].SendKeys("admin");
+            chrome.FindElement(By.CssSelector("#ConfirmarCambioContraUsuarioAdmin")).Click();
+            chrome.Close();
+        }
+        [Test]
+        public void IngresoCorrectoAActualizarDatosUsuario()
+        {
+            IWebDriver chrome = new FirefoxDriver();
+
+            chrome.Url = "http://localhost:56854/Auth/Login";
+
+            var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("jose@gmail.com");
+            var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("1234");
+            chrome.FindElement(By.CssSelector("#ingresar")).Click();
+            chrome.Url = "http://localhost:56854/Usuario/VerMiCuenta";
+            chrome.FindElement(By.CssSelector("#LinkActualizarDatosUsuarioCliente")).Click();
+            var BuscarId = chrome.FindElement(By.CssSelector("#EstoyEnActualizarDatosUsuarioCliente"));
+
+            Assert.IsNotNull(BuscarId);
+            chrome.Close();
+        }
+        [Test]
+        public void ActualizarDatosUsuarioClienteConDatosInvalidos()
+        {
+            IWebDriver chrome = new FirefoxDriver();
+
+            chrome.Url = "http://localhost:56854/Auth/Login";
+
+            var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("jose@gmail.com");
+            var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("1234");
+            chrome.FindElement(By.CssSelector("#ingresar")).Click();
+            chrome.Url = "http://localhost:56854/Usuario/VerMiCuenta";
+
+            chrome.FindElement(By.CssSelector("#LinkActualizarDatosUsuarioCliente")).Click();
+            var inputs = chrome.FindElement(By.CssSelector("#inputs"));
+            inputs.FindElements(By.CssSelector("input"))[1].SendKeys("1111");
+            chrome.FindElement(By.CssSelector("#ConfirmarCambios")).Click();
+
+            var BuscarId = chrome.FindElement(By.CssSelector("#EstoyEnActualizarDatosUsuarioCliente"));
+
+            Assert.IsNotNull(BuscarId);
+            chrome.Close();
+        }
+        [Test]
+        public void ActualizarDatosUsuarioClienteConDatosValidos()
+        {
+            IWebDriver chrome = new FirefoxDriver();
+
+            chrome.Url = "http://localhost:56854/Auth/Login";
+
+            var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("jose@gmail.com");
+            var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("1234");
+            chrome.FindElement(By.CssSelector("#ingresar")).Click();
+            chrome.Url = "http://localhost:56854/Usuario/VerMiCuenta";
+
+            chrome.FindElement(By.CssSelector("#LinkActualizarDatosUsuarioCliente")).Click();
+            var inputs = chrome.FindElement(By.CssSelector("#inputs"));
+            inputs.FindElements(By.CssSelector("input"))[1].SendKeys("Jose Luis");
+            chrome.FindElement(By.CssSelector("#ConfirmarCambios")).Click();
+
+            var BuscarId = chrome.FindElement(By.CssSelector("#EstoyEnVerMiCuentaUsuarioCliente"));
+
+            Assert.IsNotNull(BuscarId);
+            chrome.Close();
+        }
+        [Test]
+        public void ActualizarDatosUsuarioAdminConDatosInvalidos()
+        {
+            IWebDriver chrome = new FirefoxDriver();
+
+            chrome.Url = "http://localhost:56854/Auth/Login";
+
+            var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("admin@gmail.com");
+            var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("admin");
+            chrome.FindElement(By.CssSelector("#ingresar")).Click();
+            chrome.Url = "http://localhost:56854/Usuario/VerMiCuentaAdmin";
+
+            chrome.FindElement(By.CssSelector("#LinkActualizarDatosUsuarioAdmin")).Click();
+            var inputs = chrome.FindElement(By.CssSelector("#inputs"));
+            inputs.FindElements(By.CssSelector("input"))[1].SendKeys("1111");
+            chrome.FindElement(By.CssSelector("#ConfirmarCambios")).Click();
+
+            var BuscarId = chrome.FindElement(By.CssSelector("#EstoyEnActualizarDatosUsuarioAdmin"));
+
+            Assert.IsNotNull(BuscarId);
+            chrome.Close();
+        }
+        [Test]
+        public void ActualizarDatosUsuarioAdminConDatosValidos()
+        {
+            IWebDriver chrome = new FirefoxDriver();
+
+            chrome.Url = "http://localhost:56854/Auth/Login";
+
+            var input1Busqueda = chrome.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("admin@gmail.com");
+            var input2Busqueda = chrome.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("admin");
+            chrome.FindElement(By.CssSelector("#ingresar")).Click();
+            chrome.Url = "http://localhost:56854/Usuario/VerMiCuentaAdmin";
+
+            chrome.FindElement(By.CssSelector("#LinkActualizarDatosUsuarioAdmin")).Click();
+            var inputs = chrome.FindElement(By.CssSelector("#inputs"));
+            inputs.FindElements(By.CssSelector("input"))[1].SendKeys("Jose Luis");
+            chrome.FindElement(By.CssSelector("#ConfirmarCambios")).Click();
+
+            var BuscarId = chrome.FindElement(By.CssSelector("#EstoyEnVerMiCuentaUsuarioAdmin"));
+
+            Assert.IsNotNull(BuscarId);
+            chrome.Close();
+        }
+        [Test]
+        public void BuscarTurnosEnReservaSinSeleccionarFecha_o_Servicio_Test()
+        {
+            IWebDriver navegador = new FirefoxDriver();
+
+            navegador.Url = "http://localhost:56854/Admin/Servicio";
+            navegador.FindElement(By.CssSelector("#BuscarTurnos")).Click();
+
+            var buscarClase=navegador.FindElements(By.CssSelector("div .swal2-container div .swal2-header div .swall2-error"));
+
+            Assert.IsNotNull(buscarClase);
+            navegador.Close();
+        }
+        [Test]
+        public void BuscarTurnosEnReservaIngresandoDatosCorrectos_Test()
+        {
+            IWebDriver navegador = new FirefoxDriver();
+           
+            navegador.Url = "http://localhost:56854/Admin/Servicio";
+            navegador.FindElement(By.CssSelector("#BuscarFecha")).SendKeys("2021-01-01");
+
+            IWebElement element = navegador.FindElement(By.Id("BuscarServicio")); 
+             SelectElement selectElement = new SelectElement(element);
+            selectElement.SelectByValue("7");
+
+            navegador.FindElement(By.CssSelector("#BuscarServicio")).Click();
+            navegador.FindElement(By.CssSelector("#BuscarTurnos")).Click();
+
+            var buscarId = navegador.FindElement(By.CssSelector("#NombreServ"));
+
+            Assert.IsNotNull(buscarId);
+            navegador.Close();
+        }
+        //POR HACER
+        [Test]
+        public void RealizarUnaReserva_SinHaberseLogueado_Test()
+        {
+            IWebDriver navegador = new FirefoxDriver();
+
+            navegador.Url = "http://localhost:56854/Admin/Servicio";
+            navegador.FindElement(By.CssSelector("#BuscarFecha")).SendKeys("2021-01-01");
+
+            IWebElement element = navegador.FindElement(By.Id("BuscarServicio"));
+            SelectElement selectElement = new SelectElement(element);
+            selectElement.SelectByValue("7");
+
+            navegador.FindElement(By.CssSelector("#BuscarTurnos")).Click();
+            var Etiqueta = navegador.FindElements(By.CssSelector("#turnos Table tbody tr"))[0];
+            Etiqueta.FindElement(By.CssSelector("a")).Click();
+
+            
+            navegador.FindElement(By.CssSelector(".swal2-confirm")).Click();
+
+            var buscarId = navegador.FindElement(By.CssSelector("#estoyenlogin"));
+
+            Assert.IsNotNull(buscarId);
+            navegador.Close();
+        }
+        [Test]
+        public void RealizarUnaReserva_UsuarioLogueado_Test()
+        {
+            IWebDriver navegador = new FirefoxDriver();
+
+            navegador.Url = "http://localhost:56854/Admin/Servicio";
+            navegador.FindElement(By.CssSelector("#BuscarFecha")).SendKeys("2021-01-01");
+
+            IWebElement element = navegador.FindElement(By.Id("BuscarServicio"));
+            SelectElement selectElement = new SelectElement(element);
+            selectElement.SelectByValue("7");
+
+            navegador.FindElement(By.CssSelector("#BuscarTurnos")).Click();
+            var Etiqueta = navegador.FindElements(By.CssSelector("#turnos Table tbody tr"))[0];
+            Etiqueta.FindElement(By.CssSelector("a")).Click();
+
+            navegador.FindElement(By.CssSelector(".swal2-confirm")).Click();
+
+            var input1Busqueda = navegador.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("jose@gmail.com");
+            var input2Busqueda = navegador.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("1234");
+            navegador.FindElement(By.CssSelector("#ingresar")).Click();
+
+            navegador.FindElement(By.CssSelector("#BuscarFecha")).SendKeys("2021-01-01");
+
+            IWebElement element1 = navegador.FindElement(By.Id("BuscarServicio"));
+            SelectElement selectElement1 = new SelectElement(element1);
+            selectElement1.SelectByValue("7");
+
+            navegador.FindElement(By.CssSelector("#BuscarTurnos")).Click();
+            var Etiqueta1 = navegador.FindElements(By.CssSelector("#turnos Table tbody tr"))[0];
+            Etiqueta1.FindElement(By.CssSelector("a")).Click();
+
+            navegador.FindElement(By.CssSelector(".swal2-input")).SendKeys("1");
+            navegador.FindElement(By.CssSelector(".swal2-confirm")).Click();
+            Thread.Sleep(2000);
+            navegador.FindElement(By.CssSelector(".swal2-confirm")).Click();
+            Thread.Sleep(2000);
+            navegador.FindElement(By.CssSelector("#btnReservar")).Click();
+
+            var buscarId = navegador.FindElement(By.CssSelector("#EstoyEnMisReservas"));
+
+            Assert.IsNotNull(buscarId);
+            navegador.Close();
+        }
+        [Test]
+        public void AñadirTurnosAMiReserva_Test()
+        {
+            IWebDriver navegador = new FirefoxDriver();
+
+            navegador.Url = "http://localhost:56854/Auth/Login";
+
+            var input1Busqueda = navegador.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("jose@gmail.com");
+            var input2Busqueda = navegador.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("1234");
+            navegador.FindElement(By.CssSelector("#ingresar")).Click();
+
+            navegador.FindElement(By.CssSelector("#BuscarFecha")).SendKeys("2021-01-01");
+
+            IWebElement element1 = navegador.FindElement(By.Id("BuscarServicio"));
+            SelectElement selectElement1 = new SelectElement(element1);
+            selectElement1.SelectByValue("7");
+
+            navegador.FindElement(By.CssSelector("#BuscarTurnos")).Click();
+            var Etiqueta1 = navegador.FindElements(By.CssSelector("#turnos Table tbody tr"))[0];
+            Etiqueta1.FindElement(By.CssSelector("a")).Click();
+
+            navegador.FindElement(By.CssSelector(".swal2-input")).SendKeys("1");
+            navegador.FindElement(By.CssSelector(".swal2-confirm")).Click();
+            Thread.Sleep(2000);
+            navegador.FindElement(By.CssSelector(".swal2-confirm")).Click();
+            Thread.Sleep(1000);
+
+            var buscarId = navegador.FindElement(By.CssSelector("#btnReservar"));
+
+            Assert.IsNotNull(buscarId);
+            navegador.Close();
+        }
+        [Test]
+        public void AñadirElMismoTurno2Veces_Test()
+        {
+            IWebDriver navegador = new FirefoxDriver();
+
+            navegador.Url = "http://localhost:56854/Auth/Login";
+
+            var input1Busqueda = navegador.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("jose@gmail.com");
+            var input2Busqueda = navegador.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("1234");
+            navegador.FindElement(By.CssSelector("#ingresar")).Click();
+
+            navegador.FindElement(By.CssSelector("#BuscarFecha")).SendKeys("2021-01-01");
+
+            IWebElement element1 = navegador.FindElement(By.Id("BuscarServicio"));
+            SelectElement selectElement1 = new SelectElement(element1);
+            selectElement1.SelectByValue("7");
+
+            navegador.FindElement(By.CssSelector("#BuscarTurnos")).Click();
+            var Etiqueta1 = navegador.FindElements(By.CssSelector("#turnos Table tbody tr"))[0];
+            Etiqueta1.FindElement(By.CssSelector("a")).Click();
+
+            navegador.FindElement(By.CssSelector(".swal2-input")).SendKeys("1");
+            navegador.FindElement(By.CssSelector(".swal2-confirm")).Click();
+            Thread.Sleep(2000);
+            navegador.FindElement(By.CssSelector(".swal2-confirm")).Click();
+            Thread.Sleep(1000);
+
+            Etiqueta1.FindElement(By.CssSelector("a")).Click();
+            navegador.FindElement(By.CssSelector(".swal2-input")).SendKeys("1");
+            navegador.FindElement(By.CssSelector(".swal2-confirm")).Click();
+            Thread.Sleep(1000);
+            var buscarClase=navegador.FindElements(By.CssSelector(".swall2-error"));
+
+            Assert.IsNotNull(buscarClase);
+            navegador.Close();
+        }
     }
 }

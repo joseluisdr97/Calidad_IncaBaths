@@ -58,6 +58,7 @@ namespace PROYECTO_INCABATHS.Servicios
             UsuarioDb.Apellido = usuario.Apellido;
             UsuarioDb.DNI = usuario.DNI;
             UsuarioDb.Direccion = usuario.Direccion;
+            UsuarioDb.Celular = usuario.Celular;
             conexion.SaveChanges();
         }
         public void CambiarContraUsuario(string NuevaPassword,Usuario UsuarioDb)

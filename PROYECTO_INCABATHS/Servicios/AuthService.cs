@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 
 namespace PROYECTO_INCABATHS.Servicios
 {
@@ -18,6 +19,10 @@ namespace PROYECTO_INCABATHS.Servicios
         public List<Usuario> ObtenerListaUsuarios()
         {
             return conexion.Usuarios.ToList();
+        }
+        public void GuardarCookie(string Correo)
+        {
+            FormsAuthentication.SetAuthCookie(Correo, false);
         }
     }
 }

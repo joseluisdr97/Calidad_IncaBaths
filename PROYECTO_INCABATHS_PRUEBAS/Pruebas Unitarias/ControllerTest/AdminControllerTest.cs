@@ -122,6 +122,37 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
         }
 
         [Test]
+        public void ConsultarAforoDeTurnoEnviandoServicioNull()
+        {
+            var fakerSession = new Mock<IServiceSession>();
+            var faker = new Mock<IAdminService>();
+            var controller = new AdminController(faker.Object, fakerSession.Object);
+            var view = controller.ConsultarAforoDeTurno(DateTime.Parse("18/05/2020 12:00:00 a.m."), null,new TimeSpan(0, 10, 30, 0),new TimeSpan(0, 10, 30, 0));
+
+            Assert.AreEqual(0, view);
+        }
+
+        //[Test]
+        //public void ConsultarAforoDeTurnoEnviandoDatosValidos()
+        //{
+        //    var fakerSession = new Mock<IServiceSession>();
+        //    var faker = new Mock<IAdminService>();
+        //    faker.Setup(a => a.ObtenerListaServicios()).Returns(new List<Servicio>
+        //    {
+        //        new Servicio{IdServicio=1, Nombre="Sauna", Precio=4, Aforo=10, Activo_Inactivo=true}
+        //    });
+        //    faker.Setup(a => a.ObtenerListaTurnos()).Returns(new List<Turno>
+        //    {
+        //        new Turno{IdTurno=1, IdServicio=1,Fecha=DateTime.Now.Date,HoraInicio=new TimeSpan(0, 10, 30,0),HoraFin=new TimeSpan(0, 10, 30,0),Activo_Inactivo=true},
+        //        new Turno{IdTurno=2, IdServicio=3,Fecha=DateTime.Parse("18/05/2020 12:00:00 a.m."),HoraInicio=new TimeSpan(0, 10, 30,0),HoraFin=new TimeSpan(0, 10, 30,0),Activo_Inactivo=true},
+        //        new Turno{IdTurno=3, IdServicio=2,Fecha=DateTime.Parse("18/05/2020 12:00:00 a.m."),HoraInicio=new TimeSpan(0, 10, 30,0),HoraFin=new TimeSpan(0, 10, 30,0),Activo_Inactivo=true}
+        //    });
+        //    var controller = new AdminController(faker.Object, fakerSession.Object);
+        //    var view = controller.ConsultarAforoDeTurno(DateTime.Parse("18/05/2020 12:00:00 a.m."), null, new TimeSpan(0, 10, 30, 0), new TimeSpan(0, 10, 30, 0));
+
+        //    Assert.AreEqual(0, view);
+        //}
+        [Test]
         public void ReturnListaTipoUsuariosCrearTest()
         {
             var fakerSession = new Mock<IServiceSession>();

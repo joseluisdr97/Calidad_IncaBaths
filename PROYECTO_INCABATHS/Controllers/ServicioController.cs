@@ -59,6 +59,7 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpPost]
         public ActionResult Crear(Servicio servicio)
         {
+            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
             int id = 0;
             validar(servicio, id);
             if (ModelState.IsValid == true)
@@ -66,7 +67,6 @@ namespace PROYECTO_INCABATHS.Controllers
                 service.GuardarServicio(servicio);
                 return RedirectToAction("Index");
             }
-
             return View(servicio);
         }
         [Authorize]
@@ -83,7 +83,7 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpPost]
         public ActionResult Editar(Servicio servicio, int id)
         {
-            
+            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
             validar(servicio, id);
             if (ModelState.IsValid == true)
             {
@@ -110,6 +110,12 @@ namespace PROYECTO_INCABATHS.Controllers
         public void validar(Servicio servicio, int id)
         {
 
+            //var conexion = new AppConexionDB();
+            //var existe = conexion.Servicios.Any(a => a.Nombre == servicio.Nombre);
+            //if (existe)
+            //{
+            //    ModelState.AddModelError("Nombre", "Ya tiene un servicio con el mismo nombre");
+            //}
 
             if (servicio.Nombre == null || servicio.Nombre == "")
                 ModelState.AddModelError("Nombre", "El campo nombre es obligatorio");

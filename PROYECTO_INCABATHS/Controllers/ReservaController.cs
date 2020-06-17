@@ -37,14 +37,17 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpPost]
         public ActionResult Crear(Reserva reserva)
         {
+            if (sessionService.EstaLogueadoComoCliente() == false) { return RedirectToAction("Index", "Error"); }
             int valor = 0;
             if (reserva != null && reserva.DetalleReservas != null && reserva.DetalleReservas.Count > 0)
             {
                 int idUsuario = sessionService.BuscarIdUsuarioSession();
+                reserva.Activo_Inactivo = true;
                 service.CrearReserva(idUsuario, reserva);
                 valor = 1;
+                return RedirectToAction("MisReservas", "Reserva", new { msg = valor });
             }
-            return RedirectToAction("MisReservas", "Reserva", new { msg = valor });
+            return View();
         }
         [Authorize]
         public ActionResult MisReservas()
@@ -63,11 +66,12 @@ namespace PROYECTO_INCABATHS.Controllers
             if (sessionService.BuscarNombreUsuarioSession() == null || sessionService.BuscarNombreUsuarioSession() == "") { return RedirectToAction("Index", "Error"); }
             var usuarioIdDB = sessionService.BuscarIdUsuarioSession();
             var fechas = fecha.Date;
+            var endDateTime = fechas.Date.AddDays(1);
             var misReservas = new List<Reserva>();
 
             if (fecha != null && fecha.ToString() != "01/01/0001 12:00:00 a.m.")
             {
-                misReservas = service.ObtenerListaReservas().Where(a => a.IdUsuario == usuarioIdDB && a.Fecha == fechas).ToList();
+                misReservas = service.ObtenerListaReservas().Where(a => a.IdUsuario == usuarioIdDB && a.Fecha >= fechas && a.Fecha<endDateTime).ToList();
             }
             else
             {

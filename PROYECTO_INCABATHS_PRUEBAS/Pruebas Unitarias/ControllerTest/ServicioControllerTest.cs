@@ -35,7 +35,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
             var view = controller.BuscarServicio("Duchas") as ViewResult;
             var model = view.Model as List<Servicio>;
 
-            Assert.AreEqual(new List<Servicio>(),view.Model);//Me retorna una lista vacia
+            Assert.AreEqual(new List<Servicio>(), view.Model);//Me retorna una lista vacia
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
 
             var controller = new ServicioController(faker.Object, fakerSession.Object);
             var view = controller.BuscarServicio("Piscina") as ViewResult;
-            var model=view.Model as List<Servicio>;
+            var model = view.Model as List<Servicio>;
 
             Assert.AreEqual(2, (view.Model as List<Servicio>).Count);
         }
@@ -97,7 +97,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
             var controller = new ServicioController(faker.Object, fakerSession.Object);
             var view = controller.Editar(2) as ViewResult;
             var model = view.Model as Servicio; //Convertir a lista
-            
+
             Assert.AreEqual(100, model.Aforo);
         }
 
@@ -111,7 +111,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
                 new Turno{IdTurno=1, IdServicio=1,Fecha=DateTime.Now.Date,HoraInicio=new TimeSpan(0, 10, 30,0),HoraFin=new TimeSpan(0, 10, 30,0),Activo_Inactivo=true},
                 new Turno{IdTurno=2, IdServicio=2,Fecha=DateTime.Now.Date,HoraInicio=new TimeSpan(0, 10, 30,0),HoraFin=new TimeSpan(0, 10, 30,0),Activo_Inactivo=true},
                 new Turno{IdTurno=3, IdServicio=2,Fecha=DateTime.Now.Date,HoraInicio=new TimeSpan(0, 10, 30,0),HoraFin=new TimeSpan(0, 10, 30,0),Activo_Inactivo=true}
-            } 
+            }
             );
 
             var controller = new ServicioController(faker.Object, fakerSession.Object);
@@ -135,7 +135,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
 
             var controller = new ServicioController(faker.Object, fakerSession.Object);
             var view = controller.EliminarServcicioP(null) as ViewResult;
-        
+
             Assert.AreEqual(new List<Turno>(), view.Model);
         }
         [Test]
@@ -158,6 +158,55 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
             faker.Setup(a => a.ObtenerServicioPorId(1)).Returns(new Servicio { IdServicio = 1, Nombre = "Duchas", Precio = 2, Aforo = 20 });
             var controller = new ServicioController(faker.Object, fakerSession.Object);
             var view = controller.Eliminar(null);
+
+            Assert.IsInstanceOf<RedirectToRouteResult>(view);
+        }
+        [Test]
+        public void CrearServicioMethodPostDatosInvalidos_CrearServicioPost()
+        {
+            var servicio = new Servicio { IdServicio = 1, Nombre = null, Precio = 2, Aforo = 20 };
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
+            var faker = new Mock<IServicioService>();
+            var controller = new ServicioController(faker.Object, fakerSession.Object);
+            var view = controller.Crear(servicio);
+
+            Assert.IsInstanceOf<ViewResult>(view);
+        }
+        [Test]
+        public void CrearServicioMethodPostDatosValidos_CrearServicioPost()
+        {
+            var servicio = new Servicio { IdServicio = 1, Nombre = "Sauna", Precio = 2, Aforo = 20 };
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
+
+            var faker = new Mock<IServicioService>();
+            var controller = new ServicioController(faker.Object, fakerSession.Object);
+            var view = controller.Crear(servicio);
+
+            Assert.IsInstanceOf<RedirectToRouteResult>(view);
+        }
+        [Test]
+        public void EditarServicioMethodPostDatosInvalidos_EditarServicioPost()
+        {
+            var servicio = new Servicio { IdServicio = 1, Nombre = null, Precio = 2, Aforo = 20 };
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
+            var faker = new Mock<IServicioService>();
+            var controller = new ServicioController(faker.Object, fakerSession.Object);
+            var view = controller.Editar(servicio, 1) as ViewResult;
+
+            Assert.IsInstanceOf<Servicio>(view.Model);
+        }
+        [Test]
+        public void EditarServicioMethodPostDatosValidos_EditarServicioPost()
+        {
+            var servicio = new Servicio { IdServicio = 1, Nombre = "Sauna", Precio = 2, Aforo = 20 };
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
+            var faker = new Mock<IServicioService>();
+            var controller = new ServicioController(faker.Object, fakerSession.Object);
+            var view = controller.Editar(servicio, 1);
 
             Assert.IsInstanceOf<RedirectToRouteResult>(view);
         }

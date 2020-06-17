@@ -10,5 +10,6 @@ namespace PROYECTO_INCABATHS.Interfaces
     public interface IAuthService
     {
         List<Usuario> ObtenerListaUsuarios();
+        void GuardarCookie(string Correo);
     }
 }

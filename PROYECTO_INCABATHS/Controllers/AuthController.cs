@@ -37,7 +37,7 @@ namespace PROYECTO_INCABATHS.Controllers
             if (UExiste != 0)
             {
                 var UsuarioDB =service.ObtenerListaUsuarios().Where(u => u.Correo == usuario.Correo && u.Password == usuario.Password && u.Activo_Inactivo == true).First();
-                FormsAuthentication.SetAuthCookie(UsuarioDB.Correo, false);
+                service.GuardarCookie(UsuarioDB.Correo);
 
                 if (UsuarioDB.IdTipoUsuario == 1)
                 {

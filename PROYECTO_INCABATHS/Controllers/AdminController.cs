@@ -29,7 +29,7 @@ namespace PROYECTO_INCABATHS.Controllers
             if (sessionService.BuscarNombreUsuarioSession() == null || sessionService.BuscarNombreUsuarioSession() == "") { return RedirectToAction("Index", "Error"); }
             if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
 
-                int idUsuario = sessionService.BuscarIdUsuarioSession();
+            int idUsuario = sessionService.BuscarIdUsuarioSession();
             var usuario = service.ObtenerListaUsuarios().Where(u => u.IdUsuario == idUsuario).First();
             sessionService.GuardarDatosUsuarioLogueado(usuario);
 
@@ -251,6 +251,17 @@ namespace PROYECTO_INCABATHS.Controllers
                 {
                     if (usuario.Celular.Length != 9)
                         ModelState.AddModelError("Celular", "El campo celular debe de tener 9 numeros");
+                }
+            }
+            if (usuario.Celular != null)
+            {
+                if (Regex.IsMatch(usuario.Celular, "^\\d+$"))
+                {
+                    if (usuario.Celular.Length == 9)
+                    {
+                      if (usuario.Celular.Substring(0,1) != "9")
+                        ModelState.AddModelError("Celular", "El campo celular debe de empezar con 9");
+                    }
                 }
             }
 

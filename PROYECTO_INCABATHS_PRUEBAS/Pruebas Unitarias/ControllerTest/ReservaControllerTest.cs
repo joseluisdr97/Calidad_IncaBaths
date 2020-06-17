@@ -173,25 +173,58 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
 
             faker.Setup(a => a.ObtenerDetalleReserva()).Returns(
                  new List<DetalleReserva> {
-                    new DetalleReserva{IdDetalleReserva=1, IdReserva=2,Fecha=DateTime.Parse("16/05/2020 12:00:00 a.m."),Cantidad=2,Activo_Inactivo=true},
-                    new DetalleReserva{IdDetalleReserva=1, IdReserva=2,Fecha=DateTime.Parse("14/05/2020 12:00:00 a.m."),Cantidad=2,Activo_Inactivo=true},
-                    new DetalleReserva{IdDetalleReserva=1, IdReserva=3,Fecha=DateTime.Parse("16/05/2020 12:00:00 a.m."),Cantidad=2,Activo_Inactivo=true},
-                    new DetalleReserva{IdDetalleReserva=1, IdReserva=4,Fecha=DateTime.Parse("12/05/2020 12:00:00 a.m."),Cantidad=2,Activo_Inactivo=true}
+                    new DetalleReserva{IdDetalleReserva=1, IdReserva=2,Fecha=DateTime.Parse("16/05/2020 12:00:00"),Cantidad=2,Activo_Inactivo=true},
+                    new DetalleReserva{IdDetalleReserva=1, IdReserva=2,Fecha=DateTime.Parse("14/05/2020 12:00:00"),Cantidad=2,Activo_Inactivo=true},
+                    new DetalleReserva{IdDetalleReserva=1, IdReserva=3,Fecha=DateTime.Parse("16/05/2020 12:00:00"),Cantidad=2,Activo_Inactivo=true},
+                    new DetalleReserva{IdDetalleReserva=1, IdReserva=4,Fecha=DateTime.Parse("12/05/2020 12:00:00"),Cantidad=2,Activo_Inactivo=true}
 
                  });
 
             faker.Setup(a => a.ObtenerListaReservas()).Returns(
                 new List<Reserva> {
-                    new Reserva{IdReserva=1,Fecha=DateTime.Parse("16/05/2020 12:00:00 a.m."),IdUsuario=2,Total=20,Activo_Inactivo=true},
-                    new Reserva{IdReserva=2,Fecha=DateTime.Parse("14/05/2020 12:00:00 a.m."),IdUsuario=2,Total=25,Activo_Inactivo=true},
-                    new Reserva{IdReserva=3,Fecha=DateTime.Parse("16/05/2020 12:00:00 a.m."),IdUsuario=2,Total=30,Activo_Inactivo=true},
-                    new Reserva{IdReserva=4,Fecha=DateTime.Parse("12/05/2020 12:00:00 a.m."),IdUsuario=2,Total=40,Activo_Inactivo=true}
+                    new Reserva{IdReserva=1,Fecha=DateTime.Parse("16/05/2020 12:00:00"),IdUsuario=2,Total=20,Activo_Inactivo=true},
+                    new Reserva{IdReserva=2,Fecha=DateTime.Parse("14/05/2020 12:00:00"),IdUsuario=2,Total=25,Activo_Inactivo=true},
+                    new Reserva{IdReserva=3,Fecha=DateTime.Parse("16/05/2020 12:00:00"),IdUsuario=2,Total=30,Activo_Inactivo=true},
+                    new Reserva{IdReserva=4,Fecha=DateTime.Parse("12/05/2020 12:00:00"),IdUsuario=2,Total=40,Activo_Inactivo=true}
                 });
 
             var controller = new ReservaController(faker.Object, fakerSession.Object);
             var view = controller.Eliminar(2) as ViewResult;
 
             Assert.IsInstanceOf<ViewResult>(view);
+        }
+        [Test]
+        public void CrearReservaConDatosNulos_CrearReservaPost()
+        {
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoCliente()).Returns(true);
+            var faker = new Mock<IReservaService>();
+
+            var controller = new ReservaController(faker.Object, fakerSession.Object);
+            var view = controller.Crear(null);
+
+            Assert.IsInstanceOf<ViewResult>(view);
+        }
+        [Test]
+        public void CrearReservaCorrectamente_CrearReservaPost()
+        {
+            var reserva = new Reserva { IdUsuario = 1, IdModoPago = 1, Fecha = DateTime.Now, Total = 100, Activo_Inactivo=true };
+            var detalleReservas=new List<DetalleReserva> { 
+                    new DetalleReserva { IdDetalleReserva = 1, IdReserva = 2, Fecha = DateTime.Parse("16/05/2020 12:00:00"), Cantidad = 2, Activo_Inactivo = true },
+                    new DetalleReserva { IdDetalleReserva = 1, IdReserva = 2, Fecha = DateTime.Parse("14/05/2020 12:00:00"), Cantidad = 2, Activo_Inactivo = true },
+                    new DetalleReserva { IdDetalleReserva = 1, IdReserva = 3, Fecha = DateTime.Parse("16/05/2020 12:00:00"), Cantidad = 2, Activo_Inactivo = true },
+                    new DetalleReserva { IdDetalleReserva = 1, IdReserva = 4, Fecha = DateTime.Parse("12/05/2020 12:00:00"), Cantidad = 2, Activo_Inactivo = true }
+            };
+            reserva.DetalleReservas = detalleReservas;
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoCliente()).Returns(true);
+            fakerSession.Setup(a => a.BuscarIdUsuarioSession()).Returns(1);
+            var faker = new Mock<IReservaService>();
+
+            var controller = new ReservaController(faker.Object, fakerSession.Object);
+            var view = controller.Crear(reserva);
+
+            Assert.IsInstanceOf<RedirectToRouteResult>(view);
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿
+﻿<h2 id="EstoyEnCambiarContraUsuarioCliente"></h2>
 <br />
 <div class="row">
     <div class="barra">
         <div class="col-sm-4"></div>
-        <div class="col-sm-4">
+        <div class="col-sm-4" id="inputs">
             <form action="/Usuario/CambiarContraUsuario" method="post">
                 <div class="form-group">
                     <label class="control-label">Contraseña actual</label>
@@ -23,7 +23,7 @@
                     @ViewBag.ValNuevaRepitaPassword
                     @Html.ValidationMessage("RepitaPassword")
                 </div>
-                <a href="/Usuario/VerMiCuenta" class="btn btn-default">Cancelar</a>       <button class="btn btn-primary">Confirmar cambios</button>
+                <a href="/Usuario/VerMiCuenta" class="btn btn-default">Cancelar</a>       <button id="ConfirmarCambioContraUsuarioCliente" class="btn btn-primary">Confirmar cambios</button>
             </form>
         </div>
     </div>

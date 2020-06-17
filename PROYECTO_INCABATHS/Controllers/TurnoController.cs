@@ -57,15 +57,17 @@ namespace PROYECTO_INCABATHS.Controllers
             ViewBag.Servicio = service.ObtenerServicioPorId(id);
             return View(new Turno());
         }
-        [HttpPost]
+      
         [Authorize]
+        [HttpPost]
         public ActionResult Crear(Turno turno, int? id)
         {
+            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
             if (id == null || id == 0) { return RedirectToAction("Index", "Error"); };
             validar(turno, id);
             if (ModelState.IsValid == true)
             {
-                service.GuardarTurno(id,turno);
+                service.GuardarTurno(id, turno);
                 return RedirectToAction("Index", new { id = turno.IdServicio });
             }
             ViewBag.Servicio = service.ObtenerServicioPorId(id);

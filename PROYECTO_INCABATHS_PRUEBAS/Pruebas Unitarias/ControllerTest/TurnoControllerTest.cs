@@ -150,7 +150,19 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
 
             Assert.AreEqual(1, model.IdServicio);
         }
+        //[Test]
+        //public void CrearTurnoDatosNoValidos_CrearPostTest()
+        //{
+        //    var Turno = new Turno  { IdTurno = 1,IdServicio=1, HoraInicio=new TimeSpan(0,10,30,0),HoraFin=new TimeSpan(0,11,0,0),Fecha=DateTime.Now.Date, Activo_Inactivo=true };
+        //    var fakerSession = new Mock<IServiceSession>();
+        //    fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
+        //    var faker = new Mock<ITurnoService>();
+        //    var controller = new TurnoController(faker.Object, fakerSession.Object);
+        //    var view = controller.Crear(Turno, 1) as ViewResult;
 
-     
+        //    Assert.IsInstanceOf<Turno>(view.Model);
+        //}
+
+
     }
 }

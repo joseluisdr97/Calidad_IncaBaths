@@ -149,6 +149,7 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpPost]
         public ActionResult ActualizarDatosUCliente(Usuario usuario, HttpPostedFileBase file)
         {
+            if (sessionService.EstaLogueadoComoCliente() == false) { return RedirectToAction("Index", "Error"); }
             var usuarioIdDB = service.BuscarIdUsuarioSession();
             var UsuarioDb = service.ObtenerListaUsuarios().Where(o => o.IdUsuario == usuarioIdDB).First();
 
@@ -382,6 +383,17 @@ namespace PROYECTO_INCABATHS.Controllers
                         ModelState.AddModelError("Celular", "El campo celular debe de tener 9 numeros");
                 }
             }
+            if (usuario.Celular != null)
+            {
+                if (Regex.IsMatch(usuario.Celular, "^\\d+$"))
+                {
+                    if (usuario.Celular.Length == 9)
+                    {
+                        if (usuario.Celular.Substring(0, 1) != "9")
+                            ModelState.AddModelError("Celular", "El campo celular debe de empezar con 9");
+                    }
+                }
+            }
 
             if (usuario.Direccion == null || usuario.Direccion == "")
                 ModelState.AddModelError("Direccion", "La direccion es obligatorio");
@@ -462,6 +474,17 @@ namespace PROYECTO_INCABATHS.Controllers
                 }
             }
 
+            if (usuario.Celular != null)
+            {
+                if (Regex.IsMatch(usuario.Celular, "^\\d+$"))
+                {
+                    if (usuario.Celular.Length == 9)
+                    {
+                        if (usuario.Celular.Substring(0, 1) != "9")
+                            ModelState.AddModelError("Celular", "El campo celular debe de empezar con 9");
+                    }
+                }
+            }
 
             if (usuario.Correo == null || usuario.Correo == "")
                 ModelState.AddModelError("Correo", "El correo es obligatorio");
@@ -567,6 +590,17 @@ namespace PROYECTO_INCABATHS.Controllers
                 }
             }
 
+            if (usuario.Celular != null)
+            {
+                if (Regex.IsMatch(usuario.Celular, "^\\d+$"))
+                {
+                    if (usuario.Celular.Length == 9)
+                    {
+                        if (usuario.Celular.Substring(0, 1) != "9")
+                            ModelState.AddModelError("Celular", "El campo celular debe de empezar con 9");
+                    }
+                }
+            }
 
             if (usuario.Correo == null || usuario.Correo == "")
                 ModelState.AddModelError("Correo", "El correo es obligatorio");
