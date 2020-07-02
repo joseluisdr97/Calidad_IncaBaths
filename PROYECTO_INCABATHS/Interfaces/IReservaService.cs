@@ -16,6 +16,6 @@ namespace PROYECTO_INCABATHS.Interfaces
         List<DetalleReserva> ObtenerDetalleReserva();
         List<Turno> ObtenerListaTurnos();
         void EliminarDetalleReserva(DetalleReserva ReservaDb);
-        void EliminarReserva(Reserva ReservaDb);
+        void EliminarReserva(Reserva DbReserva);
     }
 }

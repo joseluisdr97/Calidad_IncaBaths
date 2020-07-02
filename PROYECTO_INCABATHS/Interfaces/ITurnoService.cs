@@ -15,5 +15,6 @@ namespace PROYECTO_INCABATHS.Interfaces
         void EditarTurno(Turno turno, Turno DbTurno);
         Turno ObtenerTurnoPorId(int? id);
         void EliminarTurno(Turno turno);
+        bool Existe(int? id, Turno turno1);
     }
 }

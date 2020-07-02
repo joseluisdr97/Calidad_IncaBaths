@@ -20,30 +20,26 @@ namespace PROYECTO_INCABATHS.Controllers
             this.sessionService = sessionService;
             this.service = service;
         }
-
-        //private AppConexionDB conexion = new AppConexionDB();
-
-        // GET: Servicio
         [Authorize]
         [HttpGet]
         public ActionResult Index()
         {
-            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
-            var model = service.ObtenerListaServicios().Where(a => a.Activo_Inactivo == true).ToList();
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
+            var model = service.ObtenerListaServicios().Where(a => a.Activo_Inactivo).ToList();
 
             return View(model);
         }
         [Authorize]
-        public ActionResult BuscarServicio(string query)//PETICION AJAX
+        public ActionResult BuscarServicio(string query)
         {
-            var model = new List<Servicio>();
+            List<Servicio> model;
             if (query == null || query == "")
             {
-                model = service.ObtenerListaServicios().Where(a => a.Activo_Inactivo == true).ToList();
+                model = service.ObtenerListaServicios().Where(a => a.Activo_Inactivo).ToList();
             }
             else
             {
-                model = service.ObtenerListaServicios().Where(o => o.Nombre.Contains(query) && o.Activo_Inactivo == true).ToList();
+                model = service.ObtenerListaServicios().Where(o => o.Nombre.Contains(query) && o.Activo_Inactivo).ToList();
             }
             ViewBag.datos = query;
             return View(model);
@@ -52,17 +48,17 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpGet]
         public ActionResult Crear()
         {
-            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
             return View(new Servicio());
         }
         [Authorize]
         [HttpPost]
         public ActionResult Crear(Servicio servicio)
         {
-            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
             int id = 0;
             validar(servicio, id);
-            if (ModelState.IsValid == true)
+            if (ModelState.IsValid)
             {
                 service.GuardarServicio(servicio);
                 return RedirectToAction("Index");
@@ -73,9 +69,9 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpGet]
         public ActionResult Editar(int? id)
         {
-            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
-            if (id == null || id == 0) { return RedirectToAction("Index", "Error"); };
-            var model = service.ObtenerServicioPorId(id);//PRUEBA
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
+            if (id == null || id == 0) { return RedirectToAction("Index", "Error"); }
+            var model = service.ObtenerServicioPorId(id);
             ViewBag.IdServicio = id;
             return View(model);
         }
@@ -83,9 +79,9 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpPost]
         public ActionResult Editar(Servicio servicio, int id)
         {
-            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
             validar(servicio, id);
-            if (ModelState.IsValid == true)
+            if (ModelState.IsValid)
             {
                 service.EditarServicio(id,servicio);
                 return RedirectToAction("Index");
@@ -97,8 +93,8 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpGet]
         public ActionResult Eliminar(int? id)
         {
-            if (id == null || id == 0) { return RedirectToAction("Index", "Error"); };
-            var CountTurnoDb = service.ListaDeTurnos().Where(o => o.IdServicio == id && o.Activo_Inactivo == true).ToList();
+            if (id == null || id == 0) { return RedirectToAction("Index", "Error"); }
+            var CountTurnoDb = service.ListaDeTurnos().Where(o => o.IdServicio == id && o.Activo_Inactivo).ToList();
             ViewBag.MisTurnos = CountTurnoDb;
             if (CountTurnoDb.Count != 0)
             {
@@ -109,29 +105,19 @@ namespace PROYECTO_INCABATHS.Controllers
         }
         public void validar(Servicio servicio, int id)
         {
-
-            //var conexion = new AppConexionDB();
-            //var existe = conexion.Servicios.Any(a => a.Nombre == servicio.Nombre);
-            //if (existe)
-            //{
-            //    ModelState.AddModelError("Nombre", "Ya tiene un servicio con el mismo nombre");
-            //}
-
             if (servicio.Nombre == null || servicio.Nombre == "")
                 ModelState.AddModelError("Nombre", "El campo nombre es obligatorio");
 
-            if (servicio.Nombre != null)
+            if (servicio.Nombre != null && !Regex.IsMatch(servicio.Nombre, @"^[a-zA-Z ]*$"))
             {
-                if (!Regex.IsMatch(servicio.Nombre, @"^[a-zA-Z ]*$"))
                     ModelState.AddModelError("Nombre", "El campo nombre solo acepta letras");
             }
 
             if (servicio.Precio == 0 || Convert.ToString(servicio.Precio) == "")
                 ModelState.AddModelError("Precio", "El campo precio es obligatorio");
 
-            if (servicio.Precio != 0 && Convert.ToString(servicio.Precio) == null)
+            if (servicio.Precio != 0 && Convert.ToString(servicio.Precio) == null && !Regex.IsMatch(Convert.ToString(servicio.Precio), @"^\d{1,2}([.][0-9]{1,2})?$"))
             {
-                if (!Regex.IsMatch(Convert.ToString(servicio.Precio), @"^\d{1,2}([.][0-9]{1,2})?$"))
                     ModelState.AddModelError("Precio", "El campo precio solo acepta decimales [.]");
             }
             if (Regex.IsMatch(Convert.ToString(servicio.Precio), @"^[a-zA-Z ]*$"))
@@ -144,7 +130,7 @@ namespace PROYECTO_INCABATHS.Controllers
         }
         public ViewResult EliminarServcicioP(int? id)
         {
-            var model = service.ListaDeTurnos().Where(o => o.IdServicio == id && o.Activo_Inactivo == true).ToList();
+            var model = service.ListaDeTurnos().Where(o => o.IdServicio == id && o.Activo_Inactivo).ToList();
             return View(model);
         }
     }

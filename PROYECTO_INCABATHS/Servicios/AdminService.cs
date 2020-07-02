@@ -10,7 +10,7 @@ namespace PROYECTO_INCABATHS.Servicios
 {
     public class AdminService: IAdminService
     {
-        private AppConexionDB conexion;
+        private readonly AppConexionDB conexion;
         public AdminService()
         {
             this.conexion = new AppConexionDB();

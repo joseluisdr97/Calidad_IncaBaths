@@ -11,7 +11,7 @@ namespace PROYECTO_INCABATHS.Servicios
 {
     public class ReservaService:IReservaService
     {
-        private AppConexionDB conexion;
+        private readonly AppConexionDB conexion;
         public ReservaService()
         {
             this.conexion = new AppConexionDB();

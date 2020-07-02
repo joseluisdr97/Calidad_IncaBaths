@@ -21,22 +21,19 @@ namespace PROYECTO_INCABATHS.Controllers
             this.service = service;
             this.sessionService = sessionService;
         }
-        // GET: Auth
-        private AppConexionDB conexion = new AppConexionDB();
         [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult Login(Usuario usuario, string RepitaPassword)//*string Correo, string Password*/)
+        public ActionResult Login(Usuario usuario, string RepitaPassword)
         {
-
-            var UExiste = service.ObtenerListaUsuarios().Count(u => u.Correo == usuario.Correo && u.Password == usuario.Password && u.Activo_Inactivo==true);
+            var UExiste = service.ObtenerListaUsuarios().Count(u => u.Correo == usuario.Correo && u.Password == usuario.Password && u.Activo_Inactivo);
 
             if (UExiste != 0)
             {
-                var UsuarioDB =service.ObtenerListaUsuarios().Where(u => u.Correo == usuario.Correo && u.Password == usuario.Password && u.Activo_Inactivo == true).First();
+                var UsuarioDB =service.ObtenerListaUsuarios().First(u => u.Correo == usuario.Correo && u.Password == usuario.Password && u.Activo_Inactivo);
                 service.GuardarCookie(UsuarioDB.Correo);
 
                 if (UsuarioDB.IdTipoUsuario == 1)
@@ -56,13 +53,9 @@ namespace PROYECTO_INCABATHS.Controllers
         }
         public ActionResult Logout()
         {
-            //Cuando cerramos sesion lo eliminamos la cookie
-            FormsAuthentication.SignOut();
-
-            Session.Clear();
+            service.CerrarSession();
             return RedirectToAction("login");
         }
-        // GET: Auth
         public ActionResult Index()
         {
             return View();

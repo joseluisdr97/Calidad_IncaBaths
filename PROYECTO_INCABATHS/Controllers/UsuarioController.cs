@@ -15,6 +15,8 @@ namespace PROYECTO_INCABATHS.Controllers
     
     public class UsuarioController : Controller
     {
+        private const string RutaImagen = "~/Perfiles";
+        private const string RutaI = "/Perfiles/";
         private readonly IServiceSession sessionService;
         private readonly IUsuarioService service;
         public UsuarioController(IUsuarioService service, IServiceSession sessionService)
@@ -23,27 +25,26 @@ namespace PROYECTO_INCABATHS.Controllers
             this.sessionService = sessionService;
         }
            
-        // GET: Usuario
         [Authorize]
         [HttpGet]
         public ActionResult Index()
         {
-            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
-            var datos = service.ObtenerListaUsuarios().Where(o => o.Activo_Inactivo == true).ToList();
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
+            var datos = service.ObtenerListaUsuarios().Where(o => o.Activo_Inactivo).ToList();
             return View(datos);
         }
         [Authorize]
         [HttpGet]
         public ActionResult BuscarUsuario(string query)
         {
-            var datos = new List<Usuario>();
+            List<Usuario> datos;
             if (query == null || query == "")
             {
-                datos = service.ObtenerListaUsuarios().Where(o => o.Activo_Inactivo == true).ToList();
+                datos = service.ObtenerListaUsuarios().Where(o => o.Activo_Inactivo).ToList();
             }
             else
             {
-                datos = service.ObtenerListaUsuarios().Where(o => o.DNI.Contains(query) && o.Activo_Inactivo==true).ToList();
+                datos = service.ObtenerListaUsuarios().Where(o => o.DNI.Contains(query) && o.Activo_Inactivo).ToList();
             }
             ViewBag.datos = query;
             return View(datos);
@@ -52,7 +53,7 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpGet]
         public ActionResult Crear()
         {
-            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
             ViewBag.TipoUsuarios = service.ObtenerListaDeTipoUsuarios().ToList();
             return View(new Usuario());
         }
@@ -60,16 +61,18 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpPost]
         public ActionResult Crear(Usuario usuario, string RepitaPassword, HttpPostedFileBase file)
         {
-            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
-            //validar(usuario, RepitaPassword);
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
             if (file != null && file.ContentLength > 0)
             {
-                string ruta = Path.Combine(Server.MapPath("~/Perfiles"), Path.GetFileName(file.FileName));
+                string ruta = Path.Combine(Server.MapPath(RutaImagen), Path.GetFileName(file.FileName));
                 file.SaveAs(ruta);
-                usuario.Perfil = "/Perfiles/" + Path.GetFileName(file.FileName);
+                usuario.Perfil = RutaI + Path.GetFileName(file.FileName);
             }
             validar(usuario,RepitaPassword);
-            if (ModelState.IsValid == true)
+            validar1(usuario, RepitaPassword);
+            validar2(usuario, RepitaPassword);
+            validar3(usuario, RepitaPassword);
+            if (ModelState.IsValid)
             {
                 service.CrearUsuario(usuario);
                 return RedirectToAction("Index");
@@ -81,7 +84,7 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpGet]
         public ActionResult Editar(int? id)
         {
-            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
             if (id == 0 || id == null) { return RedirectToAction("Index", "Error"); }
 
             ViewBag.TipoUsuarios = service.ObtenerListaDeTipoUsuarios().ToList();
@@ -93,19 +96,22 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpPost]
         public ActionResult Editar(Usuario usuario, int? id, HttpPostedFileBase file)
         {
-            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
             if (id == 0 || id == null) { return RedirectToAction("Index", "Error"); }
 
             var UsuarioDb = service.ObtenerUsuarioPorId(id);
             if (file != null && file.ContentLength > 0)
             {
-                string ruta = Path.Combine(Server.MapPath("~/Perfiles"), Path.GetFileName(file.FileName));
+                string ruta = Path.Combine(Server.MapPath(RutaImagen), Path.GetFileName(file.FileName));
                 file.SaveAs(ruta);
-                usuario.Perfil = "/Perfiles/" + Path.GetFileName(file.FileName);
+                usuario.Perfil = RutaI + Path.GetFileName(file.FileName);
                 UsuarioDb.Perfil = usuario.Perfil;
             }
             validarEditarUsuario(usuario, id);
-            if (ModelState.IsValid == true)
+            validarEditarUsuario1(usuario, id);
+            validarEditarUsuario2(usuario, id);
+            validarEditarUsuario3(usuario, id);
+            if (ModelState.IsValid)
             {
                 service.EditarUsuario(usuario, UsuarioDb);
                 return RedirectToAction("Index");
@@ -124,9 +130,9 @@ namespace PROYECTO_INCABATHS.Controllers
         }
         [Authorize]
         [HttpGet]
-        public ActionResult VerMiCuenta()//REFACTORIZAR METODO ES IGUAL CON EL SIGUIENTE
+        public ActionResult VerMiCuenta()
         {
-            if (sessionService.EstaLogueadoComoCliente() == false) { return RedirectToAction("Index", "Error"); }
+            if (!sessionService.EstaLogueadoComoCliente()) { return RedirectToAction("Index", "Error"); }
             var usuarioIdDB = service.BuscarIdUsuarioSession();
 
                 var UsuarioDb = service.ObtenerUsuarioPorId(usuarioIdDB);
@@ -136,32 +142,34 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpGet]
         public ActionResult ActualizarDatosUCliente()
         {
-            if (sessionService.EstaLogueadoComoCliente() == false) { return RedirectToAction("Index", "Error"); }
+            if (!sessionService.EstaLogueadoComoCliente()) { return RedirectToAction("Index", "Error"); }
             var usuarioIdDB = service.BuscarIdUsuarioSession();
             if (usuarioIdDB != 0)
             {
-                var UsuarioDb = service.ObtenerListaUsuarios().Where(o => o.IdUsuario == usuarioIdDB).First();
+                var UsuarioDb = service.ObtenerListaUsuarios().First(o => o.IdUsuario == usuarioIdDB);
                 return View(UsuarioDb);
             }
             return View();
         }
         [Authorize]
         [HttpPost]
-        public ActionResult ActualizarDatosUCliente(Usuario usuario, HttpPostedFileBase file)
+        public ActionResult ActualizarDatosUCliente(Usuario usuario, HttpPostedFileBase archivo)
         {
-            if (sessionService.EstaLogueadoComoCliente() == false) { return RedirectToAction("Index", "Error"); }
+            if (!sessionService.EstaLogueadoComoCliente()) { return RedirectToAction("Index", "Error"); }
             var usuarioIdDB = service.BuscarIdUsuarioSession();
-            var UsuarioDb = service.ObtenerListaUsuarios().Where(o => o.IdUsuario == usuarioIdDB).First();
+            var UsuarioDb = service.ObtenerListaUsuarios().First(o => o.IdUsuario == usuarioIdDB);
 
-            if (file != null && file.ContentLength > 0)
+            if (archivo != null && archivo.ContentLength > 0)
             {
-                string ruta = Path.Combine(Server.MapPath("~/Perfiles"), Path.GetFileName(file.FileName));
-                file.SaveAs(ruta);
-                usuario.Perfil = "/Perfiles/" + Path.GetFileName(file.FileName);
+                string ruta = Path.Combine(Server.MapPath(RutaImagen), Path.GetFileName(archivo.FileName));
+                archivo.SaveAs(ruta);
+                usuario.Perfil = RutaI + Path.GetFileName(archivo.FileName);
                 UsuarioDb.Perfil = usuario.Perfil;
             }
 
             validarActualizarDatos(usuario);
+            validarActualizarDatos1(usuario);
+            validarActualizarDatos2(usuario);
             if (ModelState.IsValid)
             {
                 service.ActualizarDatosUsuario(usuario, UsuarioDb);
@@ -175,18 +183,18 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpGet]
         public ActionResult CambiarContraUsuario()
         {
-            if (sessionService.EstaLogueadoComoCliente() == false) { return RedirectToAction("Index", "Error"); }
+            if (!sessionService.EstaLogueadoComoCliente()) { return RedirectToAction("Index", "Error"); }
             return View(new Usuario());
         }
         [Authorize]
         [HttpPost]
         public ActionResult CambiarContraUsuario(Usuario usuario, string NuevaPassword, string RepitaPassword)
         {
-            ValidarCambiarContra(usuario, NuevaPassword, RepitaPassword);
+            ValidarCambiarContra(usuario, NuevaPassword, RepitaPassword);ValidarCambiarContra1(usuario, NuevaPassword, RepitaPassword);
             if (ModelState.IsValid)
             { 
                 var usuarioIdDB = Convert.ToInt32(Session["UsuarioId"]);
-                var UsuarioDb = service.ObtenerListaUsuarios().Where(o => o.IdUsuario == usuarioIdDB).First();
+                var UsuarioDb = service.ObtenerListaUsuarios().First(o => o.IdUsuario == usuarioIdDB);
                 service.CambiarContraUsuario(NuevaPassword,UsuarioDb);
                 return RedirectToAction("Logout", "Auth");
             }
@@ -197,33 +205,32 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpGet]
         public ActionResult VerMiCuentaAdmin()
         {
-            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
             var usuarioIdDB = service.BuscarIdUsuarioSession();
-            var UsuarioDb = service.ObtenerListaUsuarios().Where(o => o.IdUsuario == usuarioIdDB).First();
+            var UsuarioDb = service.ObtenerListaUsuarios().First(o => o.IdUsuario == usuarioIdDB);
             return View(UsuarioDb);
         }
         [Authorize]
         [HttpGet]
         public ActionResult ActualizarDatosUAdmin()
         {
-            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
             var usuarioIdDB = service.BuscarIdUsuarioSession();
-            var UsuarioDb = service.ObtenerListaUsuarios().Where(o => o.IdUsuario == usuarioIdDB).First();
-            return View(UsuarioDb);
+            var UsuarioObtenido = service.ObtenerListaUsuarios().First(o => o.IdUsuario == usuarioIdDB);
+            return View(UsuarioObtenido);
         }
         [Authorize]
         [HttpPost]
         public ActionResult ActualizarDatosUAdmin(Usuario usuario, HttpPostedFileBase file)
         {
-
             var usuarioIdDB = service.BuscarIdUsuarioSession();
-            var UsuarioDb = service.ObtenerListaUsuarios().Where(o => o.IdUsuario == usuarioIdDB).First();
+            var UsuarioDb = service.ObtenerListaUsuarios().First(o => o.IdUsuario == usuarioIdDB);
 
             if (file != null && file.ContentLength > 0)
             {
-                string ruta = Path.Combine(Server.MapPath("~/Perfiles"), Path.GetFileName(file.FileName));
+                string ruta = Path.Combine(Server.MapPath(RutaImagen), Path.GetFileName(file.FileName));
                 file.SaveAs(ruta);
-                usuario.Perfil = "/Perfiles/" + Path.GetFileName(file.FileName);
+                usuario.Perfil = RutaI + Path.GetFileName(file.FileName);
                 UsuarioDb.Perfil = usuario.Perfil;
             }
             validarActualizarDatos(usuario);
@@ -240,7 +247,7 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpGet]
         public ActionResult CambiarContraUsuarioAdmin()
         {
-            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
             return View(new Usuario());
         }
         [Authorize]
@@ -251,26 +258,20 @@ namespace PROYECTO_INCABATHS.Controllers
             if (ModelState.IsValid)
             {
                 var usuarioIdDB = service.BuscarIdUsuarioSession();
-                var UsuarioDb = service.ObtenerListaUsuarios().Where(o => o.IdUsuario == usuarioIdDB).First();
+                var UsuarioDb = service.ObtenerListaUsuarios().First(o => o.IdUsuario == usuarioIdDB);
                 service.CambiarContraUsuario(NuevaPassword, UsuarioDb);
                 return RedirectToAction("Logout", "Auth");
             }
             return View(usuario);
         }
 
-
-        //VALIDACIONES
-        private AppConexionDB conexion = new AppConexionDB();
+        private readonly AppConexionDB conexion = new AppConexionDB();
         public void ValidarCambiarContra(Usuario usuario, string NuevaPassword, string RepitaPassword)
         {
             var usuarioIdDB = service.BuscarIdUsuarioSession();
-            var UExiste = conexion.Usuarios.Count(u => u.IdUsuario == usuarioIdDB && u.Password == usuario.Password);
-            if (usuario.Password != null && usuario.Password != "")
+            if (usuario.Password != null && usuario.Password != "" && service.Existe(usuario, usuarioIdDB) == 0)
             {
-                if (UExiste == 0)
-                {
                     ModelState.AddModelError("Password", "Contraseña no encontrada");
-                }
             }
             if (usuario.Password == null || usuario.Password == "")
                 ModelState.AddModelError("Password", "Este campo es obligatorio");
@@ -281,375 +282,290 @@ namespace PROYECTO_INCABATHS.Controllers
                 if (RepitaPassword == null || RepitaPassword == "")
                     ModelState.AddModelError("RepitaPassword", "Este campo es obligatorio");
             }
-            if (usuario.Password != null && usuario.Password != "")
+        }
+        public void ValidarCambiarContra1(Usuario usuario, string NuevaPassword, string RepitaPassword)
+        {
+            var usuarioIdDB = service.BuscarIdUsuarioSession();
+            if (usuario.Password != null && usuario.Password != "" && service.Existe(usuario, usuarioIdDB) != 0 && usuario.Password != NuevaPassword)
             {
-                if (UExiste != 0)
+                if (NuevaPassword == null || NuevaPassword == "")
+                    ModelState.AddModelError("NuevaPassword", "Este campo es obligatorio");
+                if (RepitaPassword == null || RepitaPassword == "")
+                    ModelState.AddModelError("RepitaPassword", "Este campo es obligatorio");
+                if (NuevaPassword != null && NuevaPassword != "" && RepitaPassword != null && RepitaPassword != "" && NuevaPassword != RepitaPassword)
                 {
-                    if (usuario.Password != NuevaPassword)
-                    {
-                        if (NuevaPassword == null || NuevaPassword == "")
-                            ModelState.AddModelError("NuevaPassword", "Este campo es obligatorio");
-                        if (RepitaPassword == null || RepitaPassword == "")
-                            ModelState.AddModelError("RepitaPassword", "Este campo es obligatorio");
-                        if (NuevaPassword != null && NuevaPassword != "" && RepitaPassword != null && RepitaPassword != "")
-                        {
-                            if (NuevaPassword != RepitaPassword)
-                                ModelState.AddModelError("RepitaPassword", "Las contraseñas no coinciden");
-                        }
-                    }
+                    ModelState.AddModelError("RepitaPassword", "Las contraseñas no coinciden");
                 }
             }
-            if (usuario.Password != null && usuario.Password != "")
+            if (usuario.Password != null && usuario.Password != "" && service.Existe(usuario, usuarioIdDB) != 0 && usuario.Password == NuevaPassword)
             {
-                if (UExiste != 0)
-                {
-                    if (usuario.Password == NuevaPassword)
-                    {
-                        ModelState.AddModelError("NuevaPassword", "Debe ser diferente a la actual");
-                    }
-                }
+                ModelState.AddModelError("NuevaPassword", "Debe ser diferente a la actual");
             }
         }
-        public void validarActualizarDatos(Usuario usuario)
+
+
+
+        public void validarActualizarDatos(Usuario usu)
         {
-            if (usuario.Nombre == null || usuario.Nombre == "")
+            if (usu.Nombre == null || usu.Nombre == "")
                 ModelState.AddModelError("Nombre", "El nombre es obligatorio");
-            if (usuario.Nombre != null)
+            if (usu.Nombre != null && !Regex.IsMatch(usu.Nombre, @"^[a-zA-Z ]*$"))
             {
-                if (!Regex.IsMatch(usuario.Nombre, @"^[a-zA-Z ]*$"))
                     ModelState.AddModelError("Nombre", "El campo nombre solo acepta letras");
             }
 
-            if (usuario.Apellido == null || usuario.Apellido == "")
+            if (usu.Apellido == null || usu.Apellido == "")
                 ModelState.AddModelError("Apellido", "El apellido es obligatorio");
-            if (usuario.Apellido != null)
+            if (usu.Apellido != null && !Regex.IsMatch(usu.Apellido, @"^[a-zA-Z ]*$"))
             {
-                if (!Regex.IsMatch(usuario.Apellido, @"^[a-zA-Z ]*$"))
                     ModelState.AddModelError("Apellido", "El campo apellido solo acepta letras");
             }
 
-            if (usuario.DNI == null || usuario.DNI == "")
+            if (usu.DNI == null || usu.DNI == "")
                 ModelState.AddModelError("DNI", "El DNI es obligatorio");
 
-            if (usuario.DNI != null)
+            if (usu.DNI != null && !Regex.IsMatch(usu.DNI, "^\\d+$"))
             {
-                if (!Regex.IsMatch(usuario.DNI, "^\\d+$"))
                     ModelState.AddModelError("DNI", "El campo dni solo acepta numeros");
             }
 
-            if (usuario.DNI != null)
+            if (usu.DNI != null && Regex.IsMatch(usu.DNI, "^\\d+$") && usu.DNI.Length != 8)
             {
-                if (Regex.IsMatch(usuario.DNI, "^\\d+$"))
-                {
-                    if (usuario.DNI.Length != 8)
                         ModelState.AddModelError("DNI", "El campo dni debe de tener 8 numeros");
-                }
             }
-            if (usuario.DNI != null && usuario.DNI != "")
+        }
+        public void validarActualizarDatos1(Usuario usuario)
+        {
+            if (usuario.DNI != null && usuario.DNI != "" && Regex.IsMatch(usuario.DNI, "^\\d+$") && usuario.DNI.Length == 8)
             {
-                if (Regex.IsMatch(usuario.DNI, "^\\d+$"))
+                var DNIUsuarioDB = Convert.ToString(Session["UsuarioDNI"]);
+                var UsuDNI = conexion.Usuarios.First(a => a.DNI == DNIUsuarioDB);
+                if (UsuDNI.DNI != usuario.DNI)
                 {
-                    if (usuario.DNI.Length == 8)
+                    var usuarioDB = conexion.Usuarios.Any(t => t.DNI == usuario.DNI);
+                    if (usuarioDB)
                     {
-                        var DNIUsuarioDB = Convert.ToString(Session["UsuarioDNI"]);
-                        var UsuDNI = conexion.Usuarios.Where(a => a.DNI == DNIUsuarioDB).First();
-                        if (UsuDNI.DNI != usuario.DNI)
-                        {
-                            var usuarioDB = conexion.Usuarios.Any(t => t.DNI == usuario.DNI);
-                            if (usuarioDB)
-                            {
-                                ModelState.AddModelError("DNI", "Este DNI ya existe");
-                            }
-                        }
+                        ModelState.AddModelError("DNI", "Este DNI ya existe");
                     }
                 }
             }
 
 
+        }
+        public void validarActualizarDatos2(Usuario usuario)
+        {
             if (usuario.Celular == null || usuario.Celular == "")
                 ModelState.AddModelError("Celular", "El celular es obligatorio");
 
-            if (usuario.Celular != null)
+            if (usuario.Celular != null && !Regex.IsMatch(usuario.Celular, "^\\d+$"))
             {
-                if (!Regex.IsMatch(usuario.Celular, "^\\d+$"))
-                    ModelState.AddModelError("Celular", "El campo celular solo acepta numeros");
+                ModelState.AddModelError("Celular", "El campo celular solo acepta numeros");
             }
-
-            if (usuario.Celular != null)
-            {
-                if (!Regex.IsMatch(usuario.Celular, "^\\d+$"))
-                {
-                    if (usuario.Celular.Length != 9)
-                        ModelState.AddModelError("Celular", "El campo celular debe de tener 9 numeros");
-                }
-            }
-            if (usuario.Celular != null)
-            {
-                if (Regex.IsMatch(usuario.Celular, "^\\d+$"))
-                {
-                    if (usuario.Celular.Length == 9)
-                    {
-                        if (usuario.Celular.Substring(0, 1) != "9")
-                            ModelState.AddModelError("Celular", "El campo celular debe de empezar con 9");
-                    }
-                }
-            }
-
-            if (usuario.Direccion == null || usuario.Direccion == "")
-                ModelState.AddModelError("Direccion", "La direccion es obligatorio");
-            //if (usuario.Direccion != null)
-            //{
-            //    if (Regex.IsMatch(usuario.Direccion, @"^[a-zA-Z0-9""'\s.#]*$"))
-            //        ModelState.AddModelError("Direccion", "Ejemplo Jr. La paz #121");
-            //}
         }
+
         public void validar(Usuario usuario, string RepitaPassword)
         {
 
-
-            if (usuario.Nombre == null || usuario.Nombre == "")
+            Usuario u1 = usuario,u2=usuario,u3=usuario,u4=usuario,u5=usuario,u6=usuario,u7=usuario;
+            if (u1.Nombre == null || u1.Nombre == "")
                 ModelState.AddModelError("Nombre", "El nombre es obligatorio");
-            if (usuario.Nombre != null)
+            if (u2.Nombre != null && !Regex.IsMatch(u2.Nombre, @"^[a-zA-Z ]*$"))
             {
-                if (!Regex.IsMatch(usuario.Nombre, @"^[a-zA-Z ]*$"))
                     ModelState.AddModelError("Nombre", "El campo nombre solo acepta letras");
             }
 
-            if (usuario.Apellido == null || usuario.Apellido == "")
+            if (u3.Apellido == null || u3.Apellido == "")
                 ModelState.AddModelError("Apellido", "El apellido es obligatorio");
-            if (usuario.Apellido != null)
+            if (u4.Apellido != null && !Regex.IsMatch(u4.Apellido, @"^[a-zA-Z ]*$"))
             {
-                if (!Regex.IsMatch(usuario.Apellido, @"^[a-zA-Z ]*$"))
                     ModelState.AddModelError("Apellido", "El campo apellido solo acepta letras");
             }
 
-            if (usuario.DNI == null || usuario.DNI == "")
+            if (u5.DNI == null || u5.DNI == "")
                 ModelState.AddModelError("DNI", "El DNI es obligatorio");
 
-            if (usuario.DNI != null)
+            if (u6.DNI != null && !Regex.IsMatch(u6.DNI, "^\\d+$"))
             {
-                if (!Regex.IsMatch(usuario.DNI, "^\\d+$"))
                     ModelState.AddModelError("DNI", "El campo dni solo acepta numeros");
             }
 
-            if (usuario.DNI != null)
+            if (u7.DNI != null && Regex.IsMatch(u7.DNI, "^\\d+$") && usuario.DNI.Length != 8)
             {
-                if (Regex.IsMatch(usuario.DNI, "^\\d+$"))
-                {
-                    if (usuario.DNI.Length != 8)
                         ModelState.AddModelError("DNI", "El campo dni debe de tener 8 numeros");
-                }
             }
-            if (usuario.DNI != null)
+           
+        }
+        public void validar1(Usuario usuario, string RepitaPassword)
+        {
+            if (usuario.DNI != null && Regex.IsMatch(usuario.DNI, "^\\d+$") && usuario.DNI.Length == 8)
             {
-                if (Regex.IsMatch(usuario.DNI, "^\\d+$"))
+                var usuarioDB = conexion.Usuarios.Any(t => t.DNI == usuario.DNI);
+                if (usuarioDB)
                 {
-                    if (usuario.DNI.Length == 8)
-                    {
-                        var usuarioDB = conexion.Usuarios.Any(t => t.DNI == usuario.DNI);
-                        if (usuarioDB)
-                        {
-                            ModelState.AddModelError("DNI", "Este DNI ya existe");
-                        }
-                    }
+                    ModelState.AddModelError("DNI", "Este DNI ya existe");
                 }
             }
 
-
-            if (usuario.Celular == null || usuario.Celular == "")
+            Usuario Vu1 = usuario, Vu2 = usuario, Vu3 = usuario, Vu4 = usuario, Vu5 = usuario;
+            if (Vu1.Celular == null || Vu1.Celular == "")
                 ModelState.AddModelError("Celular", "El celular es obligatorio");
 
-            if (usuario.Celular != null)
+            if (Vu2.Celular != null && !Regex.IsMatch(Vu2.Celular, "^\\d+$"))
             {
-                if (!Regex.IsMatch(usuario.Celular, "^\\d+$"))
-                    ModelState.AddModelError("Celular", "El campo celular solo acepta numeros");
+                ModelState.AddModelError("Celular", "El campo celular solo acepta numeros");
             }
 
-            if (usuario.Celular != null)
+            if (Vu3.Celular != null && !Regex.IsMatch(Vu3.Celular, "^\\d+$") && usuario.Celular.Length != 9)
             {
-                if (!Regex.IsMatch(usuario.Celular, "^\\d+$"))
-                {
-                    if (usuario.Celular.Length != 9)
-                        ModelState.AddModelError("Celular", "El campo celular debe de tener 9 numeros");
-                }
+                ModelState.AddModelError("Celular", "El campo celular debe de tener 9 numeros");
             }
 
-            if (usuario.Celular != null)
+            if (Vu4.Celular != null && Regex.IsMatch(Vu4.Celular, "^\\d+$") && Vu4.Celular.Length == 9 && Vu4.Celular.Substring(0, 1) != "9")
             {
-                if (Regex.IsMatch(usuario.Celular, "^\\d+$"))
-                {
-                    if (usuario.Celular.Length == 9)
-                    {
-                        if (usuario.Celular.Substring(0, 1) != "9")
-                            ModelState.AddModelError("Celular", "El campo celular debe de empezar con 9");
-                    }
-                }
+                ModelState.AddModelError("Celular", "El campo celular debe de empezar con 9");
             }
 
-            if (usuario.Correo == null || usuario.Correo == "")
+            if (Vu5.Correo == null || Vu5.Correo == "")
                 ModelState.AddModelError("Correo", "El correo es obligatorio");
 
-            if (usuario.Correo != null)
+           
+        }
+        public void validar2(Usuario usuario, string RepitaPassword)
+        {
+            Usuario V2usu1 = usuario, V2usu2 = usuario;
+            if (V2usu1.Correo != null && !Regex.IsMatch(V2usu1.Correo, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z"))
             {
-                if (!Regex.IsMatch(usuario.Correo, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z"))
-                    ModelState.AddModelError("Correo", "El formato debe ser de correo");
+                ModelState.AddModelError("Correo", "El formato debe ser de correo");
             }
 
-            if (usuario.Correo != null)
+            if (V2usu2.Correo != null && Regex.IsMatch(V2usu2.Correo, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z"))
             {
-                if (Regex.IsMatch(usuario.Correo, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z"))
+                var usuarioCorreoD = conexion.Usuarios.Any(t => t.Correo == usuario.Correo);
+                if (usuarioCorreoD)
                 {
-                    var usuarioCorreoDB = conexion.Usuarios.Any(t => t.Correo == usuario.Correo);
-                    if (usuarioCorreoDB)
-                    {
-                        ModelState.AddModelError("Correo", "Este correo ya existe");
-                    }
+                    ModelState.AddModelError("Correo", "Este correo ya existe");
                 }
             }
 
-
-            if (usuario.Direccion == null || usuario.Direccion == "")
+        }
+        public void validar3(Usuario usuario, string RepitaPass)
+        {
+            Usuario V3usu1 = usuario, V3usu2 = usuario, V3usu3 = usuario;
+            if (V3usu1.Direccion == null || V3usu1.Direccion == "")
                 ModelState.AddModelError("Direccion", "La direccion es obligatorio");
 
-            if (usuario.Password == null || usuario.Password == "")
+            if (V3usu2.Password == null || V3usu2.Password == "")
                 ModelState.AddModelError("Password", "El pasword es obligatorio");
 
-            if (RepitaPassword == null || RepitaPassword == "")
+            if (RepitaPass == null || RepitaPass == "")
                 ModelState.AddModelError("RepitaPassword", "Este campo es obligatorio");
 
-            if (usuario.Password != null || RepitaPassword != null)
+            if (V3usu3.Password != null && RepitaPass != null && V3usu3.Password != RepitaPass)
             {
-                if (usuario.Password != RepitaPassword)
-                {
-                    ModelState.AddModelError("RepitaPassword", "Los passwords no coinciden");
-                }
-            }
-            if (usuario.Perfil == null)
-            {
-                ModelState.AddModelError("Perfil", "El campo perfil no puede ser vacio");
-            }
-            if (usuario.IdTipoUsuario == 0)
-            {
-                ModelState.AddModelError("TipoUsuario", "Seleccione un campo valido");
+                ModelState.AddModelError("RepitaPassword", "Los passwords no coinciden");
             }
         }
         public void validarEditarUsuario(Usuario usuario, int? id)
         {
 
-
             if (usuario.Nombre == null || usuario.Nombre == "")
-                ModelState.AddModelError("Nombre", "El nombre es obligatorio");
-            if (usuario.Nombre != null)
+                ModelState.AddModelError("Nombre", "El campo nombre es obligatorio");
+            if (usuario.Nombre != null && !Regex.IsMatch(usuario.Nombre, @"^[a-zA-Z ]*$"))
             {
-                if (!Regex.IsMatch(usuario.Nombre, @"^[a-zA-Z ]*$"))
                     ModelState.AddModelError("Nombre", "El campo nombre solo acepta letras");
             }
 
             if (usuario.Apellido == null || usuario.Apellido == "")
                 ModelState.AddModelError("Apellido", "El apellido es obligatorio");
-            if (usuario.Apellido != null)
+            if (usuario.Apellido != null && !Regex.IsMatch(usuario.Apellido, @"^[a-zA-Z ]*$"))
             {
-                if (!Regex.IsMatch(usuario.Apellido, @"^[a-zA-Z ]*$"))
                     ModelState.AddModelError("Apellido", "El campo apellido solo acepta letras");
             }
 
             if (usuario.DNI == null || usuario.DNI == "")
                 ModelState.AddModelError("DNI", "El DNI es obligatorio");
 
-            if (usuario.DNI != null)
+            if (usuario.DNI != null && !Regex.IsMatch(usuario.DNI, "^\\d+$"))
             {
-                if (!Regex.IsMatch(usuario.DNI, "^\\d+$"))
                     ModelState.AddModelError("DNI", "El campo dni solo acepta numeros");
             }
 
-            if (usuario.DNI != null)
+            if (usuario.DNI != null && Regex.IsMatch(usuario.DNI, "^\\d+$") && usuario.DNI.Length != 8)
             {
-                if (Regex.IsMatch(usuario.DNI, "^\\d+$"))
-                {
-                    if (usuario.DNI.Length != 8)
                         ModelState.AddModelError("DNI", "El campo dni debe de tener 8 numeros");
-                }
             }
 
+        }
 
-            if (usuario.Celular == null || usuario.Celular == "")
+        public void validarEditarUsuario1(Usuario usuario, int? id)
+        {
+            Usuario VEu1 = usuario, VEu2 = usuario, VEu3 = usuario, VEu4 = usuario, VEu5 = usuario, VEu6=usuario,VEu7=usuario;
+            if (VEu1.Celular == null || VEu1.Celular == "")
                 ModelState.AddModelError("Celular", "El celular es obligatorio");
 
-            if (usuario.Celular != null)
+            if (VEu2.Celular != null && !Regex.IsMatch(VEu2.Celular, "^\\d+$"))
             {
-                if (!Regex.IsMatch(usuario.Celular, "^\\d+$"))
-                    ModelState.AddModelError("Celular", "El campo celular solo acepta numeros");
+                ModelState.AddModelError("Celular", "El campo celular solo acepta numeros");
             }
 
-            if (usuario.Celular != null)
+            if (VEu3.Celular != null && !Regex.IsMatch(VEu3.Celular, "^\\d+$") && usuario.Celular.Length != 9)
             {
-                if (!Regex.IsMatch(usuario.Celular, "^\\d+$"))
-                {
-                    if (usuario.Celular.Length != 9)
-                        ModelState.AddModelError("Celular", "El campo celular debe de tener 9 numeros");
-                }
+                ModelState.AddModelError("Celular", "El campo celular debe de tener 9 numeros");
             }
 
-            if (usuario.Celular != null)
+            if (VEu4.Celular != null && Regex.IsMatch(VEu4.Celular, "^\\d+$") && VEu4.Celular.Length == 9 && VEu4.Celular.Substring(0, 1) != "9")
             {
-                if (Regex.IsMatch(usuario.Celular, "^\\d+$"))
-                {
-                    if (usuario.Celular.Length == 9)
-                    {
-                        if (usuario.Celular.Substring(0, 1) != "9")
-                            ModelState.AddModelError("Celular", "El campo celular debe de empezar con 9");
-                    }
-                }
+                ModelState.AddModelError("Celular", "El campo celular debe de empezar con 9");
             }
 
-            if (usuario.Correo == null || usuario.Correo == "")
+            if (VEu5.Correo == null || VEu5.Correo == "")
                 ModelState.AddModelError("Correo", "El correo es obligatorio");
 
-            if (usuario.Correo != null)
+            if (VEu6.Correo != null && !Regex.IsMatch(VEu6.Correo, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z"))
             {
-                if (!Regex.IsMatch(usuario.Correo, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z"))
-                    ModelState.AddModelError("Correo", "El formato debe ser de correo");
+                ModelState.AddModelError("Correo", "El formato debe ser de correo");
             }
 
 
-            if (usuario.Direccion == null || usuario.Direccion == "")
+            if (VEu7.Direccion == null || VEu7.Direccion == "")
                 ModelState.AddModelError("Direccion", "La direccion es obligatorio");
+
+            
+        }
+        public void validarEditarUsuario2(Usuario usuario, int? id)
+        {
 
             if (usuario.Password == null || usuario.Password == "")
                 ModelState.AddModelError("Password", "El pasword es obligatorio");
 
-            if (usuario.DNI != null && usuario.DNI != "")
+            if (usuario.DNI != null && usuario.DNI != "" && Regex.IsMatch(usuario.DNI, "^\\d+$") && usuario.DNI.Length == 8)
             {
-                if (Regex.IsMatch(usuario.DNI, "^\\d+$"))
+                var IdUsuarioDB = conexion.Usuarios.First(a => a.IdUsuario == id);
+                var UsuDNI = conexion.Usuarios.First(a => a.DNI == IdUsuarioDB.DNI);
+                if (UsuDNI.DNI != usuario.DNI)
                 {
-                    if (usuario.DNI.Length == 8)
+                    var usuarioDB = conexion.Usuarios.Any(t => t.DNI == usuario.DNI);
+                    if (usuarioDB)
                     {
-                        var IdUsuarioDB = conexion.Usuarios.Where(a => a.IdUsuario == id).First();
-                        var UsuDNI = conexion.Usuarios.Where(a => a.DNI == IdUsuarioDB.DNI).First();
-                        if (UsuDNI.DNI != usuario.DNI)
-                        {
-                            var usuarioDB = conexion.Usuarios.Any(t => t.DNI == usuario.DNI);
-                            if (usuarioDB)
-                            {
-                                ModelState.AddModelError("DNI", "Este DNI ya existe");
-                            }
-                        }
+                        ModelState.AddModelError("DNI", "Este DNI ya existe");
                     }
                 }
             }
-            if (usuario.Correo != null)
+            
+        }
+        public void validarEditarUsuario3(Usuario usuario, int? id)
+        {
+            if (usuario.Correo != null && Regex.IsMatch(usuario.Correo, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z"))
             {
-                if (Regex.IsMatch(usuario.Correo, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z"))
+
+                var UsuarioDBC = conexion.Usuarios.Where(a => a.IdUsuario == id).First();
+                var UsuCorreo = conexion.Usuarios.First(a => a.Correo == UsuarioDBC.Correo);
+                if (UsuCorreo.Correo != usuario.Correo)
                 {
-                    var UsuarioDBC = conexion.Usuarios.Where(a => a.IdUsuario == id).First();
-                    var UsuCorreo = conexion.Usuarios.Where(a => a.Correo == UsuarioDBC.Correo).First();
-                    if (UsuCorreo.Correo != usuario.Correo)
+                    var usuarioDB = conexion.Usuarios.Any(t => t.Correo == usuario.Correo);
+                    if (usuarioDB)
                     {
-                        var usuarioDB = conexion.Usuarios.Any(t => t.Correo == usuario.Correo);
-                        if (usuarioDB)
-                        {
-                            ModelState.AddModelError("Correo", "Este Correo ya existe");
-                        }
+                        ModelState.AddModelError("Correo", "Este Correo ya existe");
                     }
                 }
             }

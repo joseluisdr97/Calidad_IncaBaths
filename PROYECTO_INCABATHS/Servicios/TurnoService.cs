@@ -9,9 +9,9 @@ using System.Web;
 
 namespace PROYECTO_INCABATHS.Servicios
 {
-    public class TurnoService:ITurnoService
+    public class  TurnoService:ITurnoService
     {
-        private AppConexionDB conexion;
+        private readonly AppConexionDB conexion;
 
         public TurnoService()
         {
@@ -51,6 +51,15 @@ namespace PROYECTO_INCABATHS.Servicios
         {
             turno.Activo_Inactivo = false;
             conexion.SaveChanges();
+        }
+        public bool Existe(int? id, Turno turno1)
+        {
+            var Exist = conexion.Turnos.Any(a => a.IdServicio == id && a.HoraInicio == turno1.HoraInicio && a.HoraFin == turno1.HoraFin && a.Fecha == turno1.Fecha);
+            if (Exist)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

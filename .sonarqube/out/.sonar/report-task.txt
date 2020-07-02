@@ -1,0 +1,6 @@
+projectKey=Grupo3_IncaBaths
+serverUrl=https://sonar.sky4dev.com
+serverVersion=6.7.6.38781
+dashboardUrl=https://sonar.sky4dev.com/dashboard/index/Grupo3_IncaBaths
+ceTaskId=AXMNMb4MIjmmvSsR6apE
+ceTaskUrl=https://sonar.sky4dev.com/api/ce/task?id=AXMNMb4MIjmmvSsR6apE

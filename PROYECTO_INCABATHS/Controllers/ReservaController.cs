@@ -22,8 +22,8 @@ namespace PROYECTO_INCABATHS.Controllers
         // GET: Reserva
         public ActionResult Index()
         {
-            if (sessionService.EstaLogueadoComoAdministrador() == false) { return RedirectToAction("Index", "Error"); }
-            var datos = service.ObtenerListaReservas().Where(a=>a.Activo_Inactivo == true).ToList();
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
+            var datos = service.ObtenerListaReservas().Where(a=>a.Activo_Inactivo).ToList();
             return View(datos);
         }
         [Authorize]
@@ -37,7 +37,7 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpPost]
         public ActionResult Crear(Reserva reserva)
         {
-            if (sessionService.EstaLogueadoComoCliente() == false) { return RedirectToAction("Index", "Error"); }
+            if (!sessionService.EstaLogueadoComoCliente()) { return RedirectToAction("Index", "Error"); }
             int valor = 0;
             if (reserva != null && reserva.DetalleReservas != null && reserva.DetalleReservas.Count > 0)
             {
@@ -52,11 +52,10 @@ namespace PROYECTO_INCABATHS.Controllers
         [Authorize]
         public ActionResult MisReservas()
         {
-            if (sessionService.EstaLogueadoComoCliente() == false) { return RedirectToAction("Index", "Error"); }
+            if (!sessionService.EstaLogueadoComoCliente()) { return RedirectToAction("Index", "Error"); }
             if (sessionService.BuscarNombreUsuarioSession() == null || sessionService.BuscarNombreUsuarioSession() == "") { return RedirectToAction("Index", "Error"); }
-            //var fecha = DateTime.Now.Date;
             var usuarioIdDB = sessionService.BuscarIdUsuarioSession();
-            var misReservas = service.ObtenerListaReservas().Where(a => a.IdUsuario == usuarioIdDB && a.Activo_Inactivo==true/*&& a.Fecha==fecha*/).ToList();
+            var misReservas = service.ObtenerListaReservas().Where(a => a.IdUsuario == usuarioIdDB && a.Activo_Inactivo).ToList();
 
             return View(misReservas);
         }
@@ -67,15 +66,15 @@ namespace PROYECTO_INCABATHS.Controllers
             var usuarioIdDB = sessionService.BuscarIdUsuarioSession();
             var fechas = fecha.Date;
             var endDateTime = fechas.Date.AddDays(1);
-            var misReservas = new List<Reserva>();
+            List<Reserva> misReservas;
 
-            if (fecha != null && fecha.ToString() != "01/01/0001 12:00:00 a.m.")
+            if (fecha.ToString() == "01/01/0001 12:00:00 a.m.")
             {
-                misReservas = service.ObtenerListaReservas().Where(a => a.IdUsuario == usuarioIdDB && a.Fecha >= fechas && a.Fecha<endDateTime).ToList();
+                misReservas = service.ObtenerListaReservas().Where(a => a.IdUsuario == usuarioIdDB).ToList();
             }
             else
             {
-                misReservas = service.ObtenerListaReservas().Where(a => a.IdUsuario == usuarioIdDB).ToList();
+                misReservas = service.ObtenerListaReservas().Where(a => a.IdUsuario == usuarioIdDB && a.Fecha >= fechas && a.Fecha < endDateTime).ToList();
             }
 
             return View(misReservas);
@@ -86,52 +85,49 @@ namespace PROYECTO_INCABATHS.Controllers
             if (sessionService.BuscarNombreUsuarioSession() == null || sessionService.BuscarNombreUsuarioSession() == "") return RedirectToAction("Index", "Error");
                 if (dni!=""&& dni != null)
             {
-                var contUDB = service.ObtenerListaUsuarios().Count(u => u.DNI == dni && u.Activo_Inactivo == true);
+                var contUDB = service.ObtenerListaUsuarios().Count(u => u.DNI == dni && u.Activo_Inactivo);
                 if (contUDB > 0)
                 {
-                    var UsuDB = service.ObtenerListaUsuarios().Where(u => u.DNI == dni).First();
-                    var reservas = service.ObtenerListaReservas().Where(r => r.IdUsuario == UsuDB.IdUsuario && r.Activo_Inactivo == true).ToList();
+                    var UsuDB = service.ObtenerListaUsuarios().First(u => u.DNI == dni);
+                    var reservas = service.ObtenerListaReservas().Where(r => r.IdUsuario == UsuDB.IdUsuario && r.Activo_Inactivo).ToList();
                     return View(reservas);
 
                 }
                 else
                 {
-                    var rese = service.ObtenerListaReservas().Where(r => r.IdUsuario == -1 && r.Activo_Inactivo == true).ToList();
+                    var rese = service.ObtenerListaReservas().Where(r => r.IdUsuario == -1 && r.Activo_Inactivo).ToList();
                     return View(rese);
                 }
             }else
             {
                 return View(service.ObtenerListaReservas().ToList());
             }
-           
-           
         }
         [Authorize]
         public ActionResult MiDetalleReserva(int id)
         {
-            var misReservas = service.ObtenerDetalleReserva().Where(a => a.IdReserva == id && a.Activo_Inactivo == true).ToList();
-
+            var misReservas = service.ObtenerDetalleReserva().Where(a => a.IdReserva == id && a.Activo_Inactivo).ToList();
             return View(misReservas);
         }
         [Authorize]
         public ActionResult Eliminar(int? id)
         {
-            if (id == null || id == 0) { return RedirectToAction("Index", "Error"); };
-            var DbReserva = service.ObtenerListaReservas().Where(o => o.IdReserva == id && o.Activo_Inactivo==true).First();
+            if (id == null || id == 0) { return RedirectToAction("Index", "Error"); }
+            var DbReserva = service.ObtenerListaReservas().First(o => o.IdReserva == id && o.Activo_Inactivo);
             service.EliminarReserva(DbReserva);
 
             var CountReservaDb = service.ObtenerDetalleReserva().Count(o => o.IdReserva == id);
             if (CountReservaDb != 0)
             {
-                var CountReservaDbLista = service.ObtenerDetalleReserva().Where(o => o.IdReserva == id && o.Activo_Inactivo==true).ToList();
+                var CountReservaDbLista = service.ObtenerDetalleReserva().Where(o => o.IdReserva == id && o.Activo_Inactivo).ToList();
                 for (int i = 0; i < CountReservaDb; i++)
                 {
                     var idDetalleReserva = CountReservaDbLista[i].IdDetalleReserva;
-                    var ReservaDb = service.ObtenerDetalleReserva().Where(o => o.IdDetalleReserva == idDetalleReserva).First();
+                    var ReservaDb = service.ObtenerDetalleReserva().First(o => o.IdDetalleReserva == idDetalleReserva);
                     service.EliminarDetalleReserva(ReservaDb);
                 }
             }
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
         public ActionResult ObtenerTurnos(int id)
@@ -143,12 +139,12 @@ namespace PROYECTO_INCABATHS.Controllers
         }
         public string ObtenerHoraInicioTurno(int id)
         {
-            var TurnoDb = service.ObtenerListaTurnos().Where(a => a.IdTurno == id).First();
+            var TurnoDb = service.ObtenerListaTurnos().First(a => a.IdTurno == id);
             return TurnoDb.HoraInicio.ToString();
         }
         public string ObtenerHoraFinTurno(int id)
         {
-            var TurnoDb = service.ObtenerListaTurnos().Where(a => a.IdTurno == id).First();
+            var TurnoDb = service.ObtenerListaTurnos().First(a => a.IdTurno == id);
             return TurnoDb.HoraFin.ToString();
         }
         public string BuscarUsuario(string dni)
@@ -157,7 +153,7 @@ namespace PROYECTO_INCABATHS.Controllers
 
             if (ExisteU > 0)
             {
-                var usuarioDB = service.ObtenerListaUsuarios().Where(u => u.DNI == dni).First();
+                var usuarioDB = service.ObtenerListaUsuarios().First(u => u.DNI == dni);
                 
                 return usuarioDB.Nombre +" "+ usuarioDB.Apellido;
             }
@@ -165,7 +161,6 @@ namespace PROYECTO_INCABATHS.Controllers
             {
                 return "noexiste";
             }
-             
         }
     }
 }

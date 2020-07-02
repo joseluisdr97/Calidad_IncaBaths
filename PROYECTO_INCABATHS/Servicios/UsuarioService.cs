@@ -12,7 +12,7 @@ namespace PROYECTO_INCABATHS.Servicios
 {
     public class UsuarioService: IUsuarioService
     {
-        private AppConexionDB conexion;
+        private readonly AppConexionDB conexion;
         public UsuarioService()
         {
             this.conexion = new AppConexionDB();
@@ -69,6 +69,10 @@ namespace PROYECTO_INCABATHS.Servicios
         public int BuscarIdUsuarioSession()
         {
             return Convert.ToInt32(HttpContext.Current.Session["UsuarioId"]);
+        }
+        public int Existe(Usuario usuario,int usuarioIdDB)
+        {
+            return conexion.Usuarios.Count(u => u.IdUsuario == usuarioIdDB && u.Password == usuario.Password);
         }
     }
 }

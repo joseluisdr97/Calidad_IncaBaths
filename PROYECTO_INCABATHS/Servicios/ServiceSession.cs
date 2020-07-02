@@ -10,7 +10,7 @@ namespace PROYECTO_INCABATHS.Servicios
 {
     public class ServiceSession:IServiceSession
     {
-        private AppConexionDB conexion;
+        private readonly AppConexionDB conexion;
         public ServiceSession()
         {
             this.conexion = new AppConexionDB();

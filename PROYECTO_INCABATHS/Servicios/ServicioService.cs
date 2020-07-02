@@ -10,7 +10,7 @@ namespace PROYECTO_INCABATHS.Servicios
 
     public class ServicioService:IServicioService
     {
-        private AppConexionDB conexion;
+        private readonly AppConexionDB conexion;
 
         public ServicioService()
         {
@@ -44,7 +44,7 @@ namespace PROYECTO_INCABATHS.Servicios
 
         public int ContarTurnosDelServicio(int? id)
         {
-            return conexion.Turnos.Count(o => o.IdServicio == id && o.Activo_Inactivo == true);
+            return conexion.Turnos.Count(o => o.IdServicio == id && o.Activo_Inactivo);
         }
 
         public List<Turno> ListaDeTurnos()
@@ -57,7 +57,7 @@ namespace PROYECTO_INCABATHS.Servicios
         }
         public void EliminarTurnosDelServicio(int? id)
         {
-            var turnoDb1 = ListaDeTurnos().Where(o => o.IdServicio == id && o.Activo_Inactivo == true).ToList();
+            var turnoDb1 = ListaDeTurnos().Where(o => o.IdServicio == id && o.Activo_Inactivo).ToList();
 
             for (int i = 0; i < turnoDb1.Count; i++)
             {

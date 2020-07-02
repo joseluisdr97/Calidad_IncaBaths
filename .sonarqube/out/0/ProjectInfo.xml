@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
+  <ProjectName>PROYECTO_INCABATHS</ProjectName>
+  <ProjectLanguage>C#</ProjectLanguage>
+  <ProjectType>Product</ProjectType>
+  <ProjectGuid>a419a0ff-9a0a-406c-8ba8-0487c91cfe45</ProjectGuid>
+  <FullPath>C:\Users\JOSE LUIS\Documents\Visual Studio 2017\Projects\IncaBaths-master\PROYECTO_INCABATHS\PROYECTO_INCABATHS.csproj</FullPath>
+  <IsExcluded>false</IsExcluded>
+  <AnalysisResults>
+    <AnalysisResult Id="FilesToAnalyze" Location="C:\Users\JOSE LUIS\Documents\Visual Studio 2017\Projects\IncaBaths-master\.sonarqube\out\0\FilesToAnalyze.txt" />
+  </AnalysisResults>
+  <AnalysisSettings>
+    <Property Name="sonar.cs.roslyn.reportFilePath">C:\Users\JOSE LUIS\Documents\Visual Studio 2017\Projects\IncaBaths-master\PROYECTO_INCABATHS\bin\PROYECTO_INCABATHS.dll.RoslynCA.json|C:\Users\JOSE LUIS\Documents\Visual Studio 2017\Projects\IncaBaths-master\PROYECTO_INCABATHS\bin\PROYECTO_INCABATHS.dll.RoslynCA.json</Property>
+    <Property Name="sonar.cs.analyzer.projectOutPath">C:\Users\JOSE LUIS\Documents\Visual Studio 2017\Projects\IncaBaths-master\.sonarqube\out\0</Property>
+  </AnalysisSettings>
+  <Configuration>Debug</Configuration>
+  <Platform>AnyCPU</Platform>
+</ProjectInfo>

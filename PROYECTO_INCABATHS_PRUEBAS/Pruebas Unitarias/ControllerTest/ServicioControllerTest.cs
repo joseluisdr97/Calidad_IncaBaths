@@ -18,7 +18,57 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
     class ServicioControllerTest
     {
         [Test]
-        public void ReturnViewBuscarElementoIndexTest()
+        public void ReturnInstance_IndexTest()
+        {
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
+            var faker = new Mock<IServicioService>();//ESto reeplaza a la creacion de la clase faker
+            faker.Setup(a => a.ObtenerListaServicios()).Returns(new List<Servicio>//Se pone el metodo al que quiero llamar y se pone lo que nosotros queremos retornar
+            {
+                new Servicio{IdServicio=3, Nombre="Masajes", Precio=10, Aforo=30},
+                new Servicio{IdServicio=4, Nombre="Hidromasajes", Precio=3.5m, Aforo=25}
+            });
+
+            var controller = new ServicioController(faker.Object, fakerSession.Object);
+            var view = controller.Index();
+
+            Assert.IsInstanceOf<ViewResult>(view);
+        }
+        [Test]
+        public void ReturnInstanceModel_IndexTest()
+        {
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
+            var faker = new Mock<IServicioService>();//ESto reeplaza a la creacion de la clase faker
+            faker.Setup(a => a.ObtenerListaServicios()).Returns(new List<Servicio>//Se pone el metodo al que quiero llamar y se pone lo que nosotros queremos retornar
+            {
+                new Servicio{IdServicio=3, Nombre="Masajes", Precio=10, Aforo=30},
+                new Servicio{IdServicio=4, Nombre="Hidromasajes", Precio=3.5m, Aforo=25}
+            });
+
+            var controller = new ServicioController(faker.Object, fakerSession.Object);
+            var view = controller.Index() as ViewResult;
+
+            Assert.IsInstanceOf<List<Servicio>>(view.Model);
+        }
+        [Test]
+        public void ReturnModel_IndexTest()
+        {
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
+            var faker = new Mock<IServicioService>();//ESto reeplaza a la creacion de la clase faker
+            faker.Setup(a => a.ObtenerListaServicios()).Returns(new List<Servicio>//Se pone el metodo al que quiero llamar y se pone lo que nosotros queremos retornar
+            {
+                new Servicio{IdServicio=4, Nombre="Hidromasajes", Precio=3.5m, Aforo=25}
+            });
+
+            var controller = new ServicioController(faker.Object, fakerSession.Object);
+            var view = controller.Index() as ViewResult;
+
+            Assert.AreEqual(new List<Servicio>(), view.Model);
+        }
+        [Test]
+        public void ReturnInstanceModel_BuscarServicioTest()
         {
             var fakerSession = new Mock<IServiceSession>();
             var faker = new Mock<IServicioService>();//ESto reeplaza a la creacion de la clase faker
@@ -33,13 +83,12 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
 
             var controller = new ServicioController(faker.Object, fakerSession.Object);
             var view = controller.BuscarServicio("Duchas") as ViewResult;
-            var model = view.Model as List<Servicio>;
 
-            Assert.AreEqual(new List<Servicio>(), view.Model);//Me retorna una lista vacia
+            Assert.IsInstanceOf<List<Servicio>>(view.Model);
         }
 
         [Test]
-        public void ReturnViewContarElementosIndexTest()
+        public void BuscarServicioEnviandoDatos_BuscarServicioTest()
         {
             var fakerSession = new Mock<IServiceSession>();
             var faker = new Mock<IServicioService>();
@@ -58,7 +107,26 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
 
             Assert.AreEqual(2, (view.Model as List<Servicio>).Count);
         }
+        [Test]
+        public void BuscarServicioEnviandoDatoNull_BuscarServicioTest()
+        {
+            var fakerSession = new Mock<IServiceSession>();
+            var faker = new Mock<IServicioService>();
+            faker.Setup(a => a.ObtenerListaServicios()).Returns(new List<Servicio>
+            {
+                new Servicio{IdServicio=1, Nombre="Sauna", Precio=4, Aforo=20,Activo_Inactivo=true},
+                new Servicio{IdServicio=2, Nombre="Piscina niños", Precio=2, Aforo=100,Activo_Inactivo=true},
+                new Servicio{IdServicio=3, Nombre="Piscina Adultos", Precio=2, Aforo=100,Activo_Inactivo=true},
+                new Servicio{IdServicio=4, Nombre="Masajes", Precio=10, Aforo=30,Activo_Inactivo=true},
+            }
+            );
 
+            var controller = new ServicioController(faker.Object, fakerSession.Object);
+            var view = controller.BuscarServicio(null) as ViewResult;
+            var model = view.Model as List<Servicio>;
+
+            Assert.AreEqual(4, model.Count);
+        }
         [Test]
         public void ReturnServicioEnvioPorIdNullTest()
         {

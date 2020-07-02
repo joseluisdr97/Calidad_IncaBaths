@@ -11,7 +11,7 @@ namespace PROYECTO_INCABATHS.Servicios
 {
     public class AuthService: IAuthService
     {
-        private AppConexionDB conexion;
+        private readonly AppConexionDB conexion;
         public AuthService()
         {
             this.conexion = new AppConexionDB();
@@ -23,6 +23,12 @@ namespace PROYECTO_INCABATHS.Servicios
         public void GuardarCookie(string Correo)
         {
             FormsAuthentication.SetAuthCookie(Correo, false);
+        }
+        public void CerrarSession()
+        {
+            FormsAuthentication.SignOut();
+
+            HttpContext.Current.Session.Clear();
         }
     }
 }

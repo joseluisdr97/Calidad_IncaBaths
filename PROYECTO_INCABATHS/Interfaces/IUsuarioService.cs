@@ -18,5 +18,6 @@ namespace PROYECTO_INCABATHS.Interfaces
         void ActualizarDatosUsuario(Usuario usuario, Usuario UsuarioDb);
         void CambiarContraUsuario(string NuevaPassword, Usuario UsuarioDb);
         int BuscarIdUsuarioSession();
+        int Existe(Usuario usuario, int usuarioIdDB);
     }
 }

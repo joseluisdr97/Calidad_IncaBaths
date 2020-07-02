@@ -62,6 +62,28 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
             Assert.AreEqual(3, model.Count);
         }
         [Test]
+        public void ReturnInstance_BuscarTest()
+        {
+            var fakerSession = new Mock<IServiceSession>();
+            var faker = new Mock<IUsuarioService>();//ESto reeplaza a la creacion de la clase faker
+            faker.Setup(a => a.ObtenerListaUsuarios()).Returns(new List<Usuario> {
+                new Usuario { IdUsuario = 1, IdTipoUsuario = 1, Nombre = "Jose Luis", Apellido = "Diaz Ruiz", DNI = "11111111", Celular = "921472548", Direccion = "Jr Chepen", Correo = "admin1@gmail.com", Password = "123", Activo_Inactivo = true }});
+            var controller = new UsuarioController(faker.Object, fakerSession.Object);
+            var view = controller.BuscarUsuario(null);
+            Assert.IsInstanceOf<ViewResult>(view);
+        }
+        [Test]
+        public void ReturnModelInstance_BuscarTest()
+        {
+            var fakerSession = new Mock<IServiceSession>();
+            var faker = new Mock<IUsuarioService>();//ESto reeplaza a la creacion de la clase faker
+            faker.Setup(a => a.ObtenerListaUsuarios()).Returns(new List<Usuario> {
+                new Usuario { IdUsuario = 1, IdTipoUsuario = 1, Nombre = "Jose Luis", Apellido = "Diaz Ruiz", DNI = "11111111", Celular = "921472548", Direccion = "Jr Chepen", Correo = "admin1@gmail.com", Password = "123", Activo_Inactivo = true }});
+            var controller = new UsuarioController(faker.Object, fakerSession.Object);
+            var view = controller.BuscarUsuario(null) as ViewResult;
+            Assert.IsInstanceOf<List<Usuario>>(view.Model);
+        }
+        [Test]
         public void ContarTiposDeUsuarioCrearTest()
         {
             var fakerSession = new Mock<IServiceSession>();
@@ -69,7 +91,6 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
             var faker = new Mock<IUsuarioService>();//ESto reeplaza a la creacion de la clase faker
             faker.Setup(a => a.ObtenerListaDeTipoUsuarios()).Returns(new List<TipoUsuario> {
                 new TipoUsuario{IdTipoUsuario=1,Nombre="Administrador"},
-                new TipoUsuario{IdTipoUsuario=2,Nombre="Cajero"},
                 new TipoUsuario{IdTipoUsuario=3,Nombre="Cliente"}
                 });
             var controller = new UsuarioController(faker.Object, fakerSession.Object);
@@ -91,6 +112,37 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
             var view = controller.Crear() as ViewResult;
             Assert.AreEqual("Cajero", (view.ViewBag.TipoUsuarios as List<TipoUsuario>)[1].Nombre);
         }
+        [Test]
+        public void ReturnInstance_CrearTest()
+        {
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
+            var faker = new Mock<IUsuarioService>();//ESto reeplaza a la creacion de la clase faker
+            faker.Setup(a => a.ObtenerListaDeTipoUsuarios()).Returns(new List<TipoUsuario> {
+                new TipoUsuario{IdTipoUsuario=3,Nombre="Cliente"}
+                });
+            var controller = new UsuarioController(faker.Object, fakerSession.Object);
+            var view = controller.Crear() as ViewResult;
+            Assert.IsInstanceOf<ViewResult>(view);
+        }
+        [Test]
+        public void CrearUsuarioDatosNoValidos_CrearPostTest()
+        {
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
+
+            var faker = new Mock<IUsuarioService>();//ESto reeplaza a la creacion de la clase faker
+            faker.Setup(a => a.ObtenerListaDeTipoUsuarios()).Returns(new List<TipoUsuario> {
+                new TipoUsuario{IdTipoUsuario=3,Nombre="Cliente"}
+                });
+            faker.Setup(a => a.Existe(new Usuario { IdUsuario=1, Nombre="Jose", Apellido="Diaz"},1)).Returns(1);
+            faker.Setup(a=>a.BuscarIdUsuarioSession()).Returns(1);
+            
+            var controller = new UsuarioController(faker.Object, fakerSession.Object);
+            var view = controller.Crear() as ViewResult;
+            Assert.IsInstanceOf<ViewResult>(view);
+        }
+        
         [Test]
         public void VerificarSiElUsuarioEstaActivoTest()
         {

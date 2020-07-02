@@ -11,5 +11,6 @@ namespace PROYECTO_INCABATHS.Interfaces
     {
         List<Usuario> ObtenerListaUsuarios();
         void GuardarCookie(string Correo);
+        void CerrarSession();
     }
 }

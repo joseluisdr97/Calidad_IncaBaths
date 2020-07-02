@@ -9,8 +9,7 @@ namespace PROYECTO_INCABATHS.Controllers
 {
     public class ErrorController : Controller
     {
-        private AppConexionDB conexion = new AppConexionDB();
-        // GET: Error
+        private readonly AppConexionDB conexion = new AppConexionDB();
         public ActionResult Index()
         {
             return View();
@@ -23,7 +22,7 @@ namespace PROYECTO_INCABATHS.Controllers
             if(EstaLogueado!=null && EstaLogueado.ToString() != "")
             {
                 var IdUsuario = Convert.ToInt32(Session["UsuarioId"]);
-                var usuario = conexion.Usuarios.Where(a => a.IdUsuario == IdUsuario).First();
+                var usuario = conexion.Usuarios/*.Where()*/.First(a => a.IdUsuario == IdUsuario);
                 if (usuario.IdTipoUsuario == 1)
                 {
                     return RedirectToAction("Index", "Admin");
