@@ -220,5 +220,29 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest.ControllerIsLoguedTest
             var view = controller.CambiarContraUsuarioAdmin();
             Assert.IsInstanceOf<RedirectToRouteResult>(view);
         }
+        [Test]
+        public void ReturnInstanceNoLogueado_BuscarTest()
+        {
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(false);
+            var faker = new Mock<IUsuarioService>();//ESto reeplaza a la creacion de la clase faker
+            faker.Setup(a => a.ObtenerListaUsuarios()).Returns(new List<Usuario> {
+                new Usuario { IdUsuario = 1, IdTipoUsuario = 1, Nombre = "Jose Luis", Apellido = "Diaz Ruiz", DNI = "11111111", Celular = "921472548", Direccion = "Jr Chepen", Correo = "admin1@gmail.com", Password = "123", Activo_Inactivo = true }});
+            var controller = new UsuarioController(faker.Object, fakerSession.Object);
+            var view = controller.BuscarUsuario(null);
+            Assert.IsInstanceOf<RedirectToRouteResult>(view);
+        }
+        [Test]
+        public void ReturnInstanceLogueado_BuscarTest()
+        {
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
+            var faker = new Mock<IUsuarioService>();//ESto reeplaza a la creacion de la clase faker
+            faker.Setup(a => a.ObtenerListaUsuarios()).Returns(new List<Usuario> {
+                new Usuario { IdUsuario = 1, IdTipoUsuario = 1, Nombre = "Jose Luis", Apellido = "Diaz Ruiz", DNI = "11111111", Celular = "921472548", Direccion = "Jr Chepen", Correo = "admin1@gmail.com", Password = "123", Activo_Inactivo = true }});
+            var controller = new UsuarioController(faker.Object, fakerSession.Object);
+            var view = controller.BuscarUsuario(null);
+            Assert.IsInstanceOf<ViewResult>(view);
+        }
     }
 }

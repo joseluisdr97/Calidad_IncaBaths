@@ -68,7 +68,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
         public void Return_UnaListaServicios_CrearTest()
         {
             var fakerSession = new Mock<IServiceSession>();
-
+            fakerSession.Setup(a => a.EstaLogueadoComoCliente()).Returns(true);
             var faker = new Mock<IReservaService>();
             faker.Setup(a => a.ObtenerListaServicios()).Returns(new List<Servicio> {});
 
@@ -81,7 +81,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
         public void ReturnViewBag_ListaServicios_CrearTest()
         {
             var fakerSession = new Mock<IServiceSession>();
-
+            fakerSession.Setup(a => a.EstaLogueadoComoCliente()).Returns(true);
             var faker = new Mock<IReservaService>();
             faker.Setup(a => a.ObtenerListaServicios()).Returns(new List<Servicio> { });
 
@@ -215,6 +215,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
         public void ReturnIdNullEliminar_EliminarTest()
         {
             var fakerSession = new Mock<IServiceSession>();
+
             var faker = new Mock<IReservaService>();
             var controller = new ReservaController(faker.Object, fakerSession.Object);
             var view = controller.Eliminar(null);
@@ -366,6 +367,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
         public void ReturnInstance_ObtenerTunosTest()
         {
             var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
             var faker = new Mock<IReservaService>();
             faker.Setup(a => a.ObtenerListaTurnos()).Returns(new List<Turno>//Se pone el metodo al que quiero llamar y se pone lo que nosotros queremos retornar
             {
@@ -384,6 +386,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
         public void ReturnInstanceModel_ObtenerTunosTest()
         {
             var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
             var faker = new Mock<IReservaService>();
             faker.Setup(a => a.ObtenerListaTurnos()).Returns(new List<Turno>//Se pone el metodo al que quiero llamar y se pone lo que nosotros queremos retornar
             {

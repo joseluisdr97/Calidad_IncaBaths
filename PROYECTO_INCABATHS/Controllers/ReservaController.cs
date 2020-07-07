@@ -30,6 +30,7 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpGet]
         public ActionResult Crear()
         {
+            if (!sessionService.EstaLogueadoComoCliente()) { return RedirectToAction("Index", "Error"); }
             ViewBag.Servicios = service.ObtenerListaServicios().ToList();
             return View();
         }
@@ -112,6 +113,7 @@ namespace PROYECTO_INCABATHS.Controllers
         [Authorize]
         public ActionResult Eliminar(int? id)
         {
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
             if (id == null || id == 0) { return RedirectToAction("Index", "Error"); }
             var DbReserva = service.ObtenerListaReservas().First(o => o.IdReserva == id && o.Activo_Inactivo);
             service.EliminarReserva(DbReserva);
@@ -132,6 +134,7 @@ namespace PROYECTO_INCABATHS.Controllers
 
         public ActionResult ObtenerTurnos(int id)
         {
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
             var fecha = DateTime.Now.Date;
             var fechafinal = DateTime.Now.Date.AddDays(1);
             var turnos = service.ObtenerListaTurnos().Where(a => a.IdServicio == id && a.Fecha>=fecha && a.Fecha<fechafinal).ToList();

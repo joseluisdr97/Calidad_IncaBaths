@@ -39,7 +39,7 @@
             if (valor < valor2) {
                 $.ajax({ url: "/Admin/CalcularGanancia?fecha1=" + valor + "&&fecha2=" + valor2 })
                     .success(function (respuesta) {
-                        $("#mostrarGanancia").html("<h3> Ganancias = S/. " + respuesta + "</h3>");
+                        $("#mostrarGanancia").html("<h3 id="+"GananciaCalculada"+"> Ganancias = S/. " + respuesta + "</h3>");
                     });
             } else
             {

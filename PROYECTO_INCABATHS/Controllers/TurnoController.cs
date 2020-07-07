@@ -34,6 +34,7 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpGet]
         public ActionResult BuscarTurno(DateTime? fecha, int? id)
         {
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
             if (id == null || id == 0) { return RedirectToAction("Index", "Error"); }
             List<Turno> datos;
             if (fecha == null || fecha.ToString() == "01/01/0001 12:00:00 a.m.")
@@ -109,6 +110,7 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpGet]
         public ActionResult Eliminar(int? id)
         {
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
             if (id == null || id == 0) { return RedirectToAction("Index", "Error"); }
             var DbTurno = service.ObtenerTurnoPorId(id);
             if (DbTurno != null)

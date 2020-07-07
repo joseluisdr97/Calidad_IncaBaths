@@ -906,5 +906,194 @@ namespace PROYECTO_INCABATHS_PRUEBAS.SeleniumTest
             Assert.IsNotNull(buscarClase);
             navegador.Close();
         }
+        [Test]
+        public void BuscarGananciasIngresandoFechasVacias_AdminIndexTest()
+        {
+            IWebDriver navegador = new FirefoxDriver();
+
+            navegador.Url = "http://localhost:56854/Auth/Login";
+            var input1Busqueda = navegador.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("admin@gmail.com");
+            var input2Busqueda = navegador.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("admin");
+            navegador.FindElement(By.CssSelector("#ingresar")).Click();
+
+            navegador.FindElement(By.CssSelector("#btnBuscar")).Click();
+
+            var buscarId = navegador.FindElement(By.CssSelector("#swal2-content"));
+
+            Assert.IsNotNull(buscarId);
+            navegador.Close();
+        }
+        [Test]
+        public void BuscarGananciasIngresandoFechaInicioMayorALaFinal_AdminIndexTest()
+        {
+            IWebDriver navegador = new FirefoxDriver();
+
+            navegador.Url = "http://localhost:56854/Auth/Login";
+            var input1Busqueda = navegador.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("admin@gmail.com");
+            var input2Busqueda = navegador.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("admin");
+            navegador.FindElement(By.CssSelector("#ingresar")).Click();
+            navegador.FindElement(By.CssSelector("#desde")).SendKeys("2020-03-01");
+            navegador.FindElement(By.CssSelector("#hasta")).SendKeys("2020-01-01");
+
+            navegador.FindElement(By.CssSelector("#btnBuscar")).Click();
+
+            var buscarId = navegador.FindElement(By.CssSelector("#swal2-content"));
+
+            Assert.IsNotNull(buscarId);
+            navegador.Close();
+        }
+        [Test]
+        public void BuscarGananciasIngresandoFechasCorrectas_AdminIndexTest()
+        {
+            IWebDriver navegador = new FirefoxDriver();
+
+            navegador.Url = "http://localhost:56854/Auth/Login";
+            var input1Busqueda = navegador.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("admin@gmail.com");
+            var input2Busqueda = navegador.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("admin");
+            navegador.FindElement(By.CssSelector("#ingresar")).Click();
+            navegador.FindElement(By.CssSelector("#desde")).SendKeys("2020-01-01");
+            navegador.FindElement(By.CssSelector("#hasta")).SendKeys("2020-03-01");
+
+            navegador.FindElement(By.CssSelector("#btnBuscar")).Click();
+
+            var buscarId = navegador.FindElement(By.CssSelector("#GananciaCalculada"));
+
+            Assert.IsNotNull(buscarId);
+            navegador.Close();
+        }
+        [Test]
+        public void BuscarServicioPorNombre_AdminServicioIndexTest()
+        {
+            IWebDriver navegador = new FirefoxDriver();
+
+            navegador.Url = "http://localhost:56854/Auth/Login";
+            var input1Busqueda = navegador.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("admin@gmail.com");
+            var input2Busqueda = navegador.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("admin");
+            navegador.FindElement(By.CssSelector("#ingresar")).Click();
+            navegador.Url = "http://localhost:56854/Servicio/Index";
+            navegador.FindElement(By.CssSelector("#query")).SendKeys("Piscina");
+            navegador.FindElement(By.CssSelector("#btnBuscar")).Click();
+            Thread.Sleep(1000);
+
+            var buscarId = navegador.FindElement(By.CssSelector("#ServicioBuscado"));
+
+            Assert.IsNotNull(buscarId);
+            navegador.Close();
+        }
+        [Test]
+        public void BuscarTurnoPorFecha_AdminTurnoIndexTest()
+        {
+            IWebDriver navegador = new FirefoxDriver();
+
+            navegador.Url = "http://localhost:56854/Auth/Login";
+            var input1Busqueda = navegador.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("admin@gmail.com");
+            var input2Busqueda = navegador.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("admin");
+            navegador.FindElement(By.CssSelector("#ingresar")).Click();
+            navegador.Url = "http://localhost:56854/Turno/Index?id=3";
+            navegador.FindElement(By.CssSelector("#query")).SendKeys("2020-07-07");
+            navegador.FindElement(By.CssSelector("#btnBuscar")).Click();
+            Thread.Sleep(1000);
+
+            var buscarId = navegador.FindElement(By.CssSelector("#TurnoBuscado"));
+
+            Assert.IsNotNull(buscarId);
+            navegador.Close();
+        }
+        [Test]
+        public void BuscarUsuarioPorDNI_AdminUsuarioIndexTest()
+        {
+            IWebDriver navegador = new FirefoxDriver();
+
+            navegador.Url = "http://localhost:56854/Auth/Login";
+            var input1Busqueda = navegador.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("admin@gmail.com");
+            var input2Busqueda = navegador.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("admin");
+            navegador.FindElement(By.CssSelector("#ingresar")).Click();
+            navegador.Url = "http://localhost:56854/Usuario/Index";
+            navegador.FindElement(By.CssSelector("#query")).SendKeys("11111112");
+            navegador.FindElement(By.CssSelector("#btnBuscar")).Click();
+            Thread.Sleep(1000);
+
+            var buscarId = navegador.FindElement(By.CssSelector("#UsuarioBuscado"));
+
+            Assert.IsNotNull(buscarId);
+            navegador.Close();
+        }
+        [Test]
+        public void BuscarReservaPorDNIUsuario_AdminReservaIndexTest()
+        {
+            IWebDriver navegador = new FirefoxDriver();
+
+            navegador.Url = "http://localhost:56854/Auth/Login";
+            var input1Busqueda = navegador.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("admin@gmail.com");
+            var input2Busqueda = navegador.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("admin");
+            navegador.FindElement(By.CssSelector("#ingresar")).Click();
+            navegador.Url = "http://localhost:56854/Reserva/Index";
+            navegador.FindElement(By.CssSelector("#query")).SendKeys("11111112");
+            navegador.FindElement(By.CssSelector("#btnBuscar")).Click();
+            Thread.Sleep(1000);
+
+            var buscarId = navegador.FindElement(By.CssSelector("#ReservaBuscada"));
+
+            Assert.IsNotNull(buscarId);
+            navegador.Close();
+        }
+        [Test]
+        public void BuscarMisReservasUsuario_UsuarioMisReservasTest()
+        {
+            IWebDriver navegador = new FirefoxDriver();
+
+            navegador.Url = "http://localhost:56854/Auth/Login";
+            var input1Busqueda = navegador.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("jose@gmail.com");
+            var input2Busqueda = navegador.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("1234");
+            navegador.FindElement(By.CssSelector("#ingresar")).Click();
+            navegador.Url = "http://localhost:56854/Reserva/MisReservas";
+            navegador.FindElement(By.CssSelector("#query")).SendKeys("2020-05-03");
+            navegador.FindElement(By.CssSelector("#btnBuscar")).Click();
+            Thread.Sleep(1000);
+
+            var buscarId = navegador.FindElement(By.CssSelector("#MisReservasBuscadas"));
+
+            Assert.IsNotNull(buscarId);
+            navegador.Close();
+        }
+        [Test]
+        public void VerMiDetalleReserva_UsuarioMisReservasTest()
+        {
+            IWebDriver navegador = new FirefoxDriver();
+
+            navegador.Url = "http://localhost:56854/Auth/Login";
+            var input1Busqueda = navegador.FindElement(By.CssSelector("#correo"));
+            input1Busqueda.SendKeys("jose@gmail.com");
+            var input2Busqueda = navegador.FindElement(By.CssSelector("#contraseña"));
+            input2Busqueda.SendKeys("1234");
+            navegador.FindElement(By.CssSelector("#ingresar")).Click();
+            navegador.Url = "http://localhost:56854/Reserva/MisReservas";
+
+            var buscartr=navegador.FindElements(By.CssSelector("#tbody tr"))[0];
+            buscartr.FindElement(By.CssSelector("a")).Click();
+            Thread.Sleep(1000);
+
+            var buscarId = navegador.FindElement(By.CssSelector("#MiDetalleReservaBuscada"));
+
+            Assert.IsNotNull(buscarId);
+            navegador.Close();
+        }
+
     }
 }

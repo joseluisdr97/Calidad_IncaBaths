@@ -72,5 +72,97 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest.ControllerIsLoguedTest
             var view = controller.MisReservas();
             Assert.IsInstanceOf<RedirectToRouteResult>(view);
         }
+        [Test]
+        public void ReturnInstance_ObtenerTunosLogueadoTest()
+        {
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(false);
+            var faker = new Mock<IReservaService>();
+            faker.Setup(a => a.ObtenerListaTurnos()).Returns(new List<Turno>//Se pone el metodo al que quiero llamar y se pone lo que nosotros queremos retornar
+            {
+                new Turno{IdTurno=1, IdServicio=1,Fecha=DateTime.Now.Date,HoraInicio=new TimeSpan(0, 10, 30,0),HoraFin=new TimeSpan(0, 10, 30,0),Activo_Inactivo=true},
+                new Turno{IdTurno=2, IdServicio=3,Fecha=DateTime.Parse("18/05/2020 12:00:00 a.m."),HoraInicio=new TimeSpan(0, 10, 30,0),HoraFin=new TimeSpan(0, 10, 30,0),Activo_Inactivo=true},
+                new Turno{IdTurno=3, IdServicio=2,Fecha=DateTime.Parse("18/05/2020 12:00:00 a.m."),HoraInicio=new TimeSpan(0, 10, 30,0),HoraFin=new TimeSpan(0, 10, 30,0),Activo_Inactivo=true}
+            }
+            );
+
+            var controller = new ReservaController(faker.Object, fakerSession.Object);
+            var view = controller.ObtenerTurnos(2);
+
+            Assert.IsInstanceOf<RedirectToRouteResult>(view);
+        }
+        [Test]
+        public void ReturnInstance_ObtenerTunosNoLogueadoTest()
+        {
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
+            var faker = new Mock<IReservaService>();
+            faker.Setup(a => a.ObtenerListaTurnos()).Returns(new List<Turno>//Se pone el metodo al que quiero llamar y se pone lo que nosotros queremos retornar
+            {
+                new Turno{IdTurno=1, IdServicio=1,Fecha=DateTime.Now.Date,HoraInicio=new TimeSpan(0, 10, 30,0),HoraFin=new TimeSpan(0, 10, 30,0),Activo_Inactivo=true},
+                new Turno{IdTurno=2, IdServicio=3,Fecha=DateTime.Parse("18/05/2020 12:00:00 a.m."),HoraInicio=new TimeSpan(0, 10, 30,0),HoraFin=new TimeSpan(0, 10, 30,0),Activo_Inactivo=true},
+                new Turno{IdTurno=3, IdServicio=2,Fecha=DateTime.Parse("18/05/2020 12:00:00 a.m."),HoraInicio=new TimeSpan(0, 10, 30,0),HoraFin=new TimeSpan(0, 10, 30,0),Activo_Inactivo=true}
+            }
+            );
+
+            var controller = new ReservaController(faker.Object, fakerSession.Object);
+            var view = controller.ObtenerTurnos(2);
+
+            Assert.IsInstanceOf<ViewResult>(view);
+        }
+        [Test]
+        public void ReturnInstanceUsuarioLogueado_CrearTest()
+        {
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoCliente()).Returns(true);
+            var faker = new Mock<IReservaService>();
+            faker.Setup(a => a.ObtenerListaServicios()).Returns(new List<Servicio> { });
+
+            var controller = new ReservaController(faker.Object, fakerSession.Object);
+            var view = controller.Crear();
+            Assert.IsInstanceOf<ViewResult>(view);
+        }
+        [Test]
+        public void ReturnInstanceUsuarioNoLogueado_CrearTest()
+        {
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoCliente()).Returns(false);
+            var faker = new Mock<IReservaService>();
+            faker.Setup(a => a.ObtenerListaServicios()).Returns(new List<Servicio> { });
+
+            var controller = new ReservaController(faker.Object, fakerSession.Object);
+            var view = controller.Crear();
+            Assert.IsInstanceOf<RedirectToRouteResult>(view);
+        }
+        [Test]
+        public void ReturnInstanceUsuarioLogueado_ObtenerTunosTest()
+        {
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
+            var faker = new Mock<IReservaService>();
+            faker.Setup(a => a.ObtenerListaTurnos()).Returns(new List<Turno>//Se pone el metodo al que quiero llamar y se pone lo que nosotros queremos retornar
+            {
+                new Turno{IdTurno=1, IdServicio=1,Fecha=DateTime.Now.Date,HoraInicio=new TimeSpan(0, 10, 30,0),HoraFin=new TimeSpan(0, 10, 30,0),Activo_Inactivo=true},
+                new Turno{IdTurno=2, IdServicio=3,Fecha=DateTime.Parse("18/05/2020 12:00:00 a.m."),HoraInicio=new TimeSpan(0, 10, 30,0),HoraFin=new TimeSpan(0, 10, 30,0),Activo_Inactivo=true},
+                new Turno{IdTurno=3, IdServicio=2,Fecha=DateTime.Parse("18/05/2020 12:00:00 a.m."),HoraInicio=new TimeSpan(0, 10, 30,0),HoraFin=new TimeSpan(0, 10, 30,0),Activo_Inactivo=true}
+            }
+            );
+
+            var controller = new ReservaController(faker.Object, fakerSession.Object);
+            var view = controller.ObtenerTurnos(2);
+
+            Assert.IsInstanceOf<ViewResult>(view);
+        }
+        [Test]
+        public void ReturnInstanceUsuarioNoLogueado_ObtenerTunosTest()
+        {
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(false);
+            var faker = new Mock<IReservaService>();
+            var controller = new ReservaController(faker.Object, fakerSession.Object);
+            var view = controller.ObtenerTurnos(2);
+
+            Assert.IsInstanceOf<RedirectToRouteResult>(view);
+        }
     }
 }

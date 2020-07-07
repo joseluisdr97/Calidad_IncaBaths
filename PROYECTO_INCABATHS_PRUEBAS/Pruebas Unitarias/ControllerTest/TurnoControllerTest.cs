@@ -19,6 +19,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
         public void ContarTurnosDeUnServicioEnviandoFecha_BuscarTurnoTest()
         {
             var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
             var faker = new Mock<ITurnoService>();//ESto reeplaza a la creacion de la clase faker
             faker.Setup(a => a.ObtenerServicioPorId(2)).Returns(new Servicio { IdServicio = 2, Nombre = "Piscina", Aforo = 20 });
 
@@ -40,6 +41,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
         public void ReturnInstanceBuscaCorrecta_BuscarTurnoTest()
         {
             var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
             var faker = new Mock<ITurnoService>();//ESto reeplaza a la creacion de la clase faker
             faker.Setup(a => a.ObtenerServicioPorId(2)).Returns(new Servicio { IdServicio = 2, Nombre = "Piscina", Aforo = 20 });
 
@@ -81,6 +83,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
         public void ContarTurnosDeUnServicioEnviandoFechaNull_BuacarTurnoTest()
         {
             var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
             var faker = new Mock<ITurnoService>();//ESto reeplaza a la creacion de la clase faker
             faker.Setup(a => a.ObtenerServicioPorId(2)).Returns(new Servicio { IdServicio = 2, Nombre = "Piscina", Aforo = 20 });
 

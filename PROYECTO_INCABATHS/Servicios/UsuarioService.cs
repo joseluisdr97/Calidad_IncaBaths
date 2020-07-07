@@ -74,5 +74,31 @@ namespace PROYECTO_INCABATHS.Servicios
         {
             return conexion.Usuarios.Count(u => u.IdUsuario == usuarioIdDB && u.Password == usuario.Password);
         }
+        public bool ExisteDNIUsuario(Usuario usuario)
+        {
+            var usuarioDB = conexion.Usuarios.Any(t => t.DNI == usuario.DNI);
+            if (usuarioDB)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool ExisteCorreoUsuario(Usuario usuario)
+        {
+            var usuarioCorreoD = conexion.Usuarios.Any(t => t.Correo == usuario.Correo);
+            if (usuarioCorreoD)
+            {
+                return true;
+            }
+            return false;
+        }
+        public Usuario ObtenerUsuarioPorDNI(Usuario IdUsuarioDB)
+        {
+            return conexion.Usuarios.First(a => a.DNI == IdUsuarioDB.DNI);
+        }
+        public Usuario ObtenerUsuarioPorCorreo(Usuario UsuarioDBC)
+        {
+            return conexion.Usuarios.First(a => a.Correo == UsuarioDBC.Correo);
+        }
     }
 }

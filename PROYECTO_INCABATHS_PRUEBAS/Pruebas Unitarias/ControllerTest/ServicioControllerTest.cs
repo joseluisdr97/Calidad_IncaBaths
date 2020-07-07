@@ -71,6 +71,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
         public void ReturnInstanceModel_BuscarServicioTest()
         {
             var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
             var faker = new Mock<IServicioService>();//ESto reeplaza a la creacion de la clase faker
             faker.Setup(a => a.ObtenerListaServicios()).Returns(new List<Servicio>//Se pone el metodo al que quiero llamar y se pone lo que nosotros queremos retornar
             {
@@ -90,7 +91,9 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
         [Test]
         public void BuscarServicioEnviandoDatos_BuscarServicioTest()
         {
+
             var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
             var faker = new Mock<IServicioService>();
             faker.Setup(a => a.ObtenerListaServicios()).Returns(new List<Servicio>
             {
@@ -111,6 +114,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
         public void BuscarServicioEnviandoDatoNull_BuscarServicioTest()
         {
             var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
             var faker = new Mock<IServicioService>();
             faker.Setup(a => a.ObtenerListaServicios()).Returns(new List<Servicio>
             {

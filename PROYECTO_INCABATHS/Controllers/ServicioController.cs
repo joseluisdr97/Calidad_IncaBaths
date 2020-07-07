@@ -32,6 +32,7 @@ namespace PROYECTO_INCABATHS.Controllers
         [Authorize]
         public ActionResult BuscarServicio(string query)
         {
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
             List<Servicio> model;
             if (query == null || query == "")
             {
@@ -93,6 +94,7 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpGet]
         public ActionResult Eliminar(int? id)
         {
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
             if (id == null || id == 0) { return RedirectToAction("Index", "Error"); }
             var CountTurnoDb = service.ListaDeTurnos().Where(o => o.IdServicio == id && o.Activo_Inactivo).ToList();
             ViewBag.MisTurnos = CountTurnoDb;

@@ -37,6 +37,7 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpGet]
         public ActionResult BuscarUsuario(string query)
         {
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
             List<Usuario> datos;
             if (query == null || query == "")
             {
@@ -124,18 +125,16 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpGet]
         public ActionResult Eliminar(int id)
         {
+            if (!sessionService.EstaLogueadoComoAdministrador()) { return RedirectToAction("Index", "Error"); }
             service.EliminarUsuario(id);
             return RedirectToAction("Index");
-
         }
         [Authorize]
         [HttpGet]
         public ActionResult VerMiCuenta()
         {
             if (!sessionService.EstaLogueadoComoCliente()) { return RedirectToAction("Index", "Error"); }
-            var usuarioIdDB = service.BuscarIdUsuarioSession();
-
-                var UsuarioDb = service.ObtenerUsuarioPorId(usuarioIdDB);
+                var UsuarioDb = service.ObtenerUsuarioPorId(service.BuscarIdUsuarioSession());
                 return View(UsuarioDb);
         }
         [Authorize]
@@ -399,8 +398,7 @@ namespace PROYECTO_INCABATHS.Controllers
         {
             if (usuario.DNI != null && Regex.IsMatch(usuario.DNI, "^\\d+$") && usuario.DNI.Length == 8)
             {
-                var usuarioDB = conexion.Usuarios.Any(t => t.DNI == usuario.DNI);
-                if (usuarioDB)
+                if (service.ExisteDNIUsuario(usuario))
                 {
                     ModelState.AddModelError("DNI", "Este DNI ya existe");
                 }
@@ -440,8 +438,7 @@ namespace PROYECTO_INCABATHS.Controllers
 
             if (V2usu2.Correo != null && Regex.IsMatch(V2usu2.Correo, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z"))
             {
-                var usuarioCorreoD = conexion.Usuarios.Any(t => t.Correo == usuario.Correo);
-                if (usuarioCorreoD)
+                if (service.ExisteCorreoUsuario(usuario))
                 {
                     ModelState.AddModelError("Correo", "Este correo ya existe");
                 }
@@ -540,12 +537,12 @@ namespace PROYECTO_INCABATHS.Controllers
 
             if (usuario.DNI != null && usuario.DNI != "" && Regex.IsMatch(usuario.DNI, "^\\d+$") && usuario.DNI.Length == 8)
             {
-                var IdUsuarioDB = conexion.Usuarios.First(a => a.IdUsuario == id);
-                var UsuDNI = conexion.Usuarios.First(a => a.DNI == IdUsuarioDB.DNI);
+                
+                var IdUsuarioDB = service.ObtenerUsuarioPorId(id);
+                var UsuDNI = service.ObtenerUsuarioPorDNI(IdUsuarioDB);
                 if (UsuDNI.DNI != usuario.DNI)
                 {
-                    var usuarioDB = conexion.Usuarios.Any(t => t.DNI == usuario.DNI);
-                    if (usuarioDB)
+                    if (service.ExisteDNIUsuario(usuario))
                     {
                         ModelState.AddModelError("DNI", "Este DNI ya existe");
                     }
@@ -558,12 +555,11 @@ namespace PROYECTO_INCABATHS.Controllers
             if (usuario.Correo != null && Regex.IsMatch(usuario.Correo, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z"))
             {
 
-                var UsuarioDBC = conexion.Usuarios.Where(a => a.IdUsuario == id).First();
-                var UsuCorreo = conexion.Usuarios.First(a => a.Correo == UsuarioDBC.Correo);
+                var UsuarioDBC = service.ObtenerUsuarioPorId(id);
+                var UsuCorreo = service.ObtenerUsuarioPorCorreo(UsuarioDBC); 
                 if (UsuCorreo.Correo != usuario.Correo)
                 {
-                    var usuarioDB = conexion.Usuarios.Any(t => t.Correo == usuario.Correo);
-                    if (usuarioDB)
+                    if (service.ExisteCorreoUsuario(usuario))
                     {
                         ModelState.AddModelError("Correo", "Este Correo ya existe");
                     }

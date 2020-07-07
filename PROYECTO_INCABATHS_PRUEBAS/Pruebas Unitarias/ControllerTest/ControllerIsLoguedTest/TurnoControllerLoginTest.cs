@@ -83,5 +83,39 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest.ControllerIsLoguedTest
             var view = controller.Crear(2);
             Assert.IsInstanceOf<RedirectToRouteResult>(view);
         }
+        [Test]
+        public void ReturnInstance_UsuarioLogueado_BuscarTurnoTest()
+        {
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
+            var faker = new Mock<ITurnoService>();//ESto reeplaza a la creacion de la clase faker
+            faker.Setup(a => a.ObtenerServicioPorId(2)).Returns(new Servicio { IdServicio = 2, Nombre = "Piscina", Aforo = 20 });
+
+            faker.Setup(a => a.ObtenerTurnos()).Returns(new List<Turno>//Se pone el metodo al que quiero llamar y se pone lo que nosotros queremos retornar
+            {
+                new Turno{IdTurno=1, IdServicio=1,Fecha=DateTime.Now.Date,HoraInicio=new TimeSpan(0, 10, 30,0),HoraFin=new TimeSpan(0, 10, 30,0),Activo_Inactivo=true},
+                new Turno{IdTurno=2, IdServicio=3,Fecha=DateTime.Parse("18/05/2020 12:00:00 a.m."),HoraInicio=new TimeSpan(0, 10, 30,0),HoraFin=new TimeSpan(0, 10, 30,0),Activo_Inactivo=true},
+                new Turno{IdTurno=3, IdServicio=2,Fecha=DateTime.Parse("18/05/2020 12:00:00 a.m."),HoraInicio=new TimeSpan(0, 10, 30,0),HoraFin=new TimeSpan(0, 10, 30,0),Activo_Inactivo=true}
+            }
+            );
+
+            var controller = new TurnoController(faker.Object, fakerSession.Object);
+            var view = controller.BuscarTurno(DateTime.Parse("18/05/2020 12:00:00 a.m."), 2);
+
+            Assert.IsInstanceOf<ViewResult>(view);
+        }
+        [Test]
+        public void ReturnInstance_UsuarioNoLogueado_BuscarTurnoTest()
+        {
+            var fakerSession = new Mock<IServiceSession>();
+            fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(false);
+            var faker = new Mock<ITurnoService>();//ESto reeplaza a la creacion de la clase faker
+            faker.Setup(a => a.ObtenerServicioPorId(2)).Returns(new Servicio { IdServicio = 2, Nombre = "Piscina", Aforo = 20 });
+
+            var controller = new TurnoController(faker.Object, fakerSession.Object);
+            var view = controller.BuscarTurno(DateTime.Parse("18/05/2020 12:00:00 a.m."), 2);
+
+            Assert.IsInstanceOf<RedirectToRouteResult>(view);
+        }
     }
 }
