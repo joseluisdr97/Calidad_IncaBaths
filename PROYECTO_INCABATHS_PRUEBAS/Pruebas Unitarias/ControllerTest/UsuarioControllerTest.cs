@@ -465,7 +465,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
         [Test]
         public void ReturnInstanceDatosValidos_CambiarContraUadmin_PostTest()
         {
-            var usuario = new Usuario { IdUsuario = 1, IdTipoUsuario = 1, Nombre = "Jose Luis", Apellido = "Diaz Ruiz", DNI = null, Celular = "921472548", Direccion = "Jr Chepen", Correo = "admin1@gmail.com", Password = "123", Activo_Inactivo = true };
+            var usuario = new Usuario { IdUsuario = 1, IdTipoUsuario = 1, Nombre = "Jose Luis", Apellido = "Diaz Ruiz", DNI = null, Celular = "921472548", Direccion = "Jr Chepen", Correo = "admin1@gmail.com", Password = "1234", Activo_Inactivo = true };
             var fakerSession = new Mock<IServiceSession>();
             fakerSession.Setup(a => a.EstaLogueadoComoCliente()).Returns(true);
             var faker = new Mock<IUsuarioService>();
@@ -484,7 +484,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest
         [Test]
         public void ReturnModelInstanceDatosValidos_CambiarContraUadmin_PostTest()
         {
-            var usuario = new Usuario { IdUsuario = 1, IdTipoUsuario = 1, Nombre = "Jose Luis", Apellido = "Diaz Ruiz", DNI = null, Celular = "921472548", Direccion = "Jr Chepen", Correo = "admin1@gmail.com", Password = "123", Activo_Inactivo = true };
+            var usuario = new Usuario { IdUsuario = 1, IdTipoUsuario = 1, Nombre = "Jose Luis", Apellido = "Diaz Ruiz", DNI = null, Celular = "921472548", Direccion = "Jr Chepen", Correo = "admin1@gmail.com", Password = "1234", Activo_Inactivo = true };
             var fakerSession = new Mock<IServiceSession>();
             fakerSession.Setup(a => a.EstaLogueadoComoCliente()).Returns(true);
             var faker = new Mock<IUsuarioService>();

@@ -329,8 +329,8 @@ namespace PROYECTO_INCABATHS_PRUEBAS.SeleniumTest
             chrome.Url = "http://localhost:56854/Turno/Crear?id=7";
             var inputs = chrome.FindElement(By.CssSelector("#inputs"));
             inputs.FindElements(By.CssSelector("input"))[0].SendKeys("2021-05-05");
-            inputs.FindElements(By.CssSelector("input"))[1].SendKeys("09:00:00");
-            inputs.FindElements(By.CssSelector("input"))[2].SendKeys("10:00:00");
+            inputs.FindElements(By.CssSelector("input"))[1].SendKeys("01:00:00");
+            inputs.FindElements(By.CssSelector("input"))[2].SendKeys("02:00:00");
             chrome.FindElement(By.CssSelector("#btnGuardar")).Click();
 
             var buscarId = chrome.FindElement(By.CssSelector("#EstoyEnTurnoIndex"));
@@ -553,7 +553,7 @@ namespace PROYECTO_INCABATHS_PRUEBAS.SeleniumTest
             chrome.Close();
         }
         [Test]
-        public void CambiarContraseñaUsuarioClienteConDatosInvalidosAdmin()
+        public void CambiarContraseñaUsuarioAdminConDatosInvalidosAdmin()
         {
             IWebDriver chrome = new FirefoxDriver();
 

@@ -53,29 +53,5 @@ namespace PROYECTO_INCABATHS_PRUEBAS.ControllerTest.ControllerIsLoguedTest
             Assert.IsInstanceOf<ViewResult>(view);
 
         }
-        //[Test]
-        //public void CrearUsuarioLogueado_CrearTest()
-        //{
-        //    var fakerSession = new Mock<IServiceSession>();
-        //    var faker = new Mock<IAdminService>();
-        //    fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(true);
-        //    faker.Setup(a => a.ObtenerListaTipoUsuarios()).Returns(
-        //        new List<TipoUsuario> { });
-        //    var controller = new AdminController(faker.Object, fakerSession.Object);
-        //    var view = controller.Crear() as ViewResult;
-
-        //    Assert.IsInstanceOf<ViewResult>(view);
-        //}
-        //[Test]
-        //public void CrearUsuarioNoLogueado_CrearTest()
-        //{
-        //    var fakerSession = new Mock<IServiceSession>();
-        //    var faker = new Mock<IAdminService>();
-        //    fakerSession.Setup(a => a.EstaLogueadoComoAdministrador()).Returns(false);
-        //    var controller = new AdminController(faker.Object, fakerSession.Object);
-        //    var view = controller.Crear();
-
-        //    Assert.IsInstanceOf<RedirectToRouteResult>(view);
-        //}
     }
 }

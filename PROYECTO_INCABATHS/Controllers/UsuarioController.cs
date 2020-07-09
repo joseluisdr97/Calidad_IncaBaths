@@ -189,7 +189,8 @@ namespace PROYECTO_INCABATHS.Controllers
         [HttpPost]
         public ActionResult CambiarContraUsuario(Usuario usuario, string NuevaPassword, string RepitaPassword)
         {
-            ValidarCambiarContra(usuario, NuevaPassword, RepitaPassword);ValidarCambiarContra1(usuario, NuevaPassword, RepitaPassword);
+            ValidarCambiarContra(usuario, NuevaPassword, RepitaPassword);
+            ValidarCambiarContra1(usuario, NuevaPassword, RepitaPassword);
             if (ModelState.IsValid)
             { 
                 var usuarioIdDB = Convert.ToInt32(Session["UsuarioId"]);
@@ -254,6 +255,7 @@ namespace PROYECTO_INCABATHS.Controllers
         public ActionResult CambiarContraUsuarioAdmin(Usuario usuario, string NuevaPassword, string RepitaPassword)
         {
             ValidarCambiarContra(usuario, NuevaPassword, RepitaPassword);
+            ValidarCambiarContra1(usuario, NuevaPassword, RepitaPassword);
             if (ModelState.IsValid)
             {
                 var usuarioIdDB = service.BuscarIdUsuarioSession();
